@@ -1,0 +1,33 @@
+{
+	"name": "jobnova",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"preview": "bun run build && wrangler dev",
+		"postinstall": "nuxt prepare",
+		"lint": "eslint .",
+		"typecheck": "nuxt typecheck",
+		"deploy": "bun run build && wrangler deploy",
+		"cf-typegen": "wrangler types"
+	},
+	"dependencies": {
+		"@iconify-json/lucide": "^1.2.114",
+		"@iconify-json/simple-icons": "^1.2.86",
+		"@nuxt/ui": "^4.9.0",
+		"nuxt": "^4.4.8",
+		"tailwindcss": "^4.3.1"
+	},
+	"devDependencies": {
+		"@nuxt/eslint": "^1.16.0",
+		"@types/node": "^26.0.1",
+		"eslint": "^10.5.0",
+		"nitro-cloudflare-dev": "^0.2.2",
+		"nitropack": "^2.13.4",
+		"typescript": "^6.0.3",
+		"vue-tsc": "^3.3.5",
+		"wrangler": "^4.105.0"
+	},
+	"packageManager": "pnpm@11.8.0"
+}
