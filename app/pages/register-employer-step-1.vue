@@ -43,10 +43,10 @@ onMounted(() => {
   <div>
     <!-- Top Navigation Bar (Simplified for focused flow) -->
     <header class="w-full bg-surface-container-lowest z-50">
-    <div class="max-w-container-max mx-auto px-gutter flex justify-between items-center h-20">
+    <div class="max-w-7xl mx-auto px-gutter flex justify-between items-center h-20">
     <div class="font-headline-md text-headline-md font-bold text-primary">Job Nova</div>
     <div class="hidden md:flex gap-md">
-    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Support</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="/">Support</a>
     </div>
     </div>
     </header>
@@ -124,7 +124,7 @@ onMounted(() => {
     <div class="text-center mt-md">
     <p class="text-on-surface-variant font-label-md">
                                 Already have an account? 
-                                <a class="text-primary font-bold hover:underline" href="#">Login</a>
+                                <a class="text-primary font-bold hover:underline" href="/login">Login</a>
     </p>
     </div>
     </form>
@@ -144,17 +144,17 @@ onMounted(() => {
     </main>
     <!-- Footer Component (Shared) -->
     <footer class="w-full py-xl bg-surface-container-lowest border-t border-outline-variant">
-    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
+    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
     <div>
     <div class="font-headline-md text-headline-md font-bold text-on-surface mb-2">Job Nova</div>
     <p class="text-on-surface-variant font-label-md">© 2024 Job Nova. Premium Career Ecosystem.</p>
     </div>
     <div class="flex flex-wrap gap-md md:justify-end">
-    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="#">Privacy Policy</a>
-    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="#">Terms of Service</a>
-    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="#">Cookie Policy</a>
-    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="#">Support</a>
-    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="#">Contact</a>
+    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="/">Privacy Policy</a>
+    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="/">Terms of Service</a>
+    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="/">Cookie Policy</a>
+    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="/">Support</a>
+    <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="/">Contact</a>
     </div>
     </div>
     </footer>
@@ -169,8 +169,8 @@ onMounted(() => {
             box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08);
         }
         .input-focus-ring:focus-within {
-            border-color: #005bbf;
-            box-shadow: 0 0 0 1px #005bbf;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 1px var(--color-primary);
         }
         .transition-active:active {
             transform: scale(0.98);

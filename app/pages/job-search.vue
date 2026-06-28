@@ -28,22 +28,22 @@ onMounted(() => {
 <template>
   <div>
     <!-- TopNavBar -->
-    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface-container-lowest dark:bg-surface-dim shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
     <div class="flex items-center gap-xl">
-    <span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Job Nova</span>
+    <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     <nav class="hidden md:flex gap-lg items-center h-full">
-    <a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:text-primary transition-colors" href="#">Find Jobs</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Companies</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Salaries</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Career Advice</a>
+    <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 hover:text-primary transition-colors" href="/job-search">Find Jobs</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Companies</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Salaries</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Career Advice</a>
     </nav>
     </div>
     <div class="flex items-center gap-md">
     <button class="hidden sm:block font-label-md text-label-md text-on-surface-variant px-md py-sm hover:text-primary transition-all">Login</button>
-    <button class="bg-primary text-white font-label-md text-label-md px-lg py-sm rounded-xl scale-98 active:scale-95 transition-transform shadow-sm">Post a Job</button>
+    <button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded-xl scale-98 active:scale-95 transition-transform shadow-sm">Post a Job</button>
     </div>
     </header>
-    <main class="mt-16 max-w-container-max mx-auto px-lg py-xl flex flex-col gap-xl">
+    <main class="mt-16 max-w-7xl mx-auto px-lg py-xl flex flex-col gap-xl">
     <!-- Search Section -->
     <section class="w-full">
     <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-wrap lg:flex-nowrap items-center gap-base border border-outline-variant/30">
@@ -74,7 +74,7 @@ onMounted(() => {
     <option>Contract</option>
     </select>
     </div>
-    <button class="w-full lg:w-auto bg-primary text-white px-xl py-md rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-sm hover:shadow-lg transition-all active:scale-95">
+    <button class="w-full lg:w-auto bg-primary text-on-primary px-xl py-md rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-sm hover:shadow-lg transition-all active:scale-95">
                         Find Jobs
                     </button>
     </div>
@@ -136,8 +136,8 @@ onMounted(() => {
     <div class="bg-surface-container-low p-md rounded-xl flex flex-col gap-sm">
     <h4 class="font-label-md text-label-md text-on-surface font-bold">Company Type</h4>
     <div class="flex gap-sm">
-    <button class="flex-1 py-sm border border-outline-variant/30 rounded-lg text-body-md hover:bg-primary-container hover:text-white transition-all">Private</button>
-    <button class="flex-1 py-sm border border-outline-variant/30 rounded-lg text-body-md hover:bg-primary-container hover:text-white transition-all">Govt</button>
+    <button class="flex-1 py-sm border border-outline-variant/30 rounded-lg text-body-md hover:bg-primary-container hover:text-on-primary transition-all">Private</button>
+    <button class="flex-1 py-sm border border-outline-variant/30 rounded-lg text-body-md hover:bg-primary-container hover:text-on-primary transition-all">Govt</button>
     </div>
     </div>
     </aside>
@@ -213,7 +213,7 @@ onMounted(() => {
     </div>
     </div>
     <div class="flex items-center gap-sm pt-md border-t border-outline-variant/20">
-    <button class="flex-1 bg-primary text-white font-label-md text-label-md py-sm rounded-lg hover:shadow-lg transition-all">Apply Now</button>
+    <button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-sm rounded-lg hover:shadow-lg transition-all">Apply Now</button>
     <button class="px-lg py-sm border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded-lg hover:bg-surface-container transition-all">View Details</button>
     </div>
     </article>
@@ -252,7 +252,7 @@ onMounted(() => {
     </div>
     </div>
     <div class="flex items-center gap-sm pt-md border-t border-outline-variant/20">
-    <button class="flex-1 bg-primary text-white font-label-md text-label-md py-sm rounded-lg hover:shadow-lg transition-all">Apply Now</button>
+    <button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-sm rounded-lg hover:shadow-lg transition-all">Apply Now</button>
     <button class="px-lg py-sm border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded-lg hover:bg-surface-container transition-all">View Details</button>
     </div>
     </article>
@@ -275,7 +275,7 @@ onMounted(() => {
     <!-- Pagination Placeholder -->
     <div class="flex items-center justify-center gap-sm mt-lg">
     <button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-all"><UIcon name="i-lucide-chevron-left" /></button>
-    <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-white font-bold">1</button>
+    <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-on-primary font-bold">1</button>
     <button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-all">2</button>
     <button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-all">3</button>
     <span class="mx-xs">...</span>
@@ -303,7 +303,7 @@ onMounted(() => {
     </div>
     </div>
     <div class="flex items-center gap-md">
-    <button class="flex-1 bg-primary text-white font-headline-md text-headline-md py-md rounded-xl hover:shadow-lg transition-all active:scale-95">Apply Now</button>
+    <button class="flex-1 bg-primary text-on-primary font-headline-md text-headline-md py-md rounded-xl hover:shadow-lg transition-all active:scale-95">Apply Now</button>
     <button class="w-14 h-14 border border-outline-variant text-on-surface-variant flex items-center justify-center rounded-xl hover:bg-surface-container transition-all">
     <UIcon name="i-lucide-bookmark" data-weight="fill" />
     </button>
@@ -348,20 +348,20 @@ onMounted(() => {
     </div>
     </main>
     <!-- BottomNavBar (Mobile Only) -->
-    <nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-md py-sm bg-surface dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
-    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm" href="#">
+    <nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-md py-sm bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+    <a class="flex flex-col items-center justify-center text-on-surface-variant font-label-sm text-label-sm" href="/">
     <UIcon name="i-lucide-home" />
     <span>Home</span>
     </a>
-    <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 font-label-sm text-label-sm" href="#">
+    <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 font-label-sm text-label-sm" href="/applied-jobs-dashboard">
     <UIcon name="i-lucide-business-center" />
     <span>My Jobs</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm" href="#">
+    <a class="flex flex-col items-center justify-center text-on-surface-variant font-label-sm text-label-sm" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-chat-bubble" />
     <span>Messages</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm" href="#">
+    <a class="flex flex-col items-center justify-center text-on-surface-variant font-label-sm text-label-sm" href="/my-profile-dashboard">
     <UIcon name="i-lucide-user" />
     <span>Profile</span>
     </a>
@@ -373,14 +373,14 @@ onMounted(() => {
 
 <style scoped>
 body {
-            background-color: #f9f9ff;
-            color: #191c23;
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
             font-family: 'Inter', sans-serif;
         }
         
         .job-card-active {
-            border-left: 4px solid #005bbf;
-            background-color: #f2f3fd;
+            border-left: 4px solid var(--color-primary);
+            background-color: var(--color-surface-container-low);
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
@@ -389,7 +389,7 @@ body {
             background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #c1c6d6;
+            background: var(--color-outline-variant);
             border-radius: 10px;
         }
         .line-clamp-2 {

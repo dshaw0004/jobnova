@@ -11,7 +11,7 @@ onMounted(() => {
           const inputs = document.querySelectorAll('input');
           inputs.forEach(input => {
               input.addEventListener('focus', () => {
-                  input.parentElement.querySelector('.material-symbols-outlined').style.color = '#005bbf';
+                  input.parentElement.querySelector('.material-symbols-outlined').style.color = 'var(--color-primary)';
               });
               input.addEventListener('blur', () => {
                   input.parentElement.querySelector('.material-symbols-outlined').style.color = '#727785';
@@ -36,13 +36,13 @@ onMounted(() => {
   <div>
     <!-- TopNavBar -->
     <header class="w-full top-0 sticky bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] z-50">
-    <div class="flex justify-between items-center h-[72px] px-lg max-w-container-max mx-auto">
+    <div class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
     <div class="font-headline-md text-headline-md font-bold text-primary">Job Nova</div>
     <nav class="hidden md:flex items-center gap-lg">
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Find Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Companies</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Salaries</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Career Advice</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Find Jobs</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Companies</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Salaries</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Career Advice</a>
     </nav>
     <div class="flex items-center gap-md">
     <button class="font-label-md text-label-md text-primary px-lg py-2 rounded-xl hover:bg-surface-container-low transition-all">Login</button>
@@ -145,7 +145,7 @@ onMounted(() => {
     <input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer transition-all" id="terms" type="checkbox">
     </div>
     <label class="font-body-md text-body-md text-on-surface-variant cursor-pointer" for="terms">
-                            I agree to the <a class="text-primary font-semibold hover:underline" href="#">Terms &amp; Conditions</a> and <a class="text-primary font-semibold hover:underline" href="#">Privacy Policy</a> of Job Nova India.
+                            I agree to the <a class="text-primary font-semibold hover:underline" href="/">Terms &amp; Conditions</a> and <a class="text-primary font-semibold hover:underline" href="/">Privacy Policy</a> of Job Nova India.
                         </label>
     </div>
     <!-- Primary Button -->
@@ -153,21 +153,21 @@ onMounted(() => {
                         Create Recruiter Account
                     </button>
     <p class="text-center font-label-md text-label-md text-on-surface-variant">
-                        Already have an account? <a class="text-primary font-semibold hover:underline" href="#">Log in here</a>
+                        Already have an account? <a class="text-primary font-semibold hover:underline" href="/login">Log in here</a>
     </p>
     </form>
     </div>
     </main>
     <!-- Footer -->
     <footer class="w-full mt-xl bg-surface-container-low border-t border-outline-variant">
-    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-container-max mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto">
     <div class="font-headline-md text-headline-md font-bold text-primary mb-md md:mb-0">Job Nova</div>
     <div class="flex flex-wrap justify-center gap-lg mb-md md:mb-0">
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">About Us</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Contact</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Privacy Policy</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Terms of Service</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Help Center</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">About Us</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Contact</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Privacy Policy</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Terms of Service</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Help Center</a>
     </div>
     <div class="font-label-md text-label-md text-on-surface-variant">© 2024 Job Nova India. All rights reserved.</div>
     </div>
@@ -179,12 +179,12 @@ onMounted(() => {
 <style scoped>
 
         .form-input-focus:focus-within {
-            border-color: #005bbf;
-            box-shadow: 0 0 0 1px #005bbf;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 1px var(--color-primary);
         }
         .step-active {
             width: 32px;
-            background-color: #005bbf;
+            background-color: var(--color-primary);
             transition: all 0.3s ease;
         }
 </style>

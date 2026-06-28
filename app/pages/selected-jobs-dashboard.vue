@@ -7,7 +7,7 @@ useHead({
 <template>
   <div>
     <!-- SideNavBar -->
-    <aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface shadow-sm dark:shadow-none z-50 flex flex-col hidden md:flex">
+    <aside class="h-screen w-64 fixed left-0 top-0 bg-surface shadow-sm z-50 flex flex-col hidden md:flex">
     <div class="flex flex-col h-full py-xl px-md">
     <!-- Brand -->
     <div class="flex items-center gap-sm mb-xl px-md">
@@ -15,32 +15,32 @@ useHead({
                         J
                     </div>
     <div>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Job Nova</h1>
+    <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
     <p class="font-label-sm text-label-sm text-on-surface-variant">Professional Dashboard</p>
     </div>
     </div>
     <!-- Navigation -->
     <nav class="flex-1 space-y-sm">
-    <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-layout-dashboard" data-icon="dashboard" />
     <span class="font-label-md text-label-md">Dashboard</span>
     </a>
-    <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="/my-profile-dashboard">
     <UIcon name="i-lucide-account-circle" data-icon="account_circle" />
     <span class="font-label-md text-label-md">My Profile</span>
     </a>
-    <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="/applied-jobs-dashboard">
     <UIcon name="i-lucide-history" data-icon="work_history" />
     <span class="font-label-md text-label-md">Applied Jobs</span>
     </a>
-    <a class="flex items-center gap-md bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-md py-sm hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98] transition-transform duration-200" href="#">
+    <a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg px-md py-sm hover:bg-surface-container transition-colors active:scale-[0.98] transition-transform duration-200" href="/selected-jobs-dashboard">
     <UIcon name="i-lucide-check-circle" class="icon-fill" data-icon="check_circle" />
     <span class="font-label-md text-label-md font-bold">Selected Jobs</span>
     </a>
     </nav>
     <!-- Bottom Actions -->
     <div class="mt-auto border-t border-outline-variant/30 pt-md">
-    <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container transition-colors active:scale-[0.98] transition-transform duration-200 rounded-lg" href="/login">
     <UIcon name="i-lucide-log-out" data-icon="logout" />
     <span class="font-label-md text-label-md">Logout</span>
     </a>
@@ -50,13 +50,13 @@ useHead({
     <!-- Main Content Wrapper -->
     <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
     <!-- TopAppBar -->
-    <header class="h-16 w-full sticky top-0 z-40 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md shadow-sm dark:shadow-none flex justify-between items-center px-lg">
+    <header class="h-16 w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-md shadow-sm flex justify-between items-center px-lg">
     <!-- Mobile Brand (Hidden on Desktop) -->
     <div class="md:hidden flex items-center gap-sm">
     <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
                         J
                     </div>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Job Nova</h1>
+    <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
     </div>
     <!-- Search Bar -->
     <div class="hidden md:flex flex-1 max-w-md ml-auto mr-lg">
@@ -79,7 +79,7 @@ useHead({
     </div>
     </header>
     <!-- Main Canvas -->
-    <main class="flex-1 p-md md:p-xl max-w-container-max mx-auto w-full">
+    <main class="flex-1 p-md md:p-xl max-w-7xl mx-auto w-full">
     <!-- Header Section -->
     <div class="mb-xl">
     <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-xs">Selected Jobs</h2>

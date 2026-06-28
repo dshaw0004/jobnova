@@ -20,23 +20,23 @@ useHead({
     </div>
     <!-- Navigation -->
     <nav class="flex-1 space-y-2">
-    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="/employer-dashboard-2">
     <UIcon name="i-lucide-layout-dashboard" />
                     Dashboard
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="/company-profile-employer-dashboard">
     <UIcon name="i-lucide-building-2" />
                     Company Profile
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="/post-a-new-job-employer-dashboard">
     <UIcon name="i-lucide-post-add" />
                     Post Job
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md scale-95 duration-150" href="/manage-jobs-employer-dashboard">
     <UIcon name="i-lucide-history" />
                     Manage Jobs
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-primary-container/10 transition-colors font-body-md text-body-md scale-95 duration-150" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-primary-container/10 transition-colors font-body-md text-body-md scale-95 duration-150" href="/applicants-tracking-employer-dashboard">
     <UIcon name="i-lucide-groups" style="font-variation-settings: 'FILL' 1;" />
                     Applicants
                 </a>
@@ -48,7 +48,7 @@ useHead({
                     Post New Job
                 </button>
     <div class="pt-4 border-t border-surface-variant">
-    <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors font-body-md text-body-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors font-body-md text-body-md" href="/login">
     <UIcon name="i-lucide-log-out" />
                         Logout
                     </a>
@@ -81,7 +81,7 @@ useHead({
     </header>
     <!-- Main Scrollable Canvas -->
     <main class="flex-1 overflow-y-auto pt-24 pb-12 px-xl">
-    <div class="max-w-container-max mx-auto space-y-xl">
+    <div class="max-w-7xl mx-auto space-y-xl">
     <!-- Page Header -->
     <div>
     <h1 class="text-headline-lg font-headline-lg text-on-surface">Applicants Tracking</h1>
@@ -316,13 +316,13 @@ useHead({
 </template>
 
 <style scoped>
-body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; }
+body { font-family: 'Inter', sans-serif; background-color: var(--color-surface); }
         h1, h2, h3, h4, h5, h6, .font-headline-lg, .font-headline-md, .font-display-lg { font-family: 'Hanken Grotesk', sans-serif; }
         
         /* Custom scrollbar for webkit */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #c1c6d6; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--color-outline-variant); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #727785; }
 
         .shadow-soft { box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08); }

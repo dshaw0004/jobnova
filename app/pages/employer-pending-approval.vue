@@ -98,7 +98,7 @@ onMounted(() => {
   <div>
     <!-- Top Navigation (Shell Implementation) -->
     <header class="w-full h-[72px] bg-surface flex justify-between items-center px-lg shadow-sm z-50">
-    <div class="max-w-container-max mx-auto flex justify-between items-center w-full">
+    <div class="max-w-7xl mx-auto flex justify-between items-center w-full">
     <div class="flex items-center gap-sm">
     <span class="text-primary font-headline-md text-headline-md font-bold tracking-tight">Job Nova</span>
     </div>
@@ -122,9 +122,9 @@ onMounted(() => {
     <div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-secondary-container/20 rounded-full blur-[80px]"></div>
     </div>
     <!-- Success Content Card -->
-    <div class="relative z-10 w-full max-w-[560px] bg-surface-container-lowest rounded-[32px] p-xl success-glow border border-white/40 text-center flex flex-col items-center">
+    <div class="relative z-10 w-full max-w-[560px] bg-surface-container-lowest rounded-[32px] p-xl success-glow border border-outline-variant/40 text-center flex flex-col items-center">
     <!-- Icon Section -->
-    <div class="w-24 h-24 bg-primary-container text-white rounded-full flex items-center justify-center mb-lg animate-float">
+    <div class="w-24 h-24 bg-primary-container text-on-primary rounded-full flex items-center justify-center mb-lg animate-float">
     <UIcon name="i-lucide-verified-user" class="text-[48px]" data-icon="verified_user" />
     </div>
     <!-- Headlines -->
@@ -139,7 +139,7 @@ onMounted(() => {
     <span class="font-label-md text-primary">Status: Pending Verification</span>
     </div>
     <div class="w-1/2 h-1 bg-surface-variant rounded-full overflow-hidden">
-    <div class="h-full bg-primary animate-[shimmer_2s_infinite]" style="width: 60%; background: linear-gradient(90deg, #005bbf 0%, #1a73e8 100%);"></div>
+    <div class="h-full bg-primary animate-[shimmer_2s_infinite]" style="width: 60%; background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-container) 100%);"></div>
     </div>
     </div>
     <!-- Information Details -->
@@ -155,7 +155,7 @@ onMounted(() => {
                     <UIcon name="i-lucide-arrow-right" data-icon="arrow_forward" />
     </button>
     <p class="mt-lg font-label-sm text-outline">
-                    Need immediate help? <a class="text-primary hover:underline" href="#">Contact Support</a>
+                    Need immediate help? <a class="text-primary hover:underline" href="/">Contact Support</a>
     </p>
     </div>
     <!-- Success Patterns: Decorative Floating Dots -->
@@ -167,16 +167,16 @@ onMounted(() => {
     </div>
     </main>
     <!-- Footer Implementation (from JSON) -->
-    <footer class="w-full py-xl px-lg flex flex-col md:flex-row justify-between items-center gap-lg bg-surface-container-highest dark:bg-inverse-surface mt-auto">
+    <footer class="w-full py-xl px-lg flex flex-col md:flex-row justify-between items-center gap-lg bg-surface-container-highest mt-auto">
     <div class="flex flex-col items-center md:items-start">
     <span class="font-headline-md text-headline-md text-on-surface">Job Nova</span>
     <p class="font-label-sm text-label-sm text-outline mt-xs">© 2024 Job Nova India. All rights reserved.</p>
     </div>
     <div class="flex gap-lg flex-wrap justify-center">
-    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="#">Terms of Service</a>
-    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
-    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="#">Help Center</a>
-    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="#">Contact Us</a>
+    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="/">Terms of Service</a>
+    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="/">Privacy Policy</a>
+    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="/">Help Center</a>
+    <a class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors" href="/">Contact Us</a>
     </div>
     </footer>
     <!-- Success Confetti/Atmospheric Canvas Interaction -->

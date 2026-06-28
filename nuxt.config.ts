@@ -1,26 +1,38 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxt/eslint", "@nuxt/ui", "nitro-cloudflare-dev"],
+  ssr: false,
+
+  colorMode: {
+    preference: "light",
+    fallback: "light",
+    classSuffix: "",
+  },
 
   devtools: {
-    enabled: true
+    enabled: true,
   },
 
-  css: ['~/assets/css/main.css'],
+  devServer: {
+    port: 6682,
+    host: "0.0.0.0",
+  },
+
+  css: ["~/assets/css/main.css"],
 
   routeRules: {
-    '/': { prerender: true }
+    "/": { prerender: true },
   },
 
-  compatibilityDate: '2025-01-15',
+  compatibilityDate: "2025-01-15",
 
   eslint: {
     config: {
       stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
+        commaDangle: "never",
+        braceStyle: "1tbs",
+      },
+    },
   },
 
   nitro: {
@@ -28,7 +40,7 @@ export default defineNuxtConfig({
 
     cloudflare: {
       deployConfig: true,
-      nodeCompat: true
-    }
-  }
-})
+      nodeCompat: true,
+    },
+  },
+});

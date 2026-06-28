@@ -35,15 +35,15 @@ onMounted(() => {
   <div>
     <!-- Top Navigation Bar -->
     <header class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
-    <div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+    <div class="flex justify-between items-center px-gutter py-4 max-w-7xl mx-auto">
     <div class="flex items-center gap-xl">
     <a class="text-headline-md font-headline-md font-bold text-primary" href="/">Job Nova</a>
     <nav class="hidden md:flex items-center gap-lg">
-    <a class="font-Inter text-label-md text-primary font-bold border-b-2 border-primary py-1" href="#">Find Jobs</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Govt Jobs</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Private Jobs</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Companies</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Career Advice</a>
+    <a class="font-Inter text-label-md text-primary font-bold border-b-2 border-primary py-1" href="/job-search">Find Jobs</a>
+    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/government-jobs">Govt Jobs</a>
+    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/private-jobs">Private Jobs</a>
+    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/job-search">Companies</a>
+    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/my-career-hub">Career Advice</a>
     </nav>
     </div>
     <div class="flex items-center gap-md">
@@ -56,7 +56,7 @@ onMounted(() => {
     <!-- Hero Search Section -->
     <section class="relative pt-xl pb-32 overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-primary/5 to-transparent"></div>
-    <div class="max-w-container-max mx-auto px-gutter text-center">
+    <div class="max-w-7xl mx-auto px-gutter text-center">
     <h1 class="font-display-lg text-display-lg text-on-surface mb-md">Find your dream job in India</h1>
     <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl mx-auto">Explore thousands of opportunities from top government organizations and leading private companies.</p>
     <!-- Search Box -->
@@ -102,7 +102,7 @@ onMounted(() => {
     </section>
     <!-- Career Path Grid -->
     <section class="py-xl bg-surface-container-low/50">
-    <div class="max-w-container-max mx-auto px-gutter">
+    <div class="max-w-7xl mx-auto px-gutter">
     <div class="grid md:grid-cols-2 gap-lg">
     <!-- Government Jobs Card -->
     <div class="bg-surface-container-lowest rounded-xl p-lg elevation-1 hover:scale-[1.01] transition-transform cursor-pointer border border-primary/10">
@@ -145,7 +145,7 @@ onMounted(() => {
     </section>
     <!-- Jobs Table Sections -->
     <section class="py-xl">
-    <div class="max-w-container-max mx-auto px-gutter space-y-xl">
+    <div class="max-w-7xl mx-auto px-gutter space-y-xl">
     <!-- Govt Jobs -->
     <div>
     <div class="flex justify-between items-end mb-lg">
@@ -153,7 +153,7 @@ onMounted(() => {
     <h2 class="font-headline-lg text-headline-lg text-on-surface">Latest Government Jobs</h2>
     <p class="font-body-md text-body-md text-on-surface-variant">Updated every hour with direct official links</p>
     </div>
-    <a class="text-primary font-bold font-Inter text-label-md hover:underline" href="#">View All Govt Jobs</a>
+    <a class="text-primary font-bold font-Inter text-label-md hover:underline" href="/government-jobs">View All Govt Jobs</a>
     </div>
     <div class="bg-surface-container-lowest rounded-xl elevation-1 overflow-hidden">
     <div class="overflow-x-auto">
@@ -176,7 +176,7 @@ onMounted(() => {
     <td class="px-lg py-4 font-Inter text-body-md text-error font-medium">15 Oct 2024</td>
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">B.Tech / MCA</td>
     <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-white transition-all">Apply</button>
+    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Apply</button>
     </td>
     </tr>
     <tr class="hover:bg-primary/5 transition-colors group">
@@ -186,7 +186,7 @@ onMounted(() => {
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">22 Oct 2024</td>
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Any Graduate</td>
     <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-white transition-all">Apply</button>
+    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Apply</button>
     </td>
     </tr>
     <tr class="hover:bg-primary/5 transition-colors group">
@@ -196,7 +196,7 @@ onMounted(() => {
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">30 Oct 2024</td>
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Diploma / BE</td>
     <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-white transition-all">Apply</button>
+    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Apply</button>
     </td>
     </tr>
     </tbody>
@@ -211,7 +211,7 @@ onMounted(() => {
     <h2 class="font-headline-lg text-headline-lg text-on-surface">Trending Private Jobs</h2>
     <p class="font-body-md text-body-md text-on-surface-variant">Discover high-growth career opportunities</p>
     </div>
-    <a class="text-primary font-bold font-Inter text-label-md hover:underline" href="#">View All Private Jobs</a>
+    <a class="text-primary font-bold font-Inter text-label-md hover:underline" href="/job-search">View All Private Jobs</a>
     </div>
     <div class="bg-surface-container-lowest rounded-xl elevation-1 overflow-hidden">
     <div class="overflow-x-auto">
@@ -237,7 +237,7 @@ onMounted(() => {
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">4.5 - 12.0</td>
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">0-3 Years</td>
     <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-white transition-all">Quick Apply</button>
+    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Quick Apply</button>
     </td>
     </tr>
     <tr class="hover:bg-primary/5 transition-colors group">
@@ -250,7 +250,7 @@ onMounted(() => {
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">8.0 - 15.0</td>
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">4-6 Years</td>
     <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-white transition-all">Quick Apply</button>
+    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Quick Apply</button>
     </td>
     </tr>
     </tbody>
@@ -262,7 +262,7 @@ onMounted(() => {
     </section>
     <!-- Categories Grid -->
     <section class="py-xl bg-surface-container-low">
-    <div class="max-w-container-max mx-auto px-gutter">
+    <div class="max-w-7xl mx-auto px-gutter">
     <h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">Jobs by Category</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-md">
     <div class="bg-surface-container-lowest p-lg rounded-xl elevation-1 flex flex-col items-center text-center hover:shadow-lg transition-all cursor-pointer group">
@@ -290,10 +290,10 @@ onMounted(() => {
     </section>
     <!-- Featured Companies -->
     <section class="py-xl">
-    <div class="max-w-container-max mx-auto px-gutter">
+    <div class="max-w-7xl mx-auto px-gutter">
     <div class="flex items-center justify-between mb-lg">
     <h2 class="font-headline-lg text-headline-lg text-on-surface">Featured Companies</h2>
-    <a class="text-primary font-bold font-Inter text-label-md hover:underline" href="#">View All</a>
+    <a class="text-primary font-bold font-Inter text-label-md hover:underline" href="/job-search">View All</a>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-lg">
     <!-- TCS -->
@@ -336,14 +336,14 @@ onMounted(() => {
     </div>
     </section>
     <!-- Employer Section -->
-    <section class="py-xl bg-primary text-white">
-    <div class="max-w-container-max mx-auto px-gutter grid md:grid-cols-2 gap-xl items-center">
+    <section class="py-xl bg-primary text-on-primary">
+    <div class="max-w-7xl mx-auto px-gutter grid md:grid-cols-2 gap-xl items-center">
     <div class="space-y-lg">
     <h2 class="font-display-lg text-headline-lg md:text-display-lg">Hire The Right Talent Faster</h2>
     <p class="font-body-lg text-body-lg opacity-90">India's most trusted job portal for hiring Govt-aspirants and experienced private sector professionals. Post your requirements today.</p>
     <div class="flex flex-wrap gap-md">
-    <button class="bg-white text-primary px-xl py-4 rounded-lg font-Inter text-label-md font-bold hover:bg-surface-container transition-all active:scale-[0.98]">Post A Job Now</button>
-    <button class="border border-white/40 bg-white/10 text-white px-xl py-4 rounded-lg font-Inter text-label-md font-bold hover:bg-white/20 transition-all active:scale-[0.98]">Register As Employer</button>
+    <button class="bg-surface-container-lowest text-primary px-xl py-4 rounded-lg font-Inter text-label-md font-bold hover:bg-surface-container transition-all active:scale-[0.98]">Post A Job Now</button>
+    <button class="border border-outline-variant/40 bg-surface-container-lowest/10 text-on-primary px-xl py-4 rounded-lg font-Inter text-label-md font-bold hover:bg-surface-container-lowest/20 transition-all active:scale-[0.98]">Register As Employer</button>
     </div>
     <div class="flex items-center gap-xl pt-md">
     <div class="flex -space-x-3">
@@ -355,8 +355,8 @@ onMounted(() => {
     </div>
     </div>
     <div class="relative hidden md:block">
-    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-md shadow-2xl">
-    <img class="rounded-xl shadow-lg border border-white/10" data-alt="A high-fidelity UI mockup of a recruitment dashboard dashboard, showing hiring funnels, candidate profiles, and job application stats. The interface is clean, modern, and data-driven with professional blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASDjjEA0UFVGkhRvbgyIiiFMMsT2qoTNYbu8wUUG9yG_ETxvaMqs9Da7XRD9Tr-3YfJEPYpJQRVxTxgQMvIU7_po940Z8no-CDjPxZ1obdV0Fcz_lbvgWXAuphVALlbaezCo-JhavRtp9cf5cLKVW770u1ngKQxCkdJQayPxtb8-o9L000tM2O-EOZ0knxKycyBfcZB2oXq-biAvdWobbmlMWKav5oi_LM11Fqgu_zRydN-PYgThA1WHFx6l6Vobzo2tMY63YIULDb"/>
+    <div class="bg-surface-container-lowest/10 backdrop-blur-xl border border-outline-variant/20 rounded-2xl p-md shadow-2xl">
+    <img class="rounded-xl shadow-lg border border-outline-variant/10" data-alt="A high-fidelity UI mockup of a recruitment dashboard dashboard, showing hiring funnels, candidate profiles, and job application stats. The interface is clean, modern, and data-driven with professional blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASDjjEA0UFVGkhRvbgyIiiFMMsT2qoTNYbu8wUUG9yG_ETxvaMqs9Da7XRD9Tr-3YfJEPYpJQRVxTxgQMvIU7_po940Z8no-CDjPxZ1obdV0Fcz_lbvgWXAuphVALlbaezCo-JhavRtp9cf5cLKVW770u1ngKQxCkdJQayPxtb8-o9L000tM2O-EOZ0knxKycyBfcZB2oXq-biAvdWobbmlMWKav5oi_LM11Fqgu_zRydN-PYgThA1WHFx6l6Vobzo2tMY63YIULDb"/>
     </div>
     <!-- Decorative element -->
     <div class="absolute -top-4 -right-4 w-24 h-24 bg-secondary/30 blur-3xl rounded-full"></div>
@@ -366,52 +366,52 @@ onMounted(() => {
     </section>
     </main>
     <!-- Footer -->
-    <footer class="bg-surface-container-low dark:bg-surface-container-lowest w-full pt-xl pb-md">
-    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-2 md:grid-cols-5 gap-lg">
+    <footer class="bg-surface-container-low w-full pt-xl pb-md">
+    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-2 md:grid-cols-5 gap-lg">
     <div class="col-span-2 md:col-span-1">
     <h4 class="text-headline-md font-headline-md font-bold text-primary mb-md">Job Nova</h4>
     <p class="font-Inter text-body-md text-on-surface-variant mb-md">Bridging the gap between ambitious talent and India's finest organizations.</p>
     <div class="flex gap-md">
-    <a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><UIcon name="i-lucide-share-2" class="text-sm" /></a>
-    <a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><UIcon name="i-lucide-mail" class="text-sm" /></a>
+    <a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" href="/"><UIcon name="i-lucide-share-2" class="text-sm" /></a>
+    <a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" href="/"><UIcon name="i-lucide-mail" class="text-sm" /></a>
     </div>
     </div>
     <div>
     <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">For Job Seekers</h5>
     <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Govt Jobs</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Private Jobs</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">IT Jobs</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Banking</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/government-jobs">Govt Jobs</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/private-jobs">Private Jobs</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">IT Jobs</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/government-jobs">Banking</a></li>
     </ul>
     </div>
     <div>
     <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">For Employers</h5>
     <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Post a Job</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Hiring Solutions</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Employer Login</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/register-employer-step-1">Post a Job</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/register-employer-step-1">Hiring Solutions</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/login">Employer Login</a></li>
     </ul>
     </div>
     <div>
     <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">Resources</h5>
     <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Career Blog</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Interview Tips</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Resume Builder</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Career Blog</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Interview Tips</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Resume Builder</a></li>
     </ul>
     </div>
     <div>
     <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">Support</h5>
     <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Help Center</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Contact Us</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Privacy Policy</a></li>
+    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Terms</a></li>
     </ul>
     </div>
     </div>
-    <div class="max-w-container-max mx-auto px-gutter mt-xl pt-lg border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-md">
+    <div class="max-w-7xl mx-auto px-gutter mt-xl pt-lg border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-md">
     <p class="font-Inter text-label-sm text-on-surface-variant">© 2024 Job Nova. All rights reserved.</p>
     <div class="flex gap-lg">
     <span class="font-Inter text-label-sm text-on-surface-variant">Made with Pride in India</span>
@@ -423,9 +423,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; color: #191c23; }
+body { font-family: 'Inter', sans-serif; background-color: var(--color-surface); color: var(--color-on-surface); }
         .hanken { font-family: 'Hanken Grotesk', sans-serif; }
         
         .elevation-1 { box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08); }
-        .premium-gradient { background: linear-gradient(135deg, #005bbf 0%, #1a73e8 100%); }
+        .premium-gradient { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%); }
 </style>

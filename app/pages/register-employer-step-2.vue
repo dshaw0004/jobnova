@@ -31,16 +31,16 @@ onMounted(() => {
 <template>
   <div>
     <!-- TopNavBar Placeholder (As defined in JSON) -->
-    <nav class="w-full sticky top-0 z-50 bg-surface dark:bg-surface-container-low shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-    <div class="max-w-container-max mx-auto px-gutter flex justify-between items-center h-20">
-    <div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+    <nav class="w-full sticky top-0 z-50 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <div class="max-w-7xl mx-auto px-gutter flex justify-between items-center h-20">
+    <div class="font-headline-md text-headline-md font-bold text-primary">
                     Job Nova
                 </div>
     <div class="hidden md:flex items-center gap-lg">
-    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Find Talent</a>
-    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Solutions</a>
-    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Resources</a>
-    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="/register-employer-step-1">Find Talent</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="/register-employer-step-1">Solutions</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="/my-career-hub">Resources</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="/register-employer-step-1">Pricing</a>
     </div>
     <div class="flex items-center gap-md">
     <button class="text-on-surface-variant font-medium hover:text-primary px-4 py-2 transition-colors">Log In</button>
@@ -202,18 +202,18 @@ onMounted(() => {
     </div>
     </main>
     <!-- Footer Placeholder (As defined in JSON) -->
-    <footer class="w-full py-xl bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant dark:border-outline mt-auto">
-    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
+    <footer class="w-full py-xl bg-surface-container-lowest border-t border-outline-variant mt-auto">
+    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
     <div class="flex flex-col gap-xs">
     <div class="font-headline-md text-headline-md font-bold text-on-surface">Job Nova</div>
     <p class="font-label-md text-on-surface-variant">© 2024 Job Nova. Premium Career Ecosystem.</p>
     </div>
     <div class="flex flex-wrap gap-md md:justify-end">
-    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
-    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cookie Policy</a>
-    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
-    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Privacy Policy</a>
+    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Terms of Service</a>
+    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Cookie Policy</a>
+    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Support</a>
+    <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Contact</a>
     </div>
     </div>
     </footer>
@@ -223,7 +223,7 @@ onMounted(() => {
 
 <style scoped>
 body {
-            background-color: #f9f9ff;
+            background-color: var(--color-surface);
             font-family: 'Inter', sans-serif;
         }
         
@@ -232,7 +232,7 @@ body {
         }
         .input-focus-ring:focus {
             outline: none;
-            border-color: #005bbf;
+            border-color: var(--color-primary);
             box-shadow: 0 0 0 2px rgba(0, 91, 191, 0.1);
         }
 </style>

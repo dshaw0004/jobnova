@@ -34,27 +34,27 @@ onMounted(() => {
 <template>
   <div>
     <!-- Sidebar (SideNavBar) -->
-    <aside class="h-full w-64 fixed left-0 top-0 bg-surface dark:bg-on-background shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col py-lg px-md z-50">
+    <aside class="h-full w-64 fixed left-0 top-0 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col py-lg px-md z-50">
     <div class="mb-xl flex items-center gap-2">
     <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-    <UIcon name="i-lucide-rocket-launch" class="text-white text-xl" />
+    <UIcon name="i-lucide-rocket-launch" class="text-on-primary text-xl" />
     </div>
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     </div>
     <nav class="flex-1 space-y-2">
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-layout-dashboard" />
     <span class="font-label-md text-label-md">Dashboard</span>
     </a>
-    <a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed-variant rounded-lg font-bold" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed-variant rounded-lg font-bold" href="/my-career-hub">
     <UIcon name="i-lucide-history" />
     <span class="font-label-md text-label-md">My Career Hub</span>
     </a>
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="/login">
     <UIcon name="i-lucide-file-text" />
     <span class="font-label-md text-label-md">Applications</span>
     </a>
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="/selected-jobs-dashboard">
     <UIcon name="i-lucide-bookmark" />
     <span class="font-label-md text-label-md">Saved Jobs</span>
     </a>
@@ -67,11 +67,11 @@ onMounted(() => {
     <p class="text-xs text-on-surface-variant">Premium Member</p>
     </div>
     </div>
-    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg mb-1" href="#">
+    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg mb-1" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-settings" />
     <span class="font-label-md text-label-md">Settings</span>
     </a>
-    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="/">
     <UIcon name="i-lucide-help-circle" />
     <span class="font-label-md text-label-md">Help Center</span>
     </a>
@@ -80,7 +80,7 @@ onMounted(() => {
     <!-- Main Content (Center Column) -->
     <main class="ml-64 mr-80 flex-1 h-screen overflow-y-auto custom-scrollbar bg-background">
     <!-- Top App Bar Content (Embedded) -->
-    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md px-xl h-16 flex items-center justify-between border-b border-outline-variant">
+    <header class="sticky top-0 z-40 bg-surface-container-lowest/80 backdrop-blur-md px-xl h-16 flex items-center justify-between border-b border-outline-variant">
     <div class="flex items-center gap-md">
     <h1 class="font-headline-md text-headline-md text-on-background">My Career Hub</h1>
     </div>
@@ -94,26 +94,26 @@ onMounted(() => {
     </header>
     <div class="p-xl space-y-xl max-w-5xl mx-auto">
     <!-- Welcome Card -->
-    <section class="relative overflow-hidden rounded-2xl bg-primary p-lg text-white shadow-lg">
+    <section class="relative overflow-hidden rounded-2xl bg-primary p-lg text-on-primary shadow-lg">
     <div class="relative z-10 flex justify-between items-center">
     <div>
     <h2 class="font-headline-lg text-headline-lg mb-xs">Welcome Back 👋</h2>
     <p class="font-body-md opacity-90 max-w-md">Your profile is looking great! You've had 12 new views in the last 48 hours. Let's find your next big break.</p>
     </div>
     <div class="hidden md:block">
-    <button class="bg-white text-primary px-lg py-md rounded-xl font-bold hover:scale-95 transition-transform">
+    <button class="bg-surface-container-lowest text-primary px-lg py-md rounded-xl font-bold hover:scale-95 transition-transform">
                                 Optimize Resume
                             </button>
     </div>
     </div>
     <!-- Abstract Decorative Element -->
-    <div class="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="absolute -right-20 -top-20 w-64 h-64 bg-surface-container-lowest/10 rounded-full blur-3xl"></div>
     <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl"></div>
     </section>
     <!-- Profile & Resume Health Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
     <!-- Circular Profile Strength -->
-    <div class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col items-center text-center">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col items-center text-center">
     <h3 class="font-headline-md text-headline-md mb-md self-start">Profile Strength</h3>
     <div class="relative w-32 h-32 flex items-center justify-center mb-md">
     <svg class="w-full h-full transform -rotate-90">
@@ -125,7 +125,7 @@ onMounted(() => {
     <p class="text-on-surface-variant font-body-md">Complete your portfolio to reach 100% and get 5x more visibility.</p>
     </div>
     <!-- AI Resume Quality Meter -->
-    <div class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
     <div class="flex justify-between items-center mb-md">
     <h3 class="font-headline-md text-headline-md">AI Resume Quality</h3>
     <span class="text-2xl font-bold text-primary">82/100</span>
@@ -162,7 +162,7 @@ onMounted(() => {
     </div>
     </div>
     <!-- AI Insights -->
-    <section class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <section class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
     <div class="flex items-center gap-2 mb-lg">
     <UIcon name="i-lucide-auto-awesome" class="text-primary" style="font-variation-settings: 'FILL' 1;" />
     <h3 class="font-headline-md text-headline-md">Nova AI Insights</h3>
@@ -203,7 +203,7 @@ onMounted(() => {
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
     <div class="lg:col-span-2 space-y-lg">
     <!-- Education -->
-    <div class="bg-white p-lg rounded-2xl border border-outline-variant">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl border border-outline-variant">
     <h4 class="font-bold mb-md">Education</h4>
     <div class="flex gap-md">
     <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center shrink-0">
@@ -220,18 +220,18 @@ onMounted(() => {
     <div class="space-y-md">
     <h4 class="font-bold">Featured Projects</h4>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-    <div class="bg-white p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-pointer group">
+    <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-pointer group">
     <div class="flex justify-between mb-sm">
     <UIcon name="i-lucide-folder" class="text-primary" />
-    <a class="text-on-surface-variant hover:text-primary" href="#"><UIcon name="i-lucide-link-2" /></a>
+    <a class="text-on-surface-variant hover:text-primary" href="/"><UIcon name="i-lucide-link-2" /></a>
     </div>
     <p class="font-bold group-hover:text-primary transition-colors">AI Content Engine</p>
     <p class="text-xs text-on-surface-variant mt-1">Built with React, Python, and OpenAI API.</p>
     </div>
-    <div class="bg-white p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-pointer group">
+    <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-pointer group">
     <div class="flex justify-between mb-sm">
     <UIcon name="i-lucide-folder" class="text-primary" />
-    <a class="text-on-surface-variant hover:text-primary" href="#"><UIcon name="i-lucide-link-2" /></a>
+    <a class="text-on-surface-variant hover:text-primary" href="/"><UIcon name="i-lucide-link-2" /></a>
     </div>
     <p class="font-bold group-hover:text-primary transition-colors">Distributed Cloud DB</p>
     <p class="text-xs text-on-surface-variant mt-1">Go-lang based high-performance NoSQL DB.</p>
@@ -241,7 +241,7 @@ onMounted(() => {
     </div>
     <!-- Skills & Certs Column -->
     <div class="space-y-lg">
-    <div class="bg-white p-lg rounded-2xl border border-outline-variant">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl border border-outline-variant">
     <h4 class="font-bold mb-md">Skills</h4>
     <div class="flex flex-wrap gap-2">
     <span class="px-3 py-1 bg-surface-container rounded-full text-sm font-medium">React.js</span>
@@ -252,7 +252,7 @@ onMounted(() => {
     <span class="px-3 py-1 bg-surface-container rounded-full text-sm font-medium">MongoDB</span>
     </div>
     </div>
-    <div class="bg-white p-lg rounded-2xl border border-outline-variant">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl border border-outline-variant">
     <h4 class="font-bold mb-md">Certifications</h4>
     <div class="space-y-md">
     <div class="flex items-center gap-3">
@@ -282,7 +282,7 @@ onMounted(() => {
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
     <!-- Job Card 1 -->
-    <div class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-white hover:border-primary/20 transition-all group">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-outline-variant hover:border-primary/20 transition-all group">
     <div class="flex justify-between items-start mb-md">
     <div class="flex gap-md">
     <div class="w-12 h-12 bg-surface-container rounded-lg p-2 flex items-center justify-center overflow-hidden border border-outline-variant">
@@ -304,7 +304,7 @@ onMounted(() => {
     </div>
     </div>
     <!-- Job Card 2 -->
-    <div class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-white hover:border-primary/20 transition-all group">
+    <div class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-outline-variant hover:border-primary/20 transition-all group">
     <div class="flex justify-between items-start mb-md">
     <div class="flex gap-md">
     <div class="w-12 h-12 bg-surface-container rounded-lg p-2 flex items-center justify-center overflow-hidden border border-outline-variant">
@@ -330,7 +330,7 @@ onMounted(() => {
     <!-- Tracking Sections -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg pb-xl">
     <!-- Recent Applications -->
-    <section class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <section class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
     <h3 class="font-headline-md text-headline-md mb-lg">Recent Applications</h3>
     <div class="space-y-4">
     <div class="flex items-center justify-between p-md border border-outline-variant rounded-xl hover:bg-surface transition-colors cursor-pointer">
@@ -360,7 +360,7 @@ onMounted(() => {
     </div>
     </section>
     <!-- Saved Jobs -->
-    <section class="bg-white p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <section class="bg-surface-container-lowest p-lg rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
     <h3 class="font-headline-md text-headline-md mb-lg">Saved Jobs</h3>
     <div class="space-y-4">
     <div class="flex items-center justify-between p-md border border-outline-variant rounded-xl group cursor-pointer">
@@ -373,7 +373,7 @@ onMounted(() => {
     <p class="text-xs text-on-surface-variant">Saved Oct 24, 2023</p>
     </div>
     </div>
-    <button class="bg-primary text-white p-2 rounded-lg hover:bg-primary/90 transition-colors">
+    <button class="bg-primary text-on-primary p-2 rounded-lg hover:bg-primary/90 transition-colors">
     <UIcon name="i-lucide-send" class="text-sm" />
     </button>
     </div>
@@ -387,7 +387,7 @@ onMounted(() => {
     <p class="text-xs text-on-surface-variant">Saved Oct 20, 2023</p>
     </div>
     </div>
-    <button class="bg-primary text-white p-2 rounded-lg hover:bg-primary/90 transition-colors">
+    <button class="bg-primary text-on-primary p-2 rounded-lg hover:bg-primary/90 transition-colors">
     <UIcon name="i-lucide-send" class="text-sm" />
     </button>
     </div>
@@ -397,18 +397,18 @@ onMounted(() => {
     </div>
     </main>
     <!-- Right Sidebar (NavigationDrawer / Nova AI) -->
-    <aside class="h-full w-80 fixed right-0 top-0 bg-surface-container-low dark:bg-surface-container-highest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col border-l border-outline-variant">
+    <aside class="h-full w-80 fixed right-0 top-0 bg-surface-container-low shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col border-l border-outline-variant">
     <div class="p-lg border-b border-outline-variant">
     <div class="flex items-center gap-3 mb-2">
     <div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center shadow-md">
-    <UIcon name="i-lucide-auto-awesome" class="text-white" style="font-variation-settings: 'FILL' 1;" />
+    <UIcon name="i-lucide-auto-awesome" class="text-on-primary" style="font-variation-settings: 'FILL' 1;" />
     </div>
     <div>
     <h3 class="font-headline-md text-headline-md leading-tight">Nova AI</h3>
     <p class="text-xs text-on-surface-variant">Your Career Assistant</p>
     </div>
     </div>
-    <button class="w-full mt-4 flex items-center justify-center gap-2 py-md bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-colors">
+    <button class="w-full mt-4 flex items-center justify-center gap-2 py-md bg-primary text-on-primary rounded-xl font-bold hover:bg-primary/90 transition-colors">
     <UIcon name="i-lucide-add-comment" />
                     New Chat
                 </button>
@@ -421,15 +421,15 @@ onMounted(() => {
     </div>
     <div class="space-y-3">
     <p class="text-[10px] uppercase font-bold text-on-surface-variant px-2">Suggestions</p>
-    <button class="w-full text-left p-md bg-white border border-outline-variant rounded-xl text-sm hover:border-primary transition-all flex items-center justify-between group">
+    <button class="w-full text-left p-md bg-surface-container-lowest border border-outline-variant rounded-xl text-sm hover:border-primary transition-all flex items-center justify-between group">
                             How can I improve my resume?
                             <UIcon name="i-lucide-arrow-right" class="text-sm text-outline group-hover:text-primary" />
     </button>
-    <button class="w-full text-left p-md bg-white border border-outline-variant rounded-xl text-sm hover:border-primary transition-all flex items-center justify-between group">
+    <button class="w-full text-left p-md bg-surface-container-lowest border border-outline-variant rounded-xl text-sm hover:border-primary transition-all flex items-center justify-between group">
                             Suggest jobs for MCA students.
                             <UIcon name="i-lucide-arrow-right" class="text-sm text-outline group-hover:text-primary" />
     </button>
-    <button class="w-full text-left p-md bg-white border border-outline-variant rounded-xl text-sm hover:border-primary transition-all flex items-center justify-between group">
+    <button class="w-full text-left p-md bg-surface-container-lowest border border-outline-variant rounded-xl text-sm hover:border-primary transition-all flex items-center justify-between group">
                             Tell me about salary trends.
                             <UIcon name="i-lucide-arrow-right" class="text-sm text-outline group-hover:text-primary" />
     </button>
@@ -439,19 +439,19 @@ onMounted(() => {
     <div class="mt-auto space-y-4">
     <p class="text-[10px] uppercase font-bold text-on-surface-variant px-2">Resources</p>
     <nav class="space-y-1">
-    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg text-sm" href="#">
+    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg text-sm" href="/my-career-hub">
     <UIcon name="i-lucide-auto-awesome" class="text-primary" /> Resume Tips
                         </a>
-    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg text-sm" href="#">
+    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg text-sm" href="/my-career-hub">
     <UIcon name="i-lucide-groups" class="text-primary" /> Interview Prep
                         </a>
-    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg text-sm" href="#">
+    <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg text-sm" href="/my-career-hub">
     <UIcon name="i-lucide-trending-up" class="text-primary" /> Market Insights
                         </a>
     </nav>
     </div>
     </div>
-    <div class="p-lg bg-white border-t border-outline-variant">
+    <div class="p-lg bg-surface-container-lowest border-t border-outline-variant">
     <div class="relative">
     <input class="w-full bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-12 focus:ring-2 focus:ring-primary text-sm" placeholder="Ask Nova anything..." type="text">
     <button class="absolute right-2 top-1.5 p-2 text-primary">
@@ -467,8 +467,8 @@ onMounted(() => {
 <style scoped>
 body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9f9ff;
-            color: #191c23;
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
         }
         .font-hanken { font-family: 'Hanken Grotesk', sans-serif; }
         .glass-card {
@@ -483,7 +483,7 @@ body {
             background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e0e2ec;
+            background: var(--color-surface-variant);
             border-radius: 10px;
         }
         .status-chip {

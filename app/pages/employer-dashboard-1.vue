@@ -41,14 +41,14 @@ onMounted(() => {
   <div>
     <!-- Top Navigation Bar -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-surface h-[72px] shadow-sm flex items-center">
-    <div class="flex justify-between items-center px-lg w-full max-w-container-max mx-auto">
+    <div class="flex justify-between items-center px-lg w-full max-w-7xl mx-auto">
     <div class="flex items-center gap-xl">
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     <nav class="hidden md:flex gap-lg">
-    <a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Dashboard</a>
-    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Job Postings</a>
-    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Candidates</a>
-    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Company Profile</a>
+    <a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="/jobseeker-dashboard">Dashboard</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/manage-jobs-employer-dashboard">Job Postings</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/applicants-tracking-employer-dashboard">Candidates</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/company-profile-employer-dashboard">Company Profile</a>
     </nav>
     </div>
     <div class="flex items-center gap-md">
@@ -73,29 +73,29 @@ onMounted(() => {
     </div>
     </div>
     <nav class="flex flex-col gap-sm flex-grow">
-    <a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="/employer-dashboard-2">
     <UIcon name="i-lucide-layout-dashboard" />
     <span>Overview</span>
     </a>
-    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="/manage-jobs-employer-dashboard">
     <UIcon name="i-lucide-briefcase" />
     <span>Active Jobs</span>
     </a>
-    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="/applicants-tracking-employer-dashboard">
     <UIcon name="i-lucide-users" />
     <span>Candidate Pipeline</span>
     </a>
-    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="/employer-dashboard-2">
     <UIcon name="i-lucide-line-chart" />
     <span>Analytics</span>
     </a>
-    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-lg p-md transition-all duration-200 font-label-md text-label-md" href="/employer-dashboard-2">
     <UIcon name="i-lucide-settings" />
     <span>Settings</span>
     </a>
     </nav>
     <div class="mt-auto p-md bg-surface-container rounded-xl flex items-center gap-sm">
-    <div class="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold">JN</div>
+    <div class="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold">JN</div>
     <div>
     <p class="font-label-md font-bold text-on-surface">Job Nova India</p>
     <p class="text-[10px] text-outline">v2.4.0-Enterprise</p>
@@ -104,7 +104,7 @@ onMounted(() => {
     </aside>
     <!-- Main Content Area -->
     <main class="md:ml-64 pt-[72px] min-h-screen">
-    <div class="p-lg max-w-container-max mx-auto space-y-xl">
+    <div class="p-lg max-w-7xl mx-auto space-y-xl">
     <!-- Welcome Header -->
     <section class="flex flex-col md:flex-row md:items-end justify-between gap-md">
     <div>
@@ -194,7 +194,7 @@ onMounted(() => {
     <!-- AI Recommendations -->
     <section class="bg-surface-container-lowest p-lg rounded-xl card-elevation border border-surface-variant/20 overflow-hidden relative">
     <div class="absolute top-0 right-0 p-lg">
-    <span class="bg-gradient-to-r from-secondary to-primary text-white text-[10px] px-sm py-xs rounded-full font-bold uppercase tracking-widest">AI Match</span>
+    <span class="bg-gradient-to-r from-secondary to-primary text-on-primary text-[10px] px-sm py-xs rounded-full font-bold uppercase tracking-widest">AI Match</span>
     </div>
     <h2 class="font-headline-md text-on-surface mb-lg">Top Matches</h2>
     <p class="font-label-sm text-outline mb-md">For Frontend Developer role</p>
@@ -323,10 +323,10 @@ onMounted(() => {
     <p class="font-label-sm text-on-surface-variant mt-sm">© 2024 Job Nova India. All rights reserved.</p>
     </div>
     <div class="flex flex-wrap justify-center gap-lg">
-    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="#">Terms of Service</a>
-    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="#">Privacy Policy</a>
-    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="#">Help Center</a>
-    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="#">Contact Us</a>
+    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="/">Terms of Service</a>
+    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="/">Privacy Policy</a>
+    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="/">Help Center</a>
+    <a class="text-outline hover:text-on-surface font-label-sm transition-colors" href="/">Contact Us</a>
     </div>
     </footer>
     <!-- Micro-interaction Scripts -->
@@ -346,7 +346,7 @@ onMounted(() => {
         background: transparent;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #e0e2ec;
+        background: var(--color-surface-variant);
         border-radius: 10px;
       }
 </style>

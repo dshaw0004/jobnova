@@ -7,55 +7,55 @@ useHead({
 <template>
   <div>
     <!-- SideNavBar (Shared Component) -->
-    <nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex-col h-full py-lg px-md z-50">
+    <nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex-col h-full py-lg px-md z-50">
     <!-- Header -->
     <div class="mb-xl flex items-center gap-sm px-sm">
     <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-headline-md text-headline-md shadow-sm">
                     JN
                 </div>
     <div>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary leading-tight">Job Nova</h1>
+    <h1 class="font-headline-md text-headline-md font-bold text-primary leading-tight">Job Nova</h1>
     <p class="font-label-sm text-label-sm text-on-surface-variant">Premium Career Hub</p>
     </div>
     </div>
     <!-- Main Navigation -->
     <div class="flex-1 space-y-sm">
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors font-label-md text-label-md group" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md group" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-layout-dashboard" class="text-[20px] group-hover:text-primary transition-colors" />
                     Dashboard
                 </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors font-label-md text-label-md group" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md group" href="/my-profile-dashboard">
     <UIcon name="i-lucide-user" class="text-[20px] group-hover:text-primary transition-colors" />
                     My Profile
                 </a>
     <!-- ACTIVE TAB -->
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim bg-primary-fixed/20 scale-98 transition-transform duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-fixed/20 scale-98 transition-transform duration-200 font-label-md text-label-md" href="/applied-jobs-dashboard">
     <UIcon name="i-lucide-history" class="text-[20px]" style="font-variation-settings: 'FILL' 1;" />
                     Applied Jobs
                 </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors font-label-md text-label-md group" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md group" href="/selected-jobs-dashboard">
     <UIcon name="i-lucide-check-circle" class="text-[20px] group-hover:text-primary transition-colors" />
                     Selected Jobs
                 </a>
     </div>
     <!-- Footer Navigation -->
     <div class="mt-auto space-y-sm pt-md border-t border-surface-variant/50">
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors font-label-md text-label-md group" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md group" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-settings" class="text-[20px] group-hover:text-primary transition-colors" />
                     Settings
                 </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors font-label-md text-label-md group" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md group" href="/jobseeker-dashboard">
     <UIcon name="i-lucide-help-circle" class="text-[20px] group-hover:text-primary transition-colors" />
                     Help
                 </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-error hover:bg-error-container/50 transition-colors font-label-md text-label-md group mt-sm" href="#">
+    <a class="flex items-center gap-md px-md py-sm rounded-lg text-error hover:bg-error-container/50 transition-colors font-label-md text-label-md group mt-sm" href="/login">
     <UIcon name="i-lucide-log-out" class="text-[20px]" />
                     Logout
                 </a>
     </div>
     </nav>
     <!-- TopAppBar (Shared Component) -->
-    <header class="fixed top-0 right-0 w-full md:w-[calc(100%-16rem)] h-16 z-40 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md shadow-sm flex justify-between items-center px-lg w-full transition-all">
+    <header class="fixed top-0 right-0 w-full md:w-[calc(100%-16rem)] h-16 z-40 bg-surface/80 backdrop-blur-md shadow-sm flex justify-between items-center px-lg w-full transition-all">
     <!-- Mobile Menu Trigger -->
     <button class="md:hidden p-sm text-on-surface hover:bg-surface-container rounded-full transition-colors">
     <UIcon name="i-lucide-menu" />
@@ -86,7 +86,7 @@ useHead({
     </div>
     </header>
     <!-- Main Content Area -->
-    <main class="pt-24 pb-xl px-md md:px-lg md:ml-64 max-w-container-max mx-auto min-h-screen">
+    <main class="pt-24 pb-xl px-md md:px-lg md:ml-64 max-w-7xl mx-auto min-h-screen">
     <!-- Page Header -->
     <div class="mb-xl">
     <h2 class="font-headline-lg text-headline-lg text-on-background mb-xs">Applied Jobs</h2>

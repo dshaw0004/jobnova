@@ -10,6 +10,8 @@
 		"lint": "eslint .",
 		"typecheck": "nuxt typecheck",
 		"deploy": "bun run build && wrangler deploy",
+		"db:migrate": "wrangler d1 migrations apply jobnova_db --local",
+		"db:seed": "wrangler d1 execute jobnova_db --local --file database/seed.sql",
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {

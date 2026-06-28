@@ -84,12 +84,12 @@ onMounted(() => {
   <div>
     <!-- TopNavBar -->
     <header class="w-full top-0 sticky bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] z-50">
-    <nav class="flex justify-between items-center h-[72px] px-lg max-w-container-max mx-auto">
+    <nav class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
     <div class="flex items-center gap-lg">
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     </div>
     <div class="flex items-center gap-md">
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Login</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/login">Login</a>
     <button class="bg-primary text-on-primary px-lg py-2 rounded-xl font-body-md text-body-md active:scale-95 duration-150">Post a Job</button>
     </div>
     </nav>
@@ -166,7 +166,7 @@ onMounted(() => {
                                 Continue
                             </button>
     <p class="text-center font-body-md text-body-md text-on-surface-variant mt-md">
-                                Already have an account? <a class="text-primary font-semibold hover:underline" href="#">Login here</a>
+                                Already have an account? <a class="text-primary font-semibold hover:underline" href="/login">Login here</a>
     </p>
     </div>
     </div>
@@ -263,17 +263,17 @@ onMounted(() => {
     </main>
     <!-- Footer -->
     <footer class="w-full mt-xl bg-surface-container-low border-t border-outline-variant">
-    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-container-max mx-auto gap-lg">
+    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto gap-lg">
     <div class="flex flex-col items-center md:items-start">
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     <p class="font-label-md text-label-md text-on-surface-variant mt-xs">© 2024 Job Nova India. All rights reserved.</p>
     </div>
     <div class="flex flex-wrap justify-center gap-lg">
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">About Us</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Contact</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Privacy Policy</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Terms of Service</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Help Center</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">About Us</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Contact</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Privacy Policy</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Terms of Service</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Help Center</a>
     </div>
     </div>
     </footer>
@@ -283,7 +283,7 @@ onMounted(() => {
 
 <style scoped>
 body {
-            background-color: #f9f9ff;
+            background-color: var(--color-surface);
             font-family: 'Inter', sans-serif;
         }
         

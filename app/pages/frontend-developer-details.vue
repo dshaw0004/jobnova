@@ -23,14 +23,14 @@ onMounted(() => {
   <div>
     <!-- Top Navigation Bar -->
     <header class="w-full sticky top-0 z-50 bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-    <nav class="flex items-center justify-between px-lg py-sm max-w-container-max mx-auto h-16">
+    <nav class="flex items-center justify-between px-lg py-sm max-w-7xl mx-auto h-16">
     <div class="flex items-center gap-xl">
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     <div class="hidden md:flex items-center gap-lg">
-    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="#">Home</a>
-    <a class="text-primary font-semibold border-b-2 border-primary font-body-md text-body-md" href="#">Private Jobs</a>
-    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="#">Govt Jobs</a>
-    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="#">Resources</a>
+    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="/">Home</a>
+    <a class="text-primary font-semibold border-b-2 border-primary font-body-md text-body-md" href="/private-jobs">Private Jobs</a>
+    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="/government-jobs">Govt Jobs</a>
+    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="/my-career-hub">Resources</a>
     </div>
     </div>
     <div class="flex items-center gap-md">
@@ -43,12 +43,12 @@ onMounted(() => {
     </div>
     </nav>
     </header>
-    <main class="max-w-container-max mx-auto px-lg py-xl">
+    <main class="max-w-7xl mx-auto px-lg py-xl">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-xs text-on-surface-variant mb-xl font-label-md text-label-md">
-    <a class="hover:text-primary transition-colors" href="#">Home</a>
+    <a class="hover:text-primary transition-colors" href="/">Home</a>
     <UIcon name="i-lucide-chevron-right" class="text-sm" data-icon="chevron_right" />
-    <a class="hover:text-primary transition-colors" href="#">Private Jobs</a>
+    <a class="hover:text-primary transition-colors" href="/private-jobs">Private Jobs</a>
     <UIcon name="i-lucide-chevron-right" class="text-sm" data-icon="chevron_right" />
     <span class="text-primary font-semibold">Frontend Developer</span>
     </nav>
@@ -65,14 +65,14 @@ onMounted(() => {
     <div>
     <div class="flex flex-wrap gap-sm mb-sm">
     <span class="px-sm py-xs rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm uppercase">Urgent Hiring</span>
-    <span class="px-sm py-xs rounded-full premium-badge-gradient text-white font-label-sm text-label-sm uppercase">Featured</span>
+    <span class="px-sm py-xs rounded-full premium-badge-gradient text-on-primary font-label-sm text-label-sm uppercase">Featured</span>
     </div>
     <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Frontend Developer</h1>
     <p class="font-body-lg text-body-lg text-on-surface-variant">NovaStream Technologies • <span class="text-primary">FinTech</span></p>
     </div>
     </div>
     <div class="flex gap-sm">
-    <button class="px-lg h-11 bg-primary text-white rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all">Apply Now</button>
+    <button class="px-lg h-11 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all">Apply Now</button>
     <button class="p-sm border border-outline-variant text-on-surface-variant rounded-xl hover:bg-surface-container-low transition-colors">
     <UIcon name="i-lucide-bookmark" data-icon="bookmark" />
     </button>
@@ -202,7 +202,7 @@ onMounted(() => {
     <div class="flex flex-col md:flex-row justify-between gap-xl relative">
     <!-- Step 1 -->
     <div class="flex flex-col items-center gap-md bg-surface-container-lowest px-md z-10">
-    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">1</div>
+    <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</div>
     <span class="font-label-md text-label-md text-on-surface text-center">Application Review</span>
     </div>
     <!-- Step 2 -->
@@ -270,7 +270,7 @@ onMounted(() => {
     </div>
     </div>
     <div class="space-y-md">
-    <button class="w-full h-[56px] bg-primary text-white rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all">Apply for this Job</button>
+    <button class="w-full h-[56px] bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all">Apply for this Job</button>
     <button class="w-full h-[44px] border border-outline-variant text-on-surface-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center justify-center gap-md">
     <UIcon name="i-lucide-share-2" data-icon="share" />
                                     Share Job Post
@@ -291,25 +291,25 @@ onMounted(() => {
     <h3 class="font-headline-md text-[18px] text-on-surface mb-lg">Benefits &amp; Perks</h3>
     <div class="grid grid-cols-1 gap-md">
     <div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl">
-    <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-primary">
+    <div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
     <UIcon name="i-lucide-medical-services" data-icon="medical_services" />
     </div>
     <span class="font-body-md text-body-md text-on-surface-variant">Health Insurance</span>
     </div>
     <div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl">
-    <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-primary">
+    <div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
     <UIcon name="i-lucide-clock" data-icon="schedule" />
     </div>
     <span class="font-body-md text-body-md text-on-surface-variant">Flexible Hours</span>
     </div>
     <div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl">
-    <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-primary">
+    <div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
     <UIcon name="i-lucide-graduation-cap" data-icon="school" />
     </div>
     <span class="font-body-md text-body-md text-on-surface-variant">Learning Budget</span>
     </div>
     <div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl">
-    <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-primary">
+    <div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
     <UIcon name="i-lucide-paid" data-icon="paid" />
     </div>
     <span class="font-body-md text-body-md text-on-surface-variant">Performance Bonus</span>
@@ -323,7 +323,7 @@ onMounted(() => {
     <section class="mt-xl">
     <div class="flex items-center justify-between mb-xl">
     <h2 class="font-headline-lg text-headline-lg text-on-surface">Related Jobs</h2>
-    <a class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline" href="#">
+    <a class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline" href="/job-search">
                         View All Jobs
                         <UIcon name="i-lucide-arrow-right" data-icon="arrow_forward" />
     </a>
@@ -422,7 +422,7 @@ onMounted(() => {
     </main>
     <!-- Footer -->
     <footer class="w-full rounded-t-xl bg-surface-container-highest mt-xl">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-xl px-lg py-xl max-w-container-max mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-xl px-lg py-xl max-w-7xl mx-auto">
     <div class="col-span-2 lg:col-span-1">
     <span class="font-headline-md text-headline-md font-bold text-primary mb-md block">Job Nova</span>
     <p class="font-body-md text-body-md text-on-surface-variant pr-md">The most trusted destination for premium and government job seekers in India.</p>
@@ -430,32 +430,32 @@ onMounted(() => {
     <div class="space-y-md">
     <h5 class="font-body-md text-body-md font-bold text-on-surface">Company</h5>
     <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">About Us</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Careers</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Resources</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/">About Us</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/register-choose-account-type">Careers</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/my-career-hub">Resources</a></li>
     </ul>
     </div>
     <div class="space-y-md">
     <h5 class="font-body-md text-body-md font-bold text-on-surface">Jobs</h5>
     <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Remote Jobs</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Tech Jobs</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Private Jobs</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/job-search">Remote Jobs</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/job-search">Tech Jobs</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/private-jobs">Private Jobs</a></li>
     </ul>
     </div>
     <div class="space-y-md">
     <h5 class="font-body-md text-body-md font-bold text-on-surface">Support</h5>
     <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Help Center</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="#">Contact Us</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/">Help Center</a></li>
+    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/">Contact Us</a></li>
     </ul>
     </div>
     </div>
-    <div class="px-lg py-lg border-t border-outline-variant/30 max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+    <div class="px-lg py-lg border-t border-outline-variant/30 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
     <span class="text-on-surface-variant font-body-md text-body-md">© 2024 Job Nova. All rights reserved.</span>
     <div class="flex gap-lg">
-    <a class="text-on-surface-variant hover:text-primary" href="#"><UIcon name="i-lucide-globe" data-icon="language" /></a>
-    <a class="text-on-surface-variant hover:text-primary" href="#"><UIcon name="i-lucide-rss-feed" data-icon="rss_feed" /></a>
+    <a class="text-on-surface-variant hover:text-primary" href="/"><UIcon name="i-lucide-globe" data-icon="language" /></a>
+    <a class="text-on-surface-variant hover:text-primary" href="/"><UIcon name="i-lucide-rss-feed" data-icon="rss_feed" /></a>
     </div>
     </div>
     </footer>
@@ -471,6 +471,6 @@ body { font-family: 'Inter', sans-serif; }
             box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08);
         }
         .premium-badge-gradient {
-            background: linear-gradient(135deg, #2b5bb5 0%, #005bbf 100%);
+            background: linear-gradient(135deg, #2b5bb5 0%, var(--color-primary) 100%);
         }
 </style>

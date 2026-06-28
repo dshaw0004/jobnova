@@ -96,15 +96,15 @@ onMounted(() => {
 <template>
   <div>
     <!-- TopNavBar -->
-    <header class="sticky top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-    <div class="max-w-container-max mx-auto px-lg flex justify-between items-center h-16">
+    <header class="sticky top-0 w-full z-50 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+    <div class="max-w-7xl mx-auto px-lg flex justify-between items-center h-16">
     <div class="flex items-center gap-xl">
-    <span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Job Nova</span>
+    <span class="font-headline-lg text-headline-lg font-bold text-primary">Job Nova</span>
     <nav class="hidden md:flex items-center gap-lg">
-    <a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">Home</a>
-    <a class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary font-bold pb-1" href="#">Govt Jobs</a>
-    <a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">Private Jobs</a>
-    <a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">Resources</a>
+    <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/">Home</a>
+    <a class="text-primary border-b-2 border-primary font-bold pb-1" href="/government-jobs">Govt Jobs</a>
+    <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/private-jobs">Private Jobs</a>
+    <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/my-career-hub">Resources</a>
     </nav>
     </div>
     <div class="flex items-center gap-md">
@@ -114,11 +114,11 @@ onMounted(() => {
     </div>
     </div>
     </header>
-    <main class="max-w-container-max mx-auto px-lg py-xl">
+    <main class="max-w-7xl mx-auto px-lg py-xl">
     <!-- Hero Section -->
     <section class="mb-xl">
     <nav class="flex items-center gap-xs text-on-surface-variant font-label-md text-label-md mb-md">
-    <a class="hover:text-primary transition-colors" href="#">Home</a>
+    <a class="hover:text-primary transition-colors" href="/">Home</a>
     <UIcon name="i-lucide-chevron-right" class="text-[16px]" />
     <span class="text-primary font-bold">Government Jobs</span>
     </nav>
@@ -361,31 +361,31 @@ onMounted(() => {
     </div>
     </main>
     <!-- Footer -->
-    <footer class="w-full rounded-t-xl bg-surface-container dark:bg-inverse-surface border-t border-outline-variant dark:border-outline mt-xl">
-    <div class="max-w-container-max mx-auto px-lg py-xl grid grid-cols-1 md:grid-cols-4 gap-lg">
+    <footer class="w-full rounded-t-xl bg-surface-container border-t border-outline-variant mt-xl">
+    <div class="max-w-7xl mx-auto px-lg py-xl grid grid-cols-1 md:grid-cols-4 gap-lg">
     <div class="space-y-md">
-    <span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Job Nova</span>
-    <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">© 2024 Job Nova. All rights reserved. Built for the Indian job market.</p>
+    <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
+    <p class="font-body-md text-body-md text-on-surface-variant">© 2024 Job Nova. All rights reserved. Built for the Indian job market.</p>
     </div>
     <div>
     <h4 class="font-label-md text-label-md font-bold mb-md">Company</h4>
     <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="#">About Us</a></li>
-    <li><a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="#">Contact</a></li>
-    <li><a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="#">Support</a></li>
+    <li><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="/">About Us</a></li>
+    <li><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="/">Contact</a></li>
+    <li><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="/">Support</a></li>
     </ul>
     </div>
     <div>
     <h4 class="font-label-md text-label-md font-bold mb-md">Categories</h4>
     <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="#">SSC Jobs</a></li>
-    <li><a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="#">Bank Jobs</a></li>
-    <li><a class="text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="#">Defense Jobs</a></li>
+    <li><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="/ssc-cgl-2026-details">SSC Jobs</a></li>
+    <li><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="/government-jobs">Bank Jobs</a></li>
+    <li><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" href="/government-jobs">Defense Jobs</a></li>
     </ul>
     </div>
     <div>
     <h4 class="font-label-md text-label-md font-bold mb-md">Newsletter</h4>
-    <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant mb-md">Get job alerts directly in your inbox.</p>
+    <p class="font-body-md text-body-md text-on-surface-variant mb-md">Get job alerts directly in your inbox.</p>
     <div class="flex gap-xs">
     <input class="flex-1 bg-surface border-outline-variant rounded-lg p-sm text-body-md" placeholder="Email Address" type="email">
     <button class="bg-primary text-on-primary px-md rounded-lg material-symbols-outlined">send</button>
@@ -409,10 +409,10 @@ body { font-family: 'Inter', sans-serif; }
             left: 0;
             right: 0;
             height: 2px;
-            background-color: #005bbf;
+            background-color: var(--color-primary);
         }
         .shadow-soft { box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--color-outline-variant); border-radius: 10px; }
 </style>

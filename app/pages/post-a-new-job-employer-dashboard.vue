@@ -44,35 +44,35 @@ onMounted(() => {
 <template>
   <div>
     <!-- SideNavBar -->
-    <nav class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface shadow-md flex flex-col h-full p-4 border-r border-outline-variant dark:border-outline z-50 hidden md:flex">
+    <nav class="h-screen w-64 fixed left-0 top-0 bg-surface shadow-md flex flex-col h-full p-4 border-r border-outline-variant z-50 hidden md:flex">
     <div class="mb-8 px-4 py-2">
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Job Nova</h1>
+    <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
     <p class="font-label-md text-label-md text-on-surface-variant">Employer Portal</p>
     </div>
     <div class="flex flex-col gap-2 flex-grow">
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="/employer-dashboard-2">
     <UIcon name="i-lucide-layout-dashboard" data-icon="dashboard" />
                     Dashboard
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="/company-profile-employer-dashboard">
     <UIcon name="i-lucide-building-2" data-icon="business" />
                     Company Profile
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg font-bold hover:bg-surface-container-high dark:hover:bg-surface-container-highest scale-[0.98] transition-transform duration-200 font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold hover:bg-surface-container-high scale-[0.98] transition-transform duration-200 font-label-md text-label-md" href="/post-a-new-job-employer-dashboard">
     <UIcon name="i-lucide-plus-square" data-icon="add_box" />
                     Post Job
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="/manage-jobs-employer-dashboard">
     <UIcon name="i-lucide-briefcase" data-icon="work" />
                     Manage Jobs
                 </a>
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="/applicants-tracking-employer-dashboard">
     <UIcon name="i-lucide-groups" data-icon="groups" />
                     Applicants
                 </a>
     </div>
     <div class="mt-auto">
-    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="/login">
     <UIcon name="i-lucide-log-out" data-icon="logout" />
                     Logout
                 </a>
@@ -99,7 +99,7 @@ onMounted(() => {
     </div>
     </div>
     </header>
-    <div class="p-4 md:p-8 flex-1 max-w-container-max mx-auto w-full">
+    <div class="p-4 md:p-8 flex-1 max-w-7xl mx-auto w-full">
     <div class="mb-xl">
     <h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Post a New Job</h1>
     <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Create a job posting and start receiving applications.</p>
@@ -268,7 +268,7 @@ onMounted(() => {
     <div class="p-md">
     <div class="flex items-start gap-4 mb-4">
     <div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden shrink-0">
-    <img alt="Company Logo" class="w-full h-full object-cover" data-alt="Modern corporate logo, sleek abstract geometric shape in Nova Blue (#1a73e8), white background, clean vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdBr7ofdqBi6X4nqEQGnVxBD76eAHbMDrt6fHUZtVemq-6qX7PLoAvzCpvAg71DY6M9fH3l4nZbrSBET8S9z-GPaZcIRsbo3ywwcDZGmjFZXkO4F91f0ZZNWxlmJfoNYbyXwgsHrjcviLqQZCIsX1wOFnBtY6p8BkiYDUjv3uZvynMPMcxbgA4tMIRyjpKdDLjZn-jMSyRoIWl5AVhFp1xR-qPAz15Ss6crizpt529zxmI4Gz_fmwrtu6a96dZ4M0kE9sTsdaCEsVo"/>
+    <img alt="Company Logo" class="w-full h-full object-cover" data-alt="Modern corporate logo, sleek abstract geometric shape in Nova Blue (var(--color-primary-container)), white background, clean vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdBr7ofdqBi6X4nqEQGnVxBD76eAHbMDrt6fHUZtVemq-6qX7PLoAvzCpvAg71DY6M9fH3l4nZbrSBET8S9z-GPaZcIRsbo3ywwcDZGmjFZXkO4F91f0ZZNWxlmJfoNYbyXwgsHrjcviLqQZCIsX1wOFnBtY6p8BkiYDUjv3uZvynMPMcxbgA4tMIRyjpKdDLjZn-jMSyRoIWl5AVhFp1xR-qPAz15Ss6crizpt529zxmI4Gz_fmwrtu6a96dZ4M0kE9sTsdaCEsVo"/>
     </div>
     <div>
     <h4 class="font-headline-md text-headline-md text-on-surface leading-tight" id="previewTitle">Job Title Placeholder</h4>

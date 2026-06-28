@@ -50,15 +50,15 @@ onMounted(() => {
   <div>
     <!-- TopNavBar -->
     <header class="w-full sticky top-0 z-50 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-    <div class="flex justify-between items-center max-w-container-max mx-auto px-lg h-16">
+    <div class="flex justify-between items-center max-w-7xl mx-auto px-lg h-16">
     <div class="flex items-center gap-md">
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     </div>
     <nav class="hidden md:flex items-center gap-lg">
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
-    <a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Govt Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Private Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Resources</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Home</a>
+    <a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="/government-jobs">Govt Jobs</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/private-jobs">Private Jobs</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Resources</a>
     </nav>
     <div class="flex items-center gap-md">
     <button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all active:scale-95">notifications</button>
@@ -68,12 +68,12 @@ onMounted(() => {
     </div>
     </div>
     </header>
-    <main class="max-w-container-max mx-auto px-lg py-sm md:py-md">
+    <main class="max-w-7xl mx-auto px-lg py-sm md:py-md">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-sm mb-lg text-on-surface-variant font-label-md">
-    <a class="hover:text-primary" href="#">Home</a>
+    <a class="hover:text-primary" href="/">Home</a>
     <UIcon name="i-lucide-chevron-right" class="text-[16px]" />
-    <a class="hover:text-primary" href="#">Government Jobs</a>
+    <a class="hover:text-primary" href="/government-jobs">Government Jobs</a>
     <UIcon name="i-lucide-chevron-right" class="text-[16px]" />
     <span class="text-primary font-bold">SSC CGL 2026</span>
     </nav>
@@ -99,7 +99,7 @@ onMounted(() => {
     </div>
     </div>
     <div class="flex flex-row md:flex-col gap-sm w-full md:w-auto">
-    <button class="flex-1 md:w-44 h-11 bg-primary text-white rounded-xl font-label-md hover:shadow-lg active:scale-95 transition-all">Apply Now</button>
+    <button class="flex-1 md:w-44 h-11 bg-primary text-on-primary rounded-xl font-label-md hover:shadow-lg active:scale-95 transition-all">Apply Now</button>
     <button class="flex-1 md:w-44 h-11 border border-outline text-on-surface rounded-xl font-label-md hover:bg-surface-container transition-all flex items-center justify-center gap-2">
     <UIcon name="i-lucide-bookmark" class="text-[20px]" /> Save Job
                                 </button>
@@ -137,21 +137,21 @@ onMounted(() => {
     <!-- Desktop Line -->
     <div class="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-surface-container-high -z-10 translate-y-[-50%]"></div>
     <div class="flex flex-col items-center text-center gap-2 bg-surface-container-lowest px-2">
-    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">1</div>
+    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">1</div>
     <div>
     <p class="font-label-sm text-on-surface-variant">Notification</p>
     <p class="font-body-md font-bold">Aug 1, 2025</p>
     </div>
     </div>
     <div class="flex flex-col items-center text-center gap-2 bg-surface-container-lowest px-2">
-    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">2</div>
+    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">2</div>
     <div>
     <p class="font-label-sm text-on-surface-variant">Apps Start</p>
     <p class="font-body-md font-bold">Aug 5, 2025</p>
     </div>
     </div>
     <div class="flex flex-col items-center text-center gap-2 bg-surface-container-lowest px-2">
-    <div class="w-10 h-10 rounded-full bg-error flex items-center justify-center text-white font-bold">3</div>
+    <div class="w-10 h-10 rounded-full bg-error flex items-center justify-center text-on-primary font-bold">3</div>
     <div>
     <p class="font-label-sm text-on-surface-variant">App Ends</p>
     <p class="font-body-md font-bold text-error">Oct 15, 2025</p>
@@ -262,7 +262,7 @@ onMounted(() => {
     </section>
     <!-- Important Links Grid -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-md">
-    <a class="group flex items-center justify-between p-md bg-primary-container text-white rounded-2xl hover:shadow-xl transition-all active:scale-[0.98]" href="#">
+    <a class="group flex items-center justify-between p-md bg-primary-container text-on-primary rounded-2xl hover:shadow-xl transition-all active:scale-[0.98]" href="/government-jobs">
     <div class="flex items-center gap-md">
     <UIcon name="i-lucide-download-for-offline" class="text-4xl opacity-80" />
     <div>
@@ -272,7 +272,7 @@ onMounted(() => {
     </div>
     <UIcon name="i-lucide-arrow-right" class="group-hover:translate-x-1 transition-transform" />
     </a>
-    <a class="group flex items-center justify-between p-md bg-secondary text-white rounded-2xl hover:shadow-xl transition-all active:scale-[0.98]" href="#">
+    <a class="group flex items-center justify-between p-md bg-secondary text-on-primary rounded-2xl hover:shadow-xl transition-all active:scale-[0.98]" href="/register-choose-account-type">
     <div class="flex items-center gap-md">
     <UIcon name="i-lucide-ads-click" class="text-4xl opacity-80" />
     <div>
@@ -282,7 +282,7 @@ onMounted(() => {
     </div>
     <UIcon name="i-lucide-arrow-right" class="group-hover:translate-x-1 transition-transform" />
     </a>
-    <a class="group flex items-center justify-between p-md bg-surface-container-high border border-outline-variant text-on-surface rounded-2xl hover:bg-surface-container-highest transition-all active:scale-[0.98]" href="#">
+    <a class="group flex items-center justify-between p-md bg-surface-container-high border border-outline-variant text-on-surface rounded-2xl hover:bg-surface-container-highest transition-all active:scale-[0.98]" href="/ssc-cgl-2026-details">
     <div class="flex items-center gap-md">
     <UIcon name="i-lucide-menu-book" class="text-4xl text-primary" />
     <div>
@@ -292,7 +292,7 @@ onMounted(() => {
     </div>
     <UIcon name="i-lucide-arrow-right" class="text-on-surface-variant group-hover:translate-x-1 transition-transform" />
     </a>
-    <a class="group flex items-center justify-between p-md bg-surface-container-high border border-outline-variant text-on-surface rounded-2xl hover:bg-surface-container-highest transition-all active:scale-[0.98]" href="#">
+    <a class="group flex items-center justify-between p-md bg-surface-container-high border border-outline-variant text-on-surface rounded-2xl hover:bg-surface-container-highest transition-all active:scale-[0.98]" href="/ssc-cgl-2026-details">
     <div class="flex items-center gap-md">
     <UIcon name="i-lucide-history-edu" class="text-4xl text-primary" />
     <div>
@@ -314,7 +314,7 @@ onMounted(() => {
     </div>
     <h4 class="font-body-md font-bold mb-xs">UPSC CSE 2026</h4>
     <p class="text-[12px] text-on-surface-variant mb-md">Civil Services Examination • 1,000+ Posts</p>
-    <button class="w-full py-2 bg-surface-container-low text-primary rounded-lg font-label-sm hover:bg-primary-container hover:text-white transition-all">View Details</button>
+    <button class="w-full py-2 bg-surface-container-low text-primary rounded-lg font-label-sm hover:bg-primary-container hover:text-on-primary transition-all">View Details</button>
     </div>
     <div class="bg-surface-container-lowest p-md rounded-2xl premium-shadow border border-outline-variant/30 hover:border-primary transition-all cursor-pointer">
     <div class="flex justify-between items-start mb-sm">
@@ -323,7 +323,7 @@ onMounted(() => {
     </div>
     <h4 class="font-body-md font-bold mb-xs">IBPS PO XV</h4>
     <p class="text-[12px] text-on-surface-variant mb-md">Probationary Officers • 4,500+ Posts</p>
-    <button class="w-full py-2 bg-surface-container-low text-primary rounded-lg font-label-sm hover:bg-primary-container hover:text-white transition-all">View Details</button>
+    <button class="w-full py-2 bg-surface-container-low text-primary rounded-lg font-label-sm hover:bg-primary-container hover:text-on-primary transition-all">View Details</button>
     </div>
     </div>
     </section>
@@ -352,7 +352,7 @@ onMounted(() => {
     <p class="text-[10px] text-on-surface-variant uppercase">Sec</p>
     </div>
     </div>
-    <button class="w-full h-12 bg-primary text-white rounded-xl font-headline-md text-[18px] hover:shadow-lg active:scale-95 transition-all">Apply Now</button>
+    <button class="w-full h-12 bg-primary text-on-primary rounded-xl font-headline-md text-[18px] hover:shadow-lg active:scale-95 transition-all">Apply Now</button>
     </div>
     <!-- Actions Card -->
     <div class="bg-surface-container-lowest p-md rounded-2xl premium-shadow">
@@ -379,9 +379,9 @@ onMounted(() => {
     <div class="relative overflow-hidden rounded-2xl aspect-[4/5] premium-shadow group">
     <img alt="Exam Prep" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A premium educational workspace featuring a high-end laptop, a sleek notebook with a pen, and a warm cup of coffee on a clean white desk. The lighting is soft and professional, with a bright, airy aesthetic. In the background, a modern home office setup with minimalist shelving is visible. The atmosphere conveys a sense of focused study and professional ambition, aligning with a high-end career preparation portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp_KQ1_qTXMXrpoJjx262n2VfN7IrfUciEIaVALO5xjGNYeSGYR4yNwjJPMY6jHbl6XU8_LXfALwHJbi0GFl7ui8YggRVvT2jha2aStYNKbbQOmvHO6G_KC-0iMfnjMKaXldgyOMwD9UymTCXRbseTxezyV0HAmdewZlvelM9RhMCUdhamnzGlJ1qU6VhG7yUm0SuCyBzTnDXUfJSDIyhNLciEudnEZ8XHrxwUumxrU6wAIbse-6B9HkT9F6nxThLH4_Ci5jxMDaPg">
     <div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent flex flex-col justify-end p-lg">
-    <h4 class="font-headline-md text-white mb-xs">Master SSC CGL 2026</h4>
-    <p class="font-body-md text-white/80 mb-md">Get exclusive mock tests and study material.</p>
-    <button class="bg-white text-primary px-lg py-md rounded-xl font-label-md shadow-lg">Unlock Premium</button>
+    <h4 class="font-headline-md text-on-primary mb-xs">Master SSC CGL 2026</h4>
+    <p class="font-body-md text-on-primary/80 mb-md">Get exclusive mock tests and study material.</p>
+    <button class="bg-surface-container-lowest text-primary px-lg py-md rounded-xl font-label-md shadow-lg">Unlock Premium</button>
     </div>
     </div>
     </div>
@@ -390,16 +390,16 @@ onMounted(() => {
     </main>
     <!-- Footer -->
     <footer class="w-full mt-xl bg-surface-container-lowest border-t border-outline-variant">
-    <div class="max-w-container-max mx-auto px-lg py-xl flex flex-col md:flex-row justify-between items-center gap-md">
+    <div class="max-w-7xl mx-auto px-lg py-xl flex flex-col md:flex-row justify-between items-center gap-md">
     <div>
     <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
     <p class="font-body-md text-on-surface-variant mt-xs">© 2024 Job Nova. Premium Recruitment Portal.</p>
     </div>
     <div class="flex gap-lg">
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="#">About Us</a>
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="#">Contact</a>
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="#">Privacy Policy</a>
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="#">Terms of Service</a>
+    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">About Us</a>
+    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">Contact</a>
+    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">Privacy Policy</a>
+    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">Terms of Service</a>
     </div>
     </div>
     </footer>
@@ -408,11 +408,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; color: #191c23; }
+body { font-family: 'Inter', sans-serif; background-color: var(--color-surface); color: var(--color-on-surface); }
         .hanken { font-family: 'Hanken Grotesk', sans-serif; }
         
         .premium-shadow { box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08); }
         .sticky-sidebar { position: sticky; top: 100px; height: fit-content; }
         .timeline-line::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 2px; background: #d8e2ff; }
-        .gradient-chip { background: linear-gradient(90deg, #2b5bb5 0%, #005bbf 100%); color: white; }
+        .gradient-chip { background: linear-gradient(90deg, #2b5bb5 0%, var(--color-primary) 100%); color: white; }
 </style>

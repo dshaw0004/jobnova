@@ -22,7 +22,7 @@ onMounted(() => {
   <div>
     <!-- Top AppBar (Simplified for Login) -->
     <header class="fixed top-0 left-0 w-full h-[72px] bg-surface flex items-center px-lg z-50">
-    <div class="w-full max-w-container-max mx-auto flex justify-between items-center">
+    <div class="w-full max-w-7xl mx-auto flex justify-between items-center">
     <div class="font-headline-md text-headline-md font-bold text-primary">Job Nova</div>
     <a class="flex items-center gap-sm text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md group" href="/">
     <UIcon name="i-lucide-arrow-left" class="text-[20px] group-hover:-translate-x-1 transition-transform" />
@@ -40,7 +40,7 @@ onMounted(() => {
     <div class="flex flex-col gap-xs">
     <h2 class="font-label-md text-label-md font-bold">Account Pending Approval</h2>
     <p class="text-label-sm leading-relaxed opacity-90">
-                            Your employer account is still under review. You will be able to log in once our team has verified your details. Need help? <a class="underline font-bold hover:text-primary transition-colors" href="#">Contact support.</a>
+                            Your employer account is still under review. You will be able to log in once our team has verified your details. Need help? <a class="underline font-bold hover:text-primary transition-colors" href="/">Contact support.</a>
     </p>
     </div>
     </div>
@@ -64,7 +64,7 @@ onMounted(() => {
     <div class="space-y-sm">
     <div class="flex justify-between items-center">
     <label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
-    <a class="text-primary font-label-sm text-label-sm hover:underline" href="#">Forgot password?</a>
+    <a class="text-primary font-label-sm text-label-sm hover:underline" href="/login">Forgot password?</a>
     </div>
     <div class="relative group">
     <UIcon name="i-lucide-lock" class="absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" />
@@ -80,7 +80,7 @@ onMounted(() => {
     <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-outline-variant"></div></div>
     <div class="relative flex justify-center text-label-sm uppercase"><span class="bg-surface-container-lowest px-md text-outline">New to Job Nova?</span></div>
     </div>
-    <a class="w-full h-[56px] border border-outline-variant text-primary font-label-md text-label-md rounded-xl hover:bg-surface-container transition-all flex items-center justify-center active:scale-[0.98]" href="#">
+    <a class="w-full h-[56px] border border-outline-variant text-primary font-label-md text-label-md rounded-xl hover:bg-surface-container transition-all flex items-center justify-center active:scale-[0.98]" href="/register-employer-step-1">
                         Register as an Employer
                     </a>
     </form>
@@ -91,11 +91,11 @@ onMounted(() => {
                     Expected verification time: <span class="font-bold text-on-surface">24-48 business hours</span>
     </p>
     <div class="flex justify-center gap-lg">
-    <a class="text-outline hover:text-primary transition-colors flex items-center gap-xs" href="#">
+    <a class="text-outline hover:text-primary transition-colors flex items-center gap-xs" href="/">
     <UIcon name="i-lucide-help-outline" class="text-[18px]" />
                         Help Center
                     </a>
-    <a class="text-outline hover:text-primary transition-colors flex items-center gap-xs" href="#">
+    <a class="text-outline hover:text-primary transition-colors flex items-center gap-xs" href="/">
     <UIcon name="i-lucide-chat-bubble-outline" class="text-[18px]" />
                         Support Chat
                     </a>
@@ -116,8 +116,8 @@ onMounted(() => {
 
 <style scoped>
 body {
-            background-color: #f9f9ff;
-            color: #191c23;
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
             -webkit-font-smoothing: antialiased;
         }
         

@@ -7,50 +7,50 @@ useHead({
 <template>
   <div>
     <!-- SideNavBar -->
-    <nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-surface-dim shadow-sm flex-col py-xl px-md z-20">
+    <nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface shadow-sm flex-col py-xl px-md z-20">
     <div class="flex items-center gap-md px-md mb-xl">
     <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-headline-md">
                     JN
                 </div>
     <div>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Job Nova</h1>
+    <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
     <p class="font-label-sm text-label-sm text-on-surface-variant">Employer Portal</p>
     </div>
     </div>
     <ul class="flex flex-col gap-sm flex-1">
     <li>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="/employer-dashboard-2">
     <UIcon name="i-lucide-layout-dashboard" />
                         Dashboard
                     </a>
     </li>
     <li>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="/company-profile-employer-dashboard">
     <UIcon name="i-lucide-building-2" />
                         Company Profile
                     </a>
     </li>
     <li>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="/company-profile-employer-dashboard">
     <UIcon name="i-lucide-plus-square" />
                         Post Job
                     </a>
     </li>
     <li>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="/manage-jobs-employer-dashboard">
     <UIcon name="i-lucide-history" />
                         Manage Jobs
                     </a>
     </li>
     <li>
-    <a class="flex items-center gap-md px-md py-sm bg-secondary-fixed text-on-secondary-fixed rounded-lg font-bold font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-fixed text-on-secondary-fixed rounded-lg font-bold font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="/applicants-tracking-employer-dashboard">
     <UIcon name="i-lucide-groups" class="icon-fill" />
                         Applicants
                     </a>
     </li>
     </ul>
     <div class="mt-auto">
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="#">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 rounded-lg font-label-md text-label-md" href="/login">
     <UIcon name="i-lucide-log-out" />
                     Logout
                 </a>
@@ -59,7 +59,7 @@ useHead({
     <!-- Main Content Area -->
     <main class="md:ml-64 min-h-screen flex flex-col">
     <!-- TopNavBar -->
-    <header class="fixed top-0 right-0 w-full md:w-[calc(100%-256px)] h-16 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-lg py-sm z-10">
+    <header class="fixed top-0 right-0 w-full md:w-[calc(100%-256px)] h-16 bg-surface shadow-sm flex justify-between items-center px-lg py-sm z-10">
     <div class="flex items-center gap-md w-full max-w-md hidden">
     <!-- Search could go here if search_bar: "on_left" wasn't overridden by page context -->
     </div>
@@ -80,12 +80,12 @@ useHead({
     </div>
     </header>
     <!-- Page Canvas -->
-    <div class="flex-1 mt-16 p-lg max-w-container-max mx-auto w-full">
+    <div class="flex-1 mt-16 p-lg max-w-7xl mx-auto w-full">
     <!-- Breadcrumbs -->
     <nav aria-label="Breadcrumb" class="flex text-on-surface-variant font-label-md text-label-md mb-xl">
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
     <li class="inline-flex items-center">
-    <a class="inline-flex items-center hover:text-primary transition-colors" href="#">
+    <a class="inline-flex items-center hover:text-primary transition-colors" href="/applicants-tracking-employer-dashboard">
                                 Applicants
                             </a>
     </li>
@@ -101,7 +101,7 @@ useHead({
     <!-- Left Column (Profile Info) -->
     <div class="xl:col-span-8 flex flex-col gap-xl">
     <!-- Profile Header Card -->
-    <div class="bg-surface rounded-xl shadow-level-1 p-lg flex flex-col md:flex-row gap-lg items-start border border-neutral-50">
+    <div class="bg-surface rounded-xl shadow-level-1 p-lg flex flex-col md:flex-row gap-lg items-start border border-outline-variant">
     <div class="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 bg-surface-variant shadow-sm">
     <img alt="Rahul Sharma" class="w-full h-full object-cover" data-alt="A professional headshot of an Indian male designer named Rahul Sharma, wearing a smart casual dark blue shirt, smiling warmly, lit by soft natural light against a clean white studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj8SVbYjksUDpgLLDNZaXssk6rNSXOf7E0aVxJnALCqwOdgAhce8O7TVH64X6nsDIijJxV5qAr23vGd61a5Lj_7iNkNPp5F_oHyD3K4p8CxJoXKR_YWLHLd3VRtQ8HddaKYEliGpLpV7XEtpOo-1k-wT2Mw59WV8qGJCfYI3sLu4tbWWrVzLjqZz-6QanNHrY7aNV-hlRq3ODh1yXlYXJHJFxkKKaOJMwHbZTTy5FwJ1qNNMFDm6gkvsMAmhS84Zti3Q9t33YVQ8F9"/>
     </div>
@@ -142,14 +142,14 @@ useHead({
     </div>
     </div>
     <!-- Professional Summary -->
-    <section class="bg-surface rounded-xl shadow-level-1 p-lg border border-neutral-50">
+    <section class="bg-surface rounded-xl shadow-level-1 p-lg border border-outline-variant">
     <h3 class="font-headline-md text-headline-md text-on-surface mb-md">Professional Summary</h3>
     <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                                 Senior UI Designer with 5+ years of experience in creating user-centric digital products. Specializing in SaaS platforms, mobile application interfaces, and design systems. Proven track record of bridging the gap between complex functionality and elegant user experiences, utilizing user research to inform design decisions and collaborating closely with engineering teams to ensure pixel-perfect execution.
                             </p>
     </section>
     <!-- Work Experience Timeline -->
-    <section class="bg-surface rounded-xl shadow-level-1 p-lg border border-neutral-50">
+    <section class="bg-surface rounded-xl shadow-level-1 p-lg border border-outline-variant">
     <h3 class="font-headline-md text-headline-md text-on-surface mb-lg">Work Experience</h3>
     <div class="relative border-l-2 border-surface-variant ml-3 md:ml-4 space-y-lg pb-4">
     <!-- Experience Item 1 -->
@@ -210,7 +210,7 @@ useHead({
     </div>
     </div>
     <!-- Application Details -->
-    <div class="bg-surface rounded-xl shadow-level-1 p-lg border border-neutral-50">
+    <div class="bg-surface rounded-xl shadow-level-1 p-lg border border-outline-variant">
     <h3 class="font-headline-md text-headline-md text-on-surface mb-md">Application Details</h3>
     <div class="space-y-md">
     <div>
@@ -224,7 +224,7 @@ useHead({
     </div>
     </div>
     <!-- Skills -->
-    <div class="bg-surface rounded-xl shadow-level-1 p-lg border border-neutral-50">
+    <div class="bg-surface rounded-xl shadow-level-1 p-lg border border-outline-variant">
     <h3 class="font-headline-md text-headline-md text-on-surface mb-md">Skills</h3>
     <div class="flex flex-wrap gap-sm">
     <span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-sm text-label-sm">Java</span>

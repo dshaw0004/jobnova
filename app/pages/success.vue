@@ -12,7 +12,7 @@ onMounted(() => {
           const ctx = canvas.getContext('2d');
           let pieces = [];
           const numberOfPieces = 50;
-          const colors = ['#005bbf', '#1a73e8', '#c55500', '#2b5bb5', '#ffdbcb'];
+          const colors = ['var(--color-primary)', 'var(--color-primary-container)', '#c55500', '#2b5bb5', '#ffdbcb'];
   
           function updateCanvasSize() {
               canvas.width = window.innerWidth;
@@ -78,7 +78,7 @@ onMounted(() => {
   <div>
     <!-- TopNavBar (Simplified for Transactional State) -->
     <header class="w-full top-0 sticky bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] z-50">
-    <div class="flex justify-between items-center h-[72px] px-lg max-w-container-max mx-auto">
+    <div class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
     <div class="font-headline-md text-headline-md font-bold text-primary">Job Nova</div>
     <div class="hidden md:flex items-center gap-md">
     <span class="font-label-md text-label-md text-on-surface-variant">Step 3 of 3</span>
@@ -95,7 +95,7 @@ onMounted(() => {
     <div class="w-40 h-40 bg-primary-container rounded-full flex items-center justify-center relative overflow-hidden group">
     <!-- Animated Shine Effect -->
     <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-    <UIcon name="i-lucide-check-circle" class="text-white text-[80px]" style="font-variation-settings: 'FILL' 1;" />
+    <UIcon name="i-lucide-check-circle" class="text-on-primary text-[80px]" style="font-variation-settings: 'FILL' 1;" />
     </div>
     <!-- Floating Decorative Icons -->
     <div class="absolute -top-4 -right-4 w-12 h-12 bg-tertiary-fixed rounded-full flex items-center justify-center text-tertiary animate-bounce shadow-md">
@@ -143,12 +143,12 @@ onMounted(() => {
     </main>
     <!-- Footer -->
     <footer class="w-full bg-surface-container-low border-t border-outline-variant">
-    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-container-max mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto">
     <div class="font-headline-md text-headline-md font-bold text-primary mb-md md:mb-0">Job Nova</div>
     <div class="flex gap-lg flex-wrap justify-center">
-    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Help Center</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Privacy Policy</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Terms of Service</a>
     </div>
     <div class="font-label-md text-label-md text-on-surface-variant mt-md md:mt-0">
                     © 2024 Job Nova India. All rights reserved.
@@ -161,8 +161,8 @@ onMounted(() => {
 
 <style scoped>
 body {
-            background-color: #f9f9ff;
-            color: #191c23;
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
         }
         .success-card {
             box-shadow: 0px 4px 20px rgba(26, 115, 232, 0.08);

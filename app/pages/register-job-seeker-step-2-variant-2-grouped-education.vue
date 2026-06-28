@@ -40,24 +40,24 @@ onMounted(() => {
 <template>
   <div>
     <!-- Top Navigation Bar -->
-    <header class="w-full top-0 sticky bg-surface-container-lowest dark:bg-surface-dim shadow-[0px_4px_20px_rgba(26,115,232,0.08)] z-50">
-    <div class="flex justify-between items-center h-[72px] px-lg max-w-container-max mx-auto">
-    <div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+    <header class="w-full top-0 sticky bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] z-50">
+    <div class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
+    <div class="font-headline-md text-headline-md font-bold text-primary">
                     Job Nova
                 </div>
     <nav class="hidden md:flex gap-lg items-center">
-    <a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Find Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Companies</a>
-    <a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Salaries</a>
-    <a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Career Advice</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Find Jobs</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Companies</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Salaries</a>
+    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Career Advice</a>
     </nav>
     <div class="flex items-center gap-md">
-    <button class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim px-md py-sm rounded-lg hover:bg-surface-container-low transition-all">Login</button>
+    <button class="font-label-md text-label-md text-primary px-md py-sm rounded-lg hover:bg-surface-container-low transition-all">Login</button>
     <button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md shadow-sm active:scale-95 duration-150">Post a Job</button>
     </div>
     </div>
     </header>
-    <main class="max-w-container-max mx-auto px-lg py-xl flex flex-col items-center">
+    <main class="max-w-7xl mx-auto px-lg py-xl flex flex-col items-center">
     <!-- Progress Container -->
     <div class="w-full max-w-[640px] mb-lg">
     <div class="flex justify-between items-end mb-sm">
@@ -69,7 +69,7 @@ onMounted(() => {
     </div>
     </div>
     <!-- Registration Card -->
-    <div class="w-full max-w-[640px] bg-white rounded-xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] p-xl border border-outline-variant/30">
+    <div class="w-full max-w-[640px] bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] p-xl border border-outline-variant/30">
     <!-- Header Section -->
     <div class="mb-xl text-center md:text-left">
     <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Professional Information</h1>
@@ -92,11 +92,11 @@ onMounted(() => {
     <div class="space-y-xs">
     <label class="font-label-md text-label-md text-on-surface-variant">Skills</label>
     <div class="flex flex-wrap gap-2 p-2 min-h-[48px] bg-surface-container-low border-none rounded-lg items-center">
-    <span class="flex items-center gap-1 bg-primary-container text-white px-2 py-1 rounded-md text-[13px] font-medium">
+    <span class="flex items-center gap-1 bg-primary-container text-on-primary px-2 py-1 rounded-md text-[13px] font-medium">
                                     React
                                     <UIcon name="i-lucide-x" class="text-[14px] cursor-pointer" data-icon="close" />
     </span>
-    <span class="flex items-center gap-1 bg-primary-container text-white px-2 py-1 rounded-md text-[13px] font-medium">
+    <span class="flex items-center gap-1 bg-primary-container text-on-primary px-2 py-1 rounded-md text-[13px] font-medium">
                                     Tailwind
                                     <UIcon name="i-lucide-x" class="text-[14px] cursor-pointer" data-icon="close" />
     </span>
@@ -195,19 +195,19 @@ onMounted(() => {
     </div>
     </main>
     <!-- Footer -->
-    <footer class="w-full mt-xl bg-surface-container-low dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline">
-    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-container-max mx-auto gap-md">
-    <div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+    <footer class="w-full mt-xl bg-surface-container-low border-t border-outline-variant">
+    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto gap-md">
+    <div class="font-headline-md text-headline-md font-bold text-primary">
                     Job Nova
                 </div>
     <div class="flex flex-wrap justify-center gap-md">
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:underline hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">About Us</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:underline hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">Contact</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:underline hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">Privacy Policy</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:underline hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">Terms of Service</a>
-    <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:underline hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">Help Center</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">About Us</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Contact</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Privacy Policy</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Terms of Service</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Help Center</a>
     </div>
-    <div class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant">
+    <div class="font-label-md text-label-md text-on-surface-variant">
                     © 2024 Job Nova India. All rights reserved.
                 </div>
     </div>
@@ -230,6 +230,6 @@ body { font-family: 'Inter', sans-serif; }
             appearance: none;
         }
         .step-progress-bar {
-            background: linear-gradient(to right, #1a73e8 50%, #e0e2ec 50%);
+            background: linear-gradient(to right, var(--color-primary-container) 50%, var(--color-surface-variant) 50%);
         }
 </style>

@@ -9,12 +9,12 @@ useHead({
     <!-- Shell Container -->
     <div class="flex h-screen w-full">
     <!-- SideNavBar -->
-    <aside class="hidden md:flex flex-col h-full border-r border-outline-variant/30 bg-surface dark:bg-inverse-surface shadow-sm docked h-screen w-64 left-0 top-0 fixed z-50">
+    <aside class="hidden md:flex flex-col h-full border-r border-outline-variant/30 bg-surface shadow-sm docked h-screen w-64 left-0 top-0 fixed z-50">
     <!-- Header -->
     <div class="p-lg border-b border-outline-variant/30 flex items-center gap-md">
     <img class="w-10 h-10 rounded-lg object-cover bg-surface-container" data-alt="A modern, abstract, minimalistic geometric logo for a tech company, using primarily blue and white colors, on a clean light background, suggesting professionalism and innovation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvSbaF8sqKzXHYF5AqH_4-DtDUdvNBuJQdtnPAm_5Ba5DQi0w6T0lB-0TQkaNsdqxLGxJ4tmhkRf4j5h6UmS9uxq4w0QBJv8l0xtvbJHHnYJrZjIc7cCyJ79VKSp3N-KJEGfdoOhSwwb9HCtEmnU5UzU5Cj1nDDOwPKQ1Vm74kU8USt9gpiUSViAxf2A0H8kXYlpjs6aO98WuxLkNFzVnqmz4J94z58RBvegVp_ak4uYPPfZTsWqeQIG_4gYd4TuJOgUbs2_CoeNmB"/>
     <div>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Job Nova</h1>
+    <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
     <p class="font-label-sm text-label-sm text-on-surface-variant">Employer Portal</p>
     </div>
     </div>
@@ -28,34 +28,34 @@ useHead({
     <!-- Main Navigation -->
     <nav class="flex-1 overflow-y-auto px-sm py-sm space-y-1">
     <!-- Active Tab: Dashboard -->
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-primary dark:text-inverse-primary font-bold border-r-4 border-primary dark:border-inverse-primary bg-primary-fixed/10 hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-fixed/10 hover:bg-surface-container-high transition-colors" href="/employer-dashboard-2">
     <UIcon name="i-lucide-layout-dashboard" />
     <span class="font-label-md text-label-md">Dashboard</span>
     </a>
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/company-profile-employer-dashboard">
     <UIcon name="i-lucide-building-2" />
     <span class="font-label-md text-label-md">Company Profile</span>
     </a>
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/post-a-new-job-employer-dashboard">
     <UIcon name="i-lucide-post-add" />
     <span class="font-label-md text-label-md">Post Job</span>
     </a>
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/manage-jobs-employer-dashboard">
     <UIcon name="i-lucide-history" />
     <span class="font-label-md text-label-md">Manage Jobs</span>
     </a>
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/applicants-tracking-employer-dashboard">
     <UIcon name="i-lucide-groups" />
     <span class="font-label-md text-label-md">Applicants</span>
     </a>
     </nav>
     <!-- Footer Navigation -->
     <div class="p-sm border-t border-outline-variant/30 space-y-1">
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/employer-dashboard-2">
     <UIcon name="i-lucide-settings" />
     <span class="font-label-md text-label-md">Settings</span>
     </a>
-    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+    <a class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/login">
     <UIcon name="i-lucide-log-out" />
     <span class="font-label-md text-label-md">Logout</span>
     </a>
@@ -64,7 +64,7 @@ useHead({
     <!-- Main Content Wrapper -->
     <div class="flex-1 flex flex-col min-h-screen md:ml-64 w-full md:w-[calc(100%-16rem)] relative">
     <!-- TopAppBar -->
-    <header class="flex justify-between items-center w-full px-lg py-md bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm docked full-width top-0 sticky z-40">
+    <header class="flex justify-between items-center w-full px-lg py-md bg-surface/80 backdrop-blur-md shadow-sm docked full-width top-0 sticky z-40">
     <!-- Left: Search Bar -->
     <div class="flex-1 max-w-md">
     <div class="relative group">
@@ -89,7 +89,7 @@ useHead({
     </div>
     </header>
     <!-- Main Canvas -->
-    <main class="flex-1 p-md md:p-xl overflow-y-auto w-full max-w-container-max mx-auto">
+    <main class="flex-1 p-md md:p-xl overflow-y-auto w-full max-w-7xl mx-auto">
     <!-- Welcome Section -->
     <section class="mb-xl">
     <div class="relative bg-primary-container text-on-primary-container rounded-2xl p-lg md:p-xl overflow-hidden ambient-shadow flex flex-col justify-center min-h-[160px]">
@@ -152,7 +152,7 @@ useHead({
     <div class="flex items-center justify-between mb-2">
     <h3 class="font-headline-md text-headline-md text-on-surface">Quick Actions</h3>
     </div>
-    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="#">
+    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="/post-a-new-job-employer-dashboard">
     <div class="w-10 h-10 rounded-lg bg-primary-fixed/50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
     <UIcon name="i-lucide-post-add" />
     </div>
@@ -161,7 +161,7 @@ useHead({
     <p class="font-body-md text-[13px] leading-snug text-on-surface-variant">Create a new listing.</p>
     </div>
     </a>
-    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="#">
+    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="/manage-jobs-employer-dashboard">
     <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary transition-colors">
     <UIcon name="i-lucide-history" />
     </div>
@@ -170,7 +170,7 @@ useHead({
     <p class="font-body-md text-[13px] leading-snug text-on-surface-variant">Edit or close active listings.</p>
     </div>
     </a>
-    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="#">
+    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="/applicants-tracking-employer-dashboard">
     <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary transition-colors">
     <UIcon name="i-lucide-rate-review" />
     </div>
@@ -179,7 +179,7 @@ useHead({
     <p class="font-body-md text-[13px] leading-snug text-on-surface-variant">Process pending candidates.</p>
     </div>
     </a>
-    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="#">
+    <a class="bg-surface-container-lowest p-md rounded-xl ambient-shadow ambient-shadow-hover transition-all-custom flex items-start gap-md border border-outline-variant/20 group" href="/company-profile-employer-dashboard">
     <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary transition-colors">
     <UIcon name="i-lucide-storefront" />
     </div>
@@ -193,7 +193,7 @@ useHead({
     <section class="lg:col-span-2 flex flex-col">
     <div class="flex items-center justify-between mb-md">
     <h3 class="font-headline-md text-headline-md text-on-surface">Recently Posted Jobs</h3>
-    <a class="font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1" href="#">View All <UIcon name="i-lucide-arrow-right" class="text-sm" /></a>
+    <a class="font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1" href="/job-search">View All <UIcon name="i-lucide-arrow-right" class="text-sm" /></a>
     </div>
     <div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex-1">
     <div class="divide-y divide-outline-variant/20">
@@ -276,7 +276,7 @@ useHead({
     <section class="flex flex-col">
     <div class="flex items-center justify-between mb-md">
     <h3 class="font-headline-md text-headline-md text-on-surface">Recent Applicants</h3>
-    <a class="font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1" href="#">View All <UIcon name="i-lucide-arrow-right" class="text-sm" /></a>
+    <a class="font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1" href="/job-search">View All <UIcon name="i-lucide-arrow-right" class="text-sm" /></a>
     </div>
     <div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex-1">
     <ul class="divide-y divide-outline-variant/20">
@@ -391,11 +391,11 @@ useHead({
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #e0e2ec;
+            background: var(--color-surface-variant);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #c1c6d6;
+            background: var(--color-outline-variant);
         }
 
         .ambient-shadow {

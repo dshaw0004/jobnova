@@ -8,7 +8,7 @@ useHead({
   <div>
     <!-- TopNavBar (Simplified for Transactional State) -->
     <header class="w-full top-0 sticky bg-surface-container-lowest border-b border-outline-variant z-50">
-    <div class="flex justify-between items-center h-[72px] px-lg max-w-container-max mx-auto">
+    <div class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
     <div class="font-headline-md text-headline-md font-bold text-primary">Job Nova</div>
     <div class="flex items-center gap-md">
     <span class="font-label-md text-label-md text-on-surface-variant px-md py-sm bg-surface-container-low rounded-full">Employer Portal</span>
@@ -20,7 +20,7 @@ useHead({
     <div class="max-w-[640px] w-full bg-surface-container-lowest rounded-xl status-card p-lg md:p-xl flex flex-col items-center relative z-10">
     <!-- Success Icon -->
     <div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center mb-lg">
-    <UIcon name="i-lucide-check-circle" class="text-white text-[40px]" style="font-variation-settings: 'FILL' 1;" />
+    <UIcon name="i-lucide-check-circle" class="text-on-primary text-[40px]" style="font-variation-settings: 'FILL' 1;" />
     </div>
     <!-- Main Heading -->
     <h1 class="font-headline-lg text-headline-lg text-center text-on-surface mb-md">
@@ -87,12 +87,12 @@ useHead({
     </main>
     <!-- Footer -->
     <footer class="w-full bg-surface-container-low border-t border-outline-variant">
-    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-container-max mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto">
     <div class="font-headline-md text-headline-md font-bold text-primary mb-md md:mb-0">Job Nova</div>
     <div class="flex gap-lg flex-wrap justify-center">
-    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Help Center</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Privacy Policy</a>
+    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Terms of Service</a>
     </div>
     <div class="font-label-md text-label-md text-on-surface-variant mt-md md:mt-0">
                     © 2024 Job Nova India. All rights reserved.
@@ -104,8 +104,8 @@ useHead({
 
 <style scoped>
 body {
-            background-color: #ffffff;
-            color: #191c23;
+            background-color: var(--color-surface-container-lowest);
+            color: var(--color-on-surface);
         }
         .status-card {
             box-shadow: 0px 4px 24px rgba(0, 91, 191, 0.08);
