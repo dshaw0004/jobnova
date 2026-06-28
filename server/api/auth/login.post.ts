@@ -19,9 +19,9 @@ export default defineEventHandler(async (event) => {
 
   // --- Fetch user ---
   const user = await DB
-    .prepare('SELECT id, password FROM users WHERE email = ?')
+    .prepare('SELECT id, password, role FROM users WHERE email = ?')
     .bind(email.toLowerCase().trim())
-    .first<{ id: number; password: string }>()
+    .first<{ id: number; password: string; role: string }>()
 
   if (!user) {
     throw createError({ statusCode: 401, message: 'Invalid email or password.' })
@@ -37,14 +37,22 @@ export default defineEventHandler(async (event) => {
   setSessionUserId(event, user.id)
 
   // --- Return profile completeness so client can route properly ---
-  const profile = await DB
-    .prepare('SELECT completeness_score, onboarding_completed, onboarding_skipped FROM jobseeker_profiles WHERE user_id = ?')
-    .bind(user.id)
-    .first<{ completeness_score: number; onboarding_completed: number; onboarding_skipped: number }>()
+  let profile = null
+  if (user.role === 'jobseeker') {
+    profile = await DB
+      .prepare('SELECT completeness_score, onboarding_completed, onboarding_skipped FROM jobseeker_profiles WHERE user_id = ?')
+      .bind(user.id)
+      .first<{ completeness_score: number; onboarding_completed: number; onboarding_skipped: number }>()
+      
+    if (!profile) {
+      profile = { completeness_score: 0, onboarding_completed: 0, onboarding_skipped: 0 }
+    }
+  }
 
   return {
     success: true,
     userId: user.id,
-    profile: profile ?? { completeness_score: 0, onboarding_completed: 0, onboarding_skipped: 0 }
+    role: user.role,
+    profile
   }
 })

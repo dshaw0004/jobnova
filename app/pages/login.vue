@@ -24,6 +24,7 @@ async function handleLogin() {
     const res = await $fetch<{
       success: boolean
       userId: number
+      role: string
       profile: { completeness_score: number; onboarding_completed: number; onboarding_skipped: number } | null
     }>('/api/auth/login', {
       method: 'POST',
@@ -34,7 +35,7 @@ async function handleLogin() {
     await fetchUser()
 
     // Redirect depending on user role / profile completion
-    const isJobseeker = res.profile !== null
+    const isJobseeker = res.role === 'jobseeker'
     if (isJobseeker && res.profile) {
       const score = res.profile.completeness_score
       const skipped = res.profile.onboarding_skipped

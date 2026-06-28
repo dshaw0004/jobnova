@@ -17,7 +17,7 @@ function handleContinue() {
   if (selectedType.value === "seeker") {
     router.push("/register-job-seeker");
   } else if (selectedType.value === "recruiter") {
-    router.push("/register-recruiter");
+    router.push("/register-employer-step-1");
   }
 }
 </script>

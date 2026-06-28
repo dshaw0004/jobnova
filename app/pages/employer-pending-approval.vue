@@ -1,93 +1,112 @@
-<script setup>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+
 useHead({
   title: "Registration Successful - Job Nova"
 })
 
-import { onMounted } from 'vue'
+const router = useRouter()
 
 onMounted(() => {
   try {
-  // Simple confetti-like effect for success celebration
-          const canvas = document.getElementById('confettiCanvas');
-          const ctx = canvas.getContext('2d');
-          let particles = [];
-  
-          function resize() {
-              canvas.width = window.innerWidth;
-              canvas.height = window.innerHeight;
-          }
-  
-          window.addEventListener('resize', resize);
-          resize();
-  
-          class Particle {
-              constructor() {
-                  this.x = Math.random() * canvas.width;
-                  this.y = -10;
-                  this.size = Math.random() * 6 + 2;
-                  this.speedY = Math.random() * 2 + 1;
-                  this.speedX = (Math.random() - 0.5) * 1.5;
-                  this.color = `hsla(${210 + Math.random() * 20}, 70%, 50%, ${Math.random() * 0.5 + 0.2})`;
-                  this.rotation = Math.random() * 360;
-                  this.rotationSpeed = Math.random() * 2 - 1;
-              }
-  
-              update() {
-                  this.y += this.speedY;
-                  this.x += this.speedX;
-                  this.rotation += this.rotationSpeed;
-                  if (this.y > canvas.height) {
-                      this.y = -10;
-                      this.x = Math.random() * canvas.width;
-                  }
-              }
-  
-              draw() {
-                  ctx.save();
-                  ctx.translate(this.x, this.y);
-                  ctx.rotate(this.rotation * Math.PI / 180);
-                  ctx.fillStyle = this.color;
-                  ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-                  ctx.restore();
-              }
-          }
-  
-          for (let i = 0; i < 40; i++) {
-              particles.push(new Particle());
-          }
-  
-          function animate() {
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-              particles.forEach(p => {
-                  p.update();
-                  p.draw();
-              });
-              requestAnimationFrame(animate);
-          }
-  
-          animate();
-  
-          // Hover scale interaction for the primary card
-          const mainCard = document.querySelector('.success-glow');
-          mainCard.addEventListener('mousemove', (e) => {
-              const rect = mainCard.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              const centerX = rect.width / 2;
-              const centerY = rect.height / 2;
-              const deltaX = (x - centerX) / 50;
-              const deltaY = (y - centerY) / 50;
-              mainCard.style.transform = `perspective(1000px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
-          });
-  
-          mainCard.addEventListener('mouseleave', () => {
-              mainCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
-              mainCard.style.transition = 'transform 0.5s ease';
-          });
-  
-          mainCard.addEventListener('mouseenter', () => {
-              mainCard.style.transition = 'none';
-          });
+    // Simple confetti-like effect for success celebration
+    const canvas = document.getElementById('confettiCanvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let particles: Particle[] = [];
+
+    function resize() {
+        if (!canvas) return;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+        x: number
+        y: number
+        size: number
+        speedY: number
+        speedX: number
+        color: string
+        rotation: number
+        rotationSpeed: number
+
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = -10;
+            this.size = Math.random() * 6 + 2;
+            this.speedY = Math.random() * 2 + 1;
+            this.speedX = (Math.random() - 0.5) * 1.5;
+            this.color = `hsla(${210 + Math.random() * 20}, 70%, 50%, ${Math.random() * 0.5 + 0.2})`;
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = Math.random() * 2 - 1;
+        }
+
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            this.rotation += this.rotationSpeed;
+            if (this.y > canvas.height) {
+                this.y = -10;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+
+        draw() {
+            if (!ctx) return;
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation * Math.PI / 180);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            ctx.restore();
+        }
+    }
+
+    for (let i = 0; i < 40; i++) {
+        particles.push(new Particle());
+    }
+
+    function animate() {
+        if (!ctx || !canvas) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Hover scale interaction for the primary card
+    const mainCard = document.querySelector('.success-glow') as HTMLElement | null;
+    if (mainCard) {
+        mainCard.addEventListener('mousemove', (e: MouseEvent) => {
+            const rect = mainCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = (x - centerX) / 50;
+            const deltaY = (y - centerY) / 50;
+            mainCard.style.transform = `perspective(1000px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
+        });
+
+        mainCard.addEventListener('mouseleave', () => {
+            mainCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+            mainCard.style.transition = 'transform 0.5s ease';
+        });
+
+        mainCard.addEventListener('mouseenter', () => {
+            mainCard.style.transition = 'none';
+        });
+    }
   } catch (e) {
     console.error('Error in page script:', e)
   }
@@ -150,7 +169,10 @@ onMounted(() => {
                     </p>
     </div>
     <!-- Action Button -->
-    <button class="w-full bg-primary text-on-primary-container h-14 rounded-xl font-label-md text-lg flex items-center justify-center gap-md hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20">
+    <button
+      class="w-full bg-primary text-on-primary-container h-14 rounded-xl font-label-md text-lg flex items-center justify-center gap-md hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20"
+      @click="router.push('/')"
+    >
                     Return to Homepage
                     <UIcon name="i-lucide-arrow-right" data-icon="arrow_forward" />
     </button>
