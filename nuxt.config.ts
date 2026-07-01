@@ -42,5 +42,13 @@ export default defineNuxtConfig({
       deployConfig: true,
       nodeCompat: true,
     },
+
+    experimental: {
+      tasks: true,
+    },
+
+    scheduledTasks: {
+      "0 0 * * *": ["govt:scrape"],
+    },
   },
 });

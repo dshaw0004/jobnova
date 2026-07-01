@@ -29,7 +29,12 @@
 			"database_id": "jobnova_db_local",
 			"migrations_dir": "./migrations"
 		}
-	]
+	],
+	"triggers": {
+		"crons": [
+			"0 0 * * *"
+		]
+	}
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
