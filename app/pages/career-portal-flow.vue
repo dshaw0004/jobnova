@@ -3,7 +3,25 @@ useHead({
   title: "Job Nova | Find the Right Job, Faster"
 })
 
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
+
+// Fetch the latest 6 government jobs from D1
+const { data: govtJobsData } = await useFetch('/api/jobs/govt-list', {
+  query: { limit: 6 }
+})
+const govtJobs = computed(() => govtJobsData.value?.jobs || [])
+
+// Determine dynamic icon based on organisation
+const getOrgIcon = (org) => {
+  const o = (org || '').toLowerCase()
+  if (o.includes('railway') || o.includes('rrb')) return 'i-lucide-train'
+  if (o.includes('defence') || o.includes('sainik') || o.includes('military') || o.includes('aerospace')) return 'i-lucide-shield'
+  if (o.includes('bank') || o.includes('rbi') || o.includes('sbi') || o.includes('cooperative')) return 'i-lucide-landmark'
+  if (o.includes('audit') || o.includes('account') || o.includes('finance')) return 'i-lucide-landmark'
+  if (o.includes('forest') || o.includes('envir') || o.includes('krishi') || o.includes('kvk')) return 'i-lucide-trees'
+  if (o.includes('research') || o.includes('science') || o.includes('nihr') || o.includes('icmr') || o.includes('power')) return 'i-lucide-flask-conical'
+  return 'i-lucide-building-2'
+}
 
 onMounted(() => {
   try {
@@ -158,126 +176,26 @@ onMounted(() => {
     <a class="text-primary font-bold hover:underline" href="/job-search">View All</a>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-md">
-    <!-- Job Card 1 -->
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+    <div v-for="job in govtJobs" :key="job.id" class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all flex flex-col justify-between">
+    <div>
     <div class="flex justify-between items-start mb-4">
     <div class="bg-primary/5 p-3 rounded-xl">
-    <UIcon name="i-lucide-landmark" class="text-primary" />
+    <UIcon :name="getOrgIcon(job.organisation)" class="text-primary" />
     </div>
     <span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
     </div>
-    <h4 class="font-headline font-semibold text-lg mb-1">Administrative Officer</h4>
-    <p class="text-on-surface-variant text-label-md mb-4">Staff Selection Commission (SSC)</p>
-    <div class="space-y-2 mb-6">
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-map-pin" class="text-sm" /> New Delhi, India
-                            </div>
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-event" class="text-sm" /> Last Date: 24 Oct, 2024
-                            </div>
-    </div>
-    <button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all">Apply Now</button>
-    </div>
-    <!-- Repeat for 5 more cards with varied data -->
-    <!-- Job Card 2 -->
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
-    <div class="flex justify-between items-start mb-4">
-    <div class="bg-primary/5 p-3 rounded-xl">
-    <UIcon name="i-lucide-train" class="text-primary" />
-    </div>
-    <span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
-    </div>
-    <h4 class="font-headline font-semibold text-lg mb-1">Assistant Loco Pilot</h4>
-    <p class="text-on-surface-variant text-label-md mb-4">Indian Railways (RRB)</p>
-    <div class="space-y-2 mb-6">
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-map-pin" class="text-sm" /> Multiple Locations
-                            </div>
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-event" class="text-sm" /> Last Date: 15 Nov, 2024
-                            </div>
-    </div>
-    <button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all">Apply Now</button>
-    </div>
-    <!-- Job Card 3 -->
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
-    <div class="flex justify-between items-start mb-4">
-    <div class="bg-primary/5 p-3 rounded-xl">
-    <UIcon name="i-lucide-wallet" class="text-primary" />
-    </div>
-    <span class="bg-orange-100 text-orange-700 text-label-sm px-2 py-1 rounded">Expiring Soon</span>
-    </div>
-    <h4 class="font-headline font-semibold text-lg mb-1">Probationary Officer</h4>
-    <p class="text-on-surface-variant text-label-md mb-4">State Bank of India (SBI)</p>
+    <h4 class="font-headline font-semibold text-lg mb-1 line-clamp-2 leading-snug">{{ job.post }}</h4>
+    <p class="text-on-surface-variant text-label-md mb-4">{{ job.organisation }}</p>
     <div class="space-y-2 mb-6">
     <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
     <UIcon name="i-lucide-map-pin" class="text-sm" /> Pan India
-                            </div>
+    </div>
     <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-event" class="text-sm" /> Last Date: 05 Oct, 2024
-                            </div>
+    <UIcon name="i-lucide-calendar" class="text-sm" /> Last Date: {{ job.last_date }}
     </div>
-    <button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all">Apply Now</button>
     </div>
-    <!-- Job Card 4 -->
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
-    <div class="flex justify-between items-start mb-4">
-    <div class="bg-primary/5 p-3 rounded-xl">
-    <UIcon name="i-lucide-security" class="text-primary" />
     </div>
-    <span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
-    </div>
-    <h4 class="font-headline font-semibold text-lg mb-1">Sub Inspector</h4>
-    <p class="text-on-surface-variant text-label-md mb-4">Delhi Police</p>
-    <div class="space-y-2 mb-6">
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-map-pin" class="text-sm" /> Delhi
-                            </div>
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-event" class="text-sm" /> Last Date: 30 Oct, 2024
-                            </div>
-    </div>
-    <button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all">Apply Now</button>
-    </div>
-    <!-- Job Card 5 -->
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
-    <div class="flex justify-between items-start mb-4">
-    <div class="bg-primary/5 p-3 rounded-xl">
-    <UIcon name="i-lucide-graduation-cap" class="text-primary" />
-    </div>
-    <span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
-    </div>
-    <h4 class="font-headline font-semibold text-lg mb-1">Post Graduate Teacher</h4>
-    <p class="text-on-surface-variant text-label-md mb-4">Kendriya Vidyalaya Sangathan (KVS)</p>
-    <div class="space-y-2 mb-6">
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-map-pin" class="text-sm" /> All India
-                            </div>
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-event" class="text-sm" /> Last Date: 12 Nov, 2024
-                            </div>
-    </div>
-    <button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all">Apply Now</button>
-    </div>
-    <!-- Job Card 6 -->
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
-    <div class="flex justify-between items-start mb-4">
-    <div class="bg-primary/5 p-3 rounded-xl">
-    <UIcon name="i-lucide-engineering" class="text-primary" />
-    </div>
-    <span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
-    </div>
-    <h4 class="font-headline font-semibold text-lg mb-1">Junior Engineer</h4>
-    <p class="text-on-surface-variant text-label-md mb-4">Public Works Department (PWD)</p>
-    <div class="space-y-2 mb-6">
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-map-pin" class="text-sm" /> Karnataka
-                            </div>
-    <div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
-    <UIcon name="i-lucide-event" class="text-sm" /> Last Date: 10 Nov, 2024
-                            </div>
-    </div>
-    <button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all">Apply Now</button>
+    <a href="https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All" target="_blank" class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all text-center inline-block">Apply Now</a>
     </div>
     </div>
     </div>

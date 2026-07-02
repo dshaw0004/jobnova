@@ -3,7 +3,13 @@ useHead({
   title: "Job Nova | India's Premium Professional Job Portal"
 })
 
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
+
+// Fetch the latest 3 government jobs from D1
+const { data: govtJobsData } = await useFetch('/api/jobs/govt-list', {
+  query: { limit: 3 }
+})
+const govtJobs = computed(() => govtJobsData.value?.jobs || [])
 
 onMounted(() => {
   try {
@@ -194,30 +200,18 @@ onMounted(() => {
     </tr>
     </thead>
     <tbody class="divide-y divide-outline-variant/20">
-    <tr class="hover:bg-primary/5 transition-all cursor-pointer group">
+    <tr v-for="job in govtJobs" :key="job.id" class="hover:bg-primary/5 transition-all cursor-pointer group">
     <td class="px-lg py-5">
-    <div class="font-Inter text-body-md font-bold text-on-surface">Assistant Manager (IT)</div>
-    <div class="text-label-sm text-on-surface-variant mt-1">Scale II Officer</div>
+    <div class="font-Inter text-body-md font-bold text-on-surface line-clamp-1 mt-1">{{ job.post }}</div>
+    <div class="text-label-sm text-on-surface-variant mt-1">{{ job.method }}</div>
     </td>
-    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant">State Bank of India (SBI)</td>
-    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant">Mumbai / Pan India</td>
+    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant font-medium">{{ job.organisation }}</td>
+    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant">Pan India</td>
     <td class="px-lg py-5">
-    <span class="px-2 py-1 bg-error-container text-on-error-container text-label-sm font-bold rounded">15 Oct 2024</span>
+    <span class="px-2 py-1 bg-primary/10 text-primary text-label-sm font-bold rounded">{{ job.last_date }}</span>
     </td>
     <td class="px-lg py-5">
-    <button class="bg-primary-container text-on-primary-container px-lg py-2 rounded-lg text-label-sm font-bold shadow-sm hover:shadow-md transition-all">View Details</button>
-    </td>
-    </tr>
-    <tr class="hover:bg-primary/5 transition-all cursor-pointer group">
-    <td class="px-lg py-5">
-    <div class="font-Inter text-body-md font-bold text-on-surface">Section Officer</div>
-    <div class="text-label-sm text-on-surface-variant mt-1">Grade B Gazetted</div>
-    </td>
-    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant">UPSC</td>
-    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant">New Delhi</td>
-    <td class="px-lg py-5 font-Inter text-body-md text-on-surface-variant">22 Oct 2024</td>
-    <td class="px-lg py-5">
-    <button class="bg-primary-container text-on-primary-container px-lg py-2 rounded-lg text-label-sm font-bold shadow-sm hover:shadow-md transition-all">View Details</button>
+    <a href="https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All" target="_blank" class="bg-primary-container text-on-primary-container px-lg py-2 rounded-lg text-label-sm font-bold shadow-sm hover:shadow-md transition-all inline-block text-center">Apply</a>
     </td>
     </tr>
     </tbody>

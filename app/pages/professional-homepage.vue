@@ -3,7 +3,13 @@ useHead({
   title: "Job Nova | India's Premium Professional Job Portal"
 })
 
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
+
+// Fetch the latest 3 government jobs from D1
+const { data: govtJobsData } = await useFetch('/api/jobs/govt-list', {
+  query: { limit: 3 }
+})
+const govtJobs = computed(() => govtJobsData.value?.jobs || [])
 
 onMounted(() => {
   try {
@@ -169,34 +175,14 @@ onMounted(() => {
     </tr>
     </thead>
     <tbody class="divide-y divide-outline-variant/20">
-    <tr class="hover:bg-primary/5 transition-colors group">
-    <td class="px-lg py-4 font-Inter text-body-md font-semibold text-on-surface">Assistant Manager (IT)</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">SBI</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Mumbai</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-error font-medium">15 Oct 2024</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">B.Tech / MCA</td>
-    <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Apply</button>
-    </td>
-    </tr>
-    <tr class="hover:bg-primary/5 transition-colors group">
-    <td class="px-lg py-4 font-Inter text-body-md font-semibold text-on-surface">Section Officer</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">UPSC</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Delhi</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">22 Oct 2024</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Any Graduate</td>
-    <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Apply</button>
-    </td>
-    </tr>
-    <tr class="hover:bg-primary/5 transition-colors group">
-    <td class="px-lg py-4 font-Inter text-body-md font-semibold text-on-surface">Junior Engineer (Civil)</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Indian Railways</td>
+    <tr v-for="job in govtJobs" :key="job.id" class="hover:bg-primary/5 transition-colors group">
+    <td class="px-lg py-4 font-Inter text-body-md font-semibold text-on-surface line-clamp-1 mt-1.5">{{ job.post }}</td>
+    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant font-medium">{{ job.organisation }}</td>
     <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Pan India</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">30 Oct 2024</td>
-    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">Diploma / BE</td>
+    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">{{ job.last_date }}</td>
+    <td class="px-lg py-4 font-Inter text-body-md text-on-surface-variant">{{ job.method }}</td>
     <td class="px-lg py-4">
-    <button class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Apply</button>
+    <a href="https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All" target="_blank" class="bg-primary/10 text-primary px-md py-1.5 rounded-lg text-label-sm font-bold group-hover:bg-primary group-hover:text-on-primary transition-all inline-block text-center">Apply</a>
     </td>
     </tr>
     </tbody>
