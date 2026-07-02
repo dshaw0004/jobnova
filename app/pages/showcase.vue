@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 useHead({
   title: 'Job Nova UI Showcase | Demo Directory'
 })

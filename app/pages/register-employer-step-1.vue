@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 

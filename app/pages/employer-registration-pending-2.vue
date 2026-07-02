@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 useHead({
   title: "Pending Approval | Job Nova Employer"
 })

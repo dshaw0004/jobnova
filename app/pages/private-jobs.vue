@@ -32,27 +32,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- Top Navigation Bar -->
-    <header class="fixed top-0 w-full z-50 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)] h-16 flex items-center">
-    <div class="flex justify-between items-center h-16 px-gutter max-w-7xl mx-auto w-full">
-    <div class="flex items-center gap-xl">
-    <img alt="Job Nova Logo" class="h-8" src="https://lh3.googleusercontent.com/aida/AP1WRLv-2ydrJl8ro1k84ft1k9MO5Em6SalCNf_iBsc5e2OrMXGzVtTEjEVSDVF0eqZ5V1Z_MPaBUWEQQ8TL7E3DxyEnGA7MWJqWOPP72z1irJFGDUio_NAxnFCDhTIzvJN_d82NUtrax4T5sFIHMVMt0DlQpjHdqwbYT5EGkxna8Fryt9hxYC82kY9-xi6IA4YUdJd7k03IMQnhTHiuA8QbRIlRuduwRdMmacENBtGs6xiWZi2SVeaz0MLRcv5f">
-    <nav class="hidden md:flex items-center gap-lg">
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Home</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/government-jobs">Govt Jobs</a>
-    <a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="/private-jobs">Private Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Resources</a>
-    </nav>
-    </div>
-    <div class="flex items-center gap-md">
-    <button class="hidden sm:block text-primary font-label-md px-md py-sm hover:bg-surface-container-low rounded-xl transition-all">Login</button>
-    <button class="bg-primary text-on-primary font-label-md px-lg py-sm rounded-xl hover:scale-[0.98] transition-transform shadow-md">Post a Job</button>
-    <button class="p-2 text-on-surface-variant hover:text-primary rounded-full transition-colors">
-    <UIcon name="i-lucide-user" data-icon="person" />
-    </button>
-    </div>
-    </div>
-    </header>
     <main class="pt-24 pb-xl px-gutter max-w-7xl mx-auto">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-xs text-on-surface-variant mb-md font-label-md">
@@ -413,56 +392,6 @@ onMounted(() => {
     </aside>
     </div>
     </main>
-    <!-- Footer -->
-    <footer class="bg-surface-container-low w-full py-xl mt-xl border-t border-surface-container">
-    <div class="max-w-7xl mx-auto px-gutter">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
-    <div class="col-span-1 md:col-span-1">
-    <img alt="Job Nova Logo" class="h-8 mb-md" src="https://lh3.googleusercontent.com/aida/AP1WRLv-2ydrJl8ro1k84ft1k9MO5Em6SalCNf_iBsc5e2OrMXGzVtTEjEVSDVF0eqZ5V1Z_MPaBUWEQQ8TL7E3DxyEnGA7MWJqWOPP72z1irJFGDUio_NAxnFCDhTIzvJN_d82NUtrax4T5sFIHMVMt0DlQpjHdqwbYT5EGkxna8Fryt9hxYC82kY9-xi6IA4YUdJd7k03IMQnhTHiuA8QbRIlRuduwRdMmacENBtGs6xiWZi2SVeaz0MLRcv5f">
-    <p class="text-on-surface-variant text-body-md mb-md">Connecting India's top talent with the best private and government opportunities.</p>
-    <div class="flex gap-md">
-    <a class="text-outline hover:text-primary transition-colors" href="/"><UIcon name="i-lucide-public" /></a>
-    <a class="text-outline hover:text-primary transition-colors" href="/"><UIcon name="i-lucide-users" /></a>
-    <a class="text-outline hover:text-primary transition-colors" href="/"><UIcon name="i-lucide-hub" /></a>
-    </div>
-    </div>
-    <div>
-    <h4 class="font-headline-md text-[18px] mb-lg">Candidate</h4>
-    <ul class="space-y-sm text-on-surface-variant font-body-md">
-    <li><a class="hover:text-primary hover:underline transition-all" href="/job-search">Browse Jobs</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/my-career-hub">Career Advice</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/government-jobs">Govt Notifications</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/my-career-hub">Resume Builder</a></li>
-    </ul>
-    </div>
-    <div>
-    <h4 class="font-headline-md text-[18px] mb-lg">Employer</h4>
-    <ul class="space-y-sm text-on-surface-variant font-body-md">
-    <li><a class="hover:text-primary hover:underline transition-all" href="/register-employer-step-1">Post a Job</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/register-employer-step-1">Hiring Solutions</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/register-employer-step-1">Pricing Plans</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/jobseeker-dashboard">Admin Dashboard</a></li>
-    </ul>
-    </div>
-    <div>
-    <h4 class="font-headline-md text-[18px] mb-lg">Support</h4>
-    <ul class="space-y-sm text-on-surface-variant font-body-md">
-    <li><a class="hover:text-primary hover:underline transition-all" href="/">Help Center</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/">Contact Us</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/">Privacy Policy</a></li>
-    <li><a class="hover:text-primary hover:underline transition-all" href="/">Terms of Service</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="mt-xl pt-lg border-t border-surface-container-highest flex flex-col md:flex-row justify-between items-center gap-md">
-    <p class="text-label-md text-on-surface-variant opacity-70">© 2024 Job Nova. All rights reserved. India's Premium Career Ecosystem.</p>
-    <div class="flex items-center gap-lg">
-    <span class="text-label-sm font-bold bg-primary-fixed text-primary px-sm py-1 rounded">ISO CERTIFIED</span>
-    </div>
-    </div>
-    </div>
-    </footer>
-    
   </div>
 </template>
 

@@ -21,28 +21,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- Top Navigation Bar -->
-    <header class="w-full sticky top-0 z-50 bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-    <nav class="flex items-center justify-between px-lg py-sm max-w-7xl mx-auto h-16">
-    <div class="flex items-center gap-xl">
-    <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
-    <div class="hidden md:flex items-center gap-lg">
-    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="/">Home</a>
-    <a class="text-primary font-semibold border-b-2 border-primary font-body-md text-body-md" href="/private-jobs">Private Jobs</a>
-    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="/government-jobs">Govt Jobs</a>
-    <a class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors" href="/my-career-hub">Resources</a>
-    </div>
-    </div>
-    <div class="flex items-center gap-md">
-    <button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
-    <UIcon name="i-lucide-bell" data-icon="notifications" />
-    </button>
-    <button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
-    <UIcon name="i-lucide-user" data-icon="person" />
-    </button>
-    </div>
-    </nav>
-    </header>
     <main class="max-w-7xl mx-auto px-lg py-xl">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-xs text-on-surface-variant mb-xl font-label-md text-label-md">
@@ -420,47 +398,7 @@ onMounted(() => {
     </div>
     </section>
     </main>
-    <!-- Footer -->
-    <footer class="w-full rounded-t-xl bg-surface-container-highest mt-xl">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-xl px-lg py-xl max-w-7xl mx-auto">
-    <div class="col-span-2 lg:col-span-1">
-    <span class="font-headline-md text-headline-md font-bold text-primary mb-md block">Job Nova</span>
-    <p class="font-body-md text-body-md text-on-surface-variant pr-md">The most trusted destination for premium and government job seekers in India.</p>
     </div>
-    <div class="space-y-md">
-    <h5 class="font-body-md text-body-md font-bold text-on-surface">Company</h5>
-    <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/">About Us</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/register-choose-account-type">Careers</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/my-career-hub">Resources</a></li>
-    </ul>
-    </div>
-    <div class="space-y-md">
-    <h5 class="font-body-md text-body-md font-bold text-on-surface">Jobs</h5>
-    <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/job-search">Remote Jobs</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/job-search">Tech Jobs</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/private-jobs">Private Jobs</a></li>
-    </ul>
-    </div>
-    <div class="space-y-md">
-    <h5 class="font-body-md text-body-md font-bold text-on-surface">Support</h5>
-    <ul class="space-y-sm">
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/">Help Center</a></li>
-    <li><a class="text-on-surface-variant hover:text-primary transition-all hover:underline font-body-md text-body-md" href="/">Contact Us</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="px-lg py-lg border-t border-outline-variant/30 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
-    <span class="text-on-surface-variant font-body-md text-body-md">© 2024 Job Nova. All rights reserved.</span>
-    <div class="flex gap-lg">
-    <a class="text-on-surface-variant hover:text-primary" href="/"><UIcon name="i-lucide-globe" data-icon="language" /></a>
-    <a class="text-on-surface-variant hover:text-primary" href="/"><UIcon name="i-lucide-rss-feed" data-icon="rss_feed" /></a>
-    </div>
-    </div>
-    </footer>
-    
-  </div>
 </template>
 
 <style scoped>

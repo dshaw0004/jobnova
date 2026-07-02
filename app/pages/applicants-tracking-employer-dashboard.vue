@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 useHead({
   title: "Applicants Tracking - Job Nova"
 })

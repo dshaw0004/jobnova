@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 useHead({
   title: "My Career Hub | Job Nova"
 })

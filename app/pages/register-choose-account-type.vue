@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 

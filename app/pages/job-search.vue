@@ -149,27 +149,6 @@ function formatDate(dateStr: string) {
 
 <template>
   <div class="min-h-screen bg-surface flex flex-col">
-    <!-- TopNavBar -->
-    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border-b border-outline-variant/30">
-      <div class="flex items-center gap-xl">
-        <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
-        <nav class="hidden md:flex gap-lg items-center h-full">
-          <NuxtLink class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 hover:text-primary transition-colors" to="/job-search">Find Jobs</NuxtLink>
-          <NuxtLink class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/my-career-hub">Career Advice</NuxtLink>
-        </nav>
-      </div>
-      <div class="flex items-center gap-md">
-        <template v-if="user">
-          <span class="font-label-md text-label-md text-on-surface-variant">Hello, {{ user.email }}</span>
-          <NuxtLink class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded-xl hover:bg-secondary transition-all shadow-sm" to="/jobseeker-dashboard">My Dashboard</NuxtLink>
-        </template>
-        <template v-else>
-          <NuxtLink class="font-label-md text-label-md text-on-surface-variant px-md py-sm hover:text-primary transition-all" to="/login">Login</NuxtLink>
-          <NuxtLink class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded-xl hover:bg-secondary transition-all shadow-sm" to="/register-choose-account-type">Sign Up</NuxtLink>
-        </template>
-      </div>
-    </header>
-
     <main class="mt-16 max-w-7xl mx-auto px-lg py-xl flex flex-col gap-xl w-full">
       <!-- Search Section -->
       <section class="w-full">

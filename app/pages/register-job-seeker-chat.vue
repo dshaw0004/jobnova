@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
 useHead({ title: 'AI Interview — Build Your Profile | Job Nova' })
 
 import { ref, reactive, computed, nextTick, onMounted } from 'vue'

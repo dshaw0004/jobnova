@@ -39,25 +39,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- Top Navigation Bar -->
-    <header class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
-    <div class="flex justify-between items-center px-gutter py-4 max-w-7xl mx-auto">
-    <div class="flex items-center gap-xl">
-    <a class="text-headline-md font-headline-md font-bold text-primary" href="/">Job Nova</a>
-    <nav class="hidden md:flex items-center gap-lg">
-    <a class="font-Inter text-label-md text-primary font-bold border-b-2 border-primary py-1" href="/job-search">Find Jobs</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/government-jobs">Govt Jobs</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/private-jobs">Private Jobs</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/job-search">Companies</a>
-    <a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="/my-career-hub">Career Advice</a>
-    </nav>
-    </div>
-    <div class="flex items-center gap-md">
-    <button class="px-md py-2 font-Inter text-label-md text-primary font-semibold hover:opacity-90 active:scale-[0.98] transition-all">Login/Register</button>
-    <button class="bg-primary-container text-on-primary-container px-lg py-2.5 rounded-lg font-Inter text-label-md font-bold hover:opacity-90 active:scale-[0.98] transition-all">Post a Job</button>
-    </div>
-    </div>
-    </header>
     <main>
     <!-- Hero Search Section -->
     <section class="relative pt-xl pb-32 overflow-hidden">
@@ -351,61 +332,7 @@ onMounted(() => {
     </div>
     </section>
     </main>
-    <!-- Footer -->
-    <footer class="bg-surface-container-low w-full pt-xl pb-md">
-    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-2 md:grid-cols-5 gap-lg">
-    <div class="col-span-2 md:col-span-1">
-    <h4 class="text-headline-md font-headline-md font-bold text-primary mb-md">Job Nova</h4>
-    <p class="font-Inter text-body-md text-on-surface-variant mb-md">Bridging the gap between ambitious talent and India's finest organizations.</p>
-    <div class="flex gap-md">
-    <a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" href="/"><UIcon name="i-lucide-share-2" class="text-sm" /></a>
-    <a class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" href="/"><UIcon name="i-lucide-mail" class="text-sm" /></a>
     </div>
-    </div>
-    <div>
-    <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">For Job Seekers</h5>
-    <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/government-jobs">Govt Jobs</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/private-jobs">Private Jobs</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">IT Jobs</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/government-jobs">Banking</a></li>
-    </ul>
-    </div>
-    <div>
-    <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">For Employers</h5>
-    <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/register-employer-step-1">Post a Job</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/register-employer-step-1">Hiring Solutions</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/login">Employer Login</a></li>
-    </ul>
-    </div>
-    <div>
-    <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">Resources</h5>
-    <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Career Blog</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Interview Tips</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Resume Builder</a></li>
-    </ul>
-    </div>
-    <div>
-    <h5 class="font-Inter text-label-md font-bold text-on-surface mb-md">Support</h5>
-    <ul class="space-y-sm">
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Help Center</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Contact Us</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Privacy Policy</a></li>
-    <li><a class="font-Inter text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Terms</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="max-w-7xl mx-auto px-gutter mt-xl pt-lg border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-md">
-    <p class="font-Inter text-label-sm text-on-surface-variant">© 2024 Job Nova. All rights reserved.</p>
-    <div class="flex gap-lg">
-    <span class="font-Inter text-label-sm text-on-surface-variant">Made with Pride in India</span>
-    </div>
-    </div>
-    </footer>
-    
-  </div>
 </template>
 
 <style scoped>

@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 useHead({
   title: "Candidate Profile - Job Nova Employer Dashboard"
 })

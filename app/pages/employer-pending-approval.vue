@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 

@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: false
+})
+
 useHead({
   title: "Job Seeker Registration - Step 2 | Job Nova"
 })

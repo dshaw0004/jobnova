@@ -48,26 +48,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- TopNavBar -->
-    <header class="w-full sticky top-0 z-50 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-    <div class="flex justify-between items-center max-w-7xl mx-auto px-lg h-16">
-    <div class="flex items-center gap-md">
-    <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
-    </div>
-    <nav class="hidden md:flex items-center gap-lg">
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/">Home</a>
-    <a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="/government-jobs">Govt Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/private-jobs">Private Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Resources</a>
-    </nav>
-    <div class="flex items-center gap-md">
-    <button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all active:scale-95">notifications</button>
-    <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
-    <img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO3eFZPMXpigXieVI5TOpGr_hOJidmgOg-8zaKm_-xIoZdKDmlFa1dYa7osytKNLxAhh234z1xwfLUTEIcdZmnbutsp1YjwGp6ZsFwCiC-YQsuJJ0cxHeTrkMiLqVn-v4-QuTDR9TLoQ-iIAesOrPkZtZzxq3q3_icLjSnCSmIThY1tWgFdiBISacLEkDx6myzZgFTfLD_-dB1xy9VDjB6vPGWlLTlnlbywjBa_jD6sRkpYKKLxcS9LWUBxgDRZxHYiwYiUiQ1O9wm">
-    </div>
-    </div>
-    </div>
-    </header>
     <main class="max-w-7xl mx-auto px-lg py-sm md:py-md">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-sm mb-lg text-on-surface-variant font-label-md">
@@ -388,23 +368,7 @@ onMounted(() => {
     </aside>
     </div>
     </main>
-    <!-- Footer -->
-    <footer class="w-full mt-xl bg-surface-container-lowest border-t border-outline-variant">
-    <div class="max-w-7xl mx-auto px-lg py-xl flex flex-col md:flex-row justify-between items-center gap-md">
-    <div>
-    <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
-    <p class="font-body-md text-on-surface-variant mt-xs">© 2024 Job Nova. Premium Recruitment Portal.</p>
     </div>
-    <div class="flex gap-lg">
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">About Us</a>
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">Contact</a>
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">Privacy Policy</a>
-    <a class="font-body-md text-on-surface-variant hover:text-primary underline transition-all" href="/">Terms of Service</a>
-    </div>
-    </div>
-    </footer>
-    
-  </div>
 </template>
 
 <style scoped>

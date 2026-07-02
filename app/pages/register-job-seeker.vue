@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
 useHead({ title: 'Create Jobseeker Account - Job Nova' })
 
 import { ref, reactive } from 'vue'

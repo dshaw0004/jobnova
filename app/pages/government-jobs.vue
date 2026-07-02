@@ -111,26 +111,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- TopNavBar -->
-    <header class="sticky top-0 w-full z-50 bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
-      <div class="max-w-7xl mx-auto px-lg flex justify-between items-center h-16">
-        <div class="flex items-center gap-xl">
-          <span class="font-headline-lg text-headline-lg font-bold text-primary">Job Nova</span>
-          <nav class="hidden md:flex items-center gap-lg">
-            <NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" to="/">Home</NuxtLink>
-            <NuxtLink class="text-primary border-b-2 border-primary font-bold pb-1" to="/government-jobs">Govt Jobs</NuxtLink>
-            <NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" to="/private-jobs">Private Jobs</NuxtLink>
-            <NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" to="/my-career-hub">Resources</NuxtLink>
-          </nav>
-        </div>
-        <div class="flex items-center gap-md">
-          <button class="hidden lg:block px-md py-sm bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">Post a Job</button>
-          <button class="px-md py-sm border border-outline-variant text-primary rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Register</button>
-          <UIcon name="i-lucide-user" class="text-on-surface-variant cursor-pointer p-sm hover:bg-surface-container rounded-full" />
-        </div>
-      </div>
-    </header>
-
     <main class="max-w-7xl mx-auto px-lg py-xl">
       <!-- Hero Section -->
       <section class="mb-xl">
@@ -381,41 +361,6 @@ onMounted(() => {
       </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full rounded-t-xl bg-surface-container border-t border-outline-variant mt-xl">
-      <div class="max-w-7xl mx-auto px-lg py-xl grid grid-cols-1 md:grid-cols-4 gap-lg">
-        <div class="space-y-md">
-          <span class="font-headline-md text-headline-md font-bold text-primary">Job Nova</span>
-          <p class="font-body-md text-body-md text-on-surface-variant">© 2024 Job Nova. All rights reserved. Built for the Indian job market.</p>
-        </div>
-        <div>
-          <h4 class="font-label-md text-label-md font-bold mb-md">Company</h4>
-          <ul class="space-y-sm">
-            <li><NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" to="/">About Us</NuxtLink></li>
-            <li><NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" to="/">Contact</NuxtLink></li>
-            <li><NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" to="/">Support</NuxtLink></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-label-md text-label-md font-bold mb-md">Categories</h4>
-          <ul class="space-y-sm">
-            <li><NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" to="/ssc-cgl-2026-details">SSC Jobs</NuxtLink></li>
-            <li><NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" to="/government-jobs">Bank Jobs</NuxtLink></li>
-            <li><NuxtLink class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors" to="/government-jobs">Defense Jobs</NuxtLink></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-label-md text-label-md font-bold mb-md">Newsletter</h4>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-md">Get job alerts directly in your inbox.</p>
-          <div class="flex gap-xs">
-            <input class="flex-1 bg-surface border-outline-variant rounded-lg p-sm text-body-md" placeholder="Email Address" type="email">
-            <button class="bg-primary text-on-primary px-md rounded-lg flex items-center justify-center">
-              <UIcon name="i-lucide-send" class="text-white text-lg" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
