@@ -3,13 +3,23 @@ useHead({
   title: "Job Nova | Find the Right Job, Faster",
 });
 
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuth } from "~/composables/useAuth";
+
+const router = useRouter();
+const { user, fetchUser } = useAuth();
+const applyLoading = ref(false);
 
 // Fetch the latest 3 government jobs from the D1 database binding
 const { data: govtJobsData } = await useFetch('/api/jobs/govt-list', {
   query: { limit: 3 }
 })
 const govtJobs = computed(() => govtJobsData.value?.jobs || [])
+
+// Fetch the latest 3 private jobs from the API
+const { data: privateJobsData } = await useFetch('/api/jobs/public-list')
+const privateJobs = computed(() => privateJobsData.value?.jobs?.slice(0, 3) || [])
 
 // Determine dynamic icon based on organisation
 const getOrgIcon = (org) => {
@@ -24,7 +34,48 @@ const getOrgIcon = (org) => {
   return 'i-lucide-building-2'
 }
 
-onMounted(() => {
+async function applyToJob(jobId) {
+  if (!user.value) {
+    router.push(`/login?redirect=/`)
+    return
+  }
+
+  if (user.value.role !== 'jobseeker') {
+    alert('Only jobseeker accounts can apply for jobs.')
+    return
+  }
+
+  applyLoading.value = true
+  try {
+    const res = await $fetch('/api/jobs/apply', {
+      method: 'POST',
+      body: { jobId }
+    })
+    if (res.success) {
+      alert(res.message)
+      // Update local state
+      const job = privateJobs.value.find(j => j.id === jobId)
+      if (job) job.hasApplied = true
+    }
+  } catch (err) {
+    alert(err.data?.message || 'Failed to submit application.')
+  } finally {
+    applyLoading.value = false
+  }
+}
+
+function formatSalary(min, max) {
+  if (min !== null && max !== null) {
+    return `₹${min}-${max} LPA`
+  }
+  if (min !== null) {
+    return `₹${min}+ LPA`
+  }
+  return 'Not Disclosed'
+}
+
+onMounted(async () => {
+  await fetchUser();
   try {
     // Simple intersection observer for reveal animations
     const observerOptions = {
@@ -349,133 +400,49 @@ onMounted(() => {
           >
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-md">
-          <!-- Private Job Card 1 -->
-          <div
-            class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all"
-          >
-            <div class="flex gap-4 mb-4">
-              <div
-                class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2"
-              >
-                <img
-                  alt="Microsoft"
-                  class="w-full h-full object-contain"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8RtJKLz4u8ZBGsGzTR4zz-3jUGiovuqRqZVvvLzptR-WWl25-0Cp9mk0yfZIIwW6KVkpm3EbOCfMOqviBC6UsNytEdPg9y2jgHWfl71-u7f04B2zKOHxjOqrAw1--kPQpWMPGEc4eTt1HS_xwhgJiLEVAHQfvbFcpyT_gt0WlubSiCgYoWi-zOiYHY6fuvfk_bRWyT0E_JBi8advBS4Jb5hAD-DGNKEFV1mSmSedZEatkf-dMmIghwJPAp6KO6rpMOvD0lip4oWQh"
-                />
-              </div>
-              <div>
-                <h4 class="font-headline font-semibold">
-                  Software Engineer II
-                </h4>
-                <p class="text-on-surface-variant text-label-md">Microsoft</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span
-                class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded"
-                >Remote</span
-              >
-              <span
-                class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded"
-                >Full-time</span
-              >
-            </div>
-            <div class="flex justify-between items-center">
-              <p class="text-on-surface font-bold">
-                ₹18L - 25L
-                <span class="text-on-surface-variant font-normal text-xs"
-                  >/yr</span
-                >
-              </p>
-              <button
-                class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold group-hover:bg-secondary transition-all"
-              >
-                Apply
-              </button>
-            </div>
-          </div>
-          <!-- Repeat for others -->
-          <div
-            class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all"
-          >
-            <div class="flex gap-4 mb-4">
-              <div
-                class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2"
-              >
-                <img
-                  alt="Amazon"
-                  class="w-full h-full object-contain"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRzCmAwdWfn33lp9OHWWRqWM587kc8M4HawbOT1ovx1pJ6ekiAZa-y5Wj3SCopUBXM1-r_BRkFhmPzBF5olbvtKzek6e0NRCVo8pDPIpTtQh0NcWIUaY7n8CdW8Kb1SU0i31qOFECtkUvqG5pz4gjPHzGnjrrEaYLGbELTYlyjzQPgyrGB4KHQ_JzNl8r3jVqPuUFZz8xAIavTFQGFztGHq5a2GoJP1qxCGirFvygncAbhtTe6BJhUu8WjdLsCBwOq2sPr28EtnZtp"
-                />
-              </div>
-              <div>
-                <h4 class="font-headline font-semibold">Product Manager</h4>
-                <p class="text-on-surface-variant text-label-md">Amazon</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span
-                class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded"
-                >Hyderabad</span
-              >
-              <span
-                class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded"
-                >On-site</span
-              >
-            </div>
-            <div class="flex justify-between items-center">
-              <p class="text-on-surface font-bold">
-                ₹22L - 30L
-                <span class="text-on-surface-variant font-normal text-xs"
-                  >/yr</span
-                >
-              </p>
-              <button
-                class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold group-hover:bg-secondary transition-all"
-              >
-                Apply
-              </button>
-            </div>
+          <div v-if="privateJobs.length === 0" class="col-span-full py-8 text-center text-on-surface-variant/60 font-body-sm bg-surface-container-lowest rounded-2xl border border-dashed border-outline-variant">
+            No active private jobs at the moment.
           </div>
           <div
-            class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all"
+            v-for="job in privateJobs"
+            :key="job.id"
+            class="bg-surface-container-lowest p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all flex flex-col justify-between"
           >
-            <div class="flex gap-4 mb-4">
-              <div
-                class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2"
-              >
-                <img
-                  alt="Infosys"
-                  class="w-full h-full object-contain"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBesjQdnVwj10pKNJ9dFCyZy8omcBVRoFHbF-YPgdD7MGj_wopbtT4yyIvkQP04s7RtGUcUwb4VBzLCuoWg3WFMlWAso8hsvggEKaJNc4fNrSr_xn0-jQwMzMlTeYv67qpatzl1SPSdb0utqK8jxDaEkS-IMd0XhO7-GF8Zg_5rsSra15bqgrVedaepveEqV_4bj-yo5mOuuVbrhhMj70SNNfrW59Gw8G8vrUfeosfatKsqBM3ZqPkV-Rf5Ll9qvQFp2NsxMATXjAAs"
-                />
-              </div>
-              <div>
-                <h4 class="font-headline font-semibold">Cloud Architect</h4>
-                <p class="text-on-surface-variant text-label-md">Infosys</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span
-                class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded"
-                >Bengaluru</span
-              >
-              <span
-                class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded"
-                >Hybrid</span
-              >
-            </div>
-            <div class="flex justify-between items-center">
-              <p class="text-on-surface font-bold">
-                ₹15L - 20L
-                <span class="text-on-surface-variant font-normal text-xs"
-                  >/yr</span
+            <div>
+              <div class="flex gap-4 mb-4">
+                <div
+                  class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2"
                 >
+                  <UIcon name="i-lucide-building-2" class="text-primary text-xl" />
+                </div>
+                <div>
+                  <h4 class="font-headline font-semibold line-clamp-1">
+                    {{ job.title }}
+                  </h4>
+                  <p class="text-on-surface-variant text-label-md">{{ job.company_name || 'Verified Employer' }}</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded"
+                  >{{ job.city ? `${job.city}, ${job.state || ''}` : 'Remote' }}</span
+                >
+                <span
+                  class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded"
+                  >{{ job.industry || 'Tech' }}</span
+                >
+              </div>
+            </div>
+            <div class="flex justify-between items-center mt-auto pt-4 border-t border-outline-variant/10">
+              <p class="text-on-surface font-bold text-sm">
+                {{ formatSalary(job.sal_min, job.sal_max) }}
               </p>
               <button
-                class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold group-hover:bg-secondary transition-all"
+                class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold hover:bg-secondary transition-all disabled:opacity-60 cursor-pointer"
+                :disabled="job.hasApplied || applyLoading"
+                @click="applyToJob(job.id)"
               >
-                Apply
+                {{ job.hasApplied ? 'Applied' : 'Apply' }}
               </button>
             </div>
           </div>
