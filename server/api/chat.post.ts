@@ -8,8 +8,8 @@
  * - Updates jobseeker_profiles with any newly extracted data.
  */
 
-import { defineEventHandler, readBody, createError } from 'h3'
-import { getSessionUserId } from '../utils/session'
+import {defineEventHandler, readBody, createError} from 'h3'
+import {getSessionUserId} from '../utils/session'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -21,8 +21,8 @@ interface OllamaMessage {
 interface ExtractedProfile {
   full_name?: string
   about_self?: string
-  academic_info?: Array<{ degree: string; institution: string; year?: string; grade?: string }>
-  professional_info?: Array<{ company: string; role: string; duration?: string; description?: string }>
+  academic_info?: Array<{degree: string; institution: string; year?: string; grade?: string}>
+  professional_info?: Array<{company: string; role: string; duration?: string; description?: string}>
   sector?: string
   sector_reason?: string
   team_scenario_answer?: string
@@ -67,12 +67,12 @@ Extract these fields (use null if not mentioned):
 // ─── Ollama Helper ────────────────────────────────────────────────────────────
 
 const OLLAMA_URL = 'http://localhost:11434/api/chat'
-const MODEL = 'gemma3:270m'
+const MODEL = process.env.MODEL || 'gemma3:270m'
 
 async function callOllama(messages: OllamaMessage[]): Promise<string> {
   const response = await fetch(OLLAMA_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       model: MODEL,
       messages,
@@ -88,7 +88,7 @@ async function callOllama(messages: OllamaMessage[]): Promise<string> {
     throw new Error(`Ollama returned ${response.status}: ${await response.text()}`)
   }
 
-  const data = await response.json() as { message: { content: string } }
+  const data = await response.json() as {message: {content: string}}
   return data.message?.content?.trim() ?? ''
 }
 
@@ -118,18 +118,18 @@ function calcCompleteness(profile: ExtractedProfile): number {
 // ─── Handler ──────────────────────────────────────────────────────────────────
 
 export default defineEventHandler(async (event) => {
-  const { DB } = event.context.cloudflare.env as unknown as { DB: D1Database }
+  const {DB} = event.context.cloudflare.env as unknown as {DB: D1Database}
 
   const userId = getSessionUserId(event)
   if (!userId) {
-    throw createError({ statusCode: 401, message: 'Not authenticated.' })
+    throw createError({statusCode: 401, message: 'Not authenticated.'})
   }
 
   const body = await readBody(event)
-  const { message } = body ?? {}
+  const {message} = body ?? {}
 
   if (!message || typeof message !== 'string' || !message.trim()) {
-    throw createError({ statusCode: 400, message: 'Message cannot be empty.' })
+    throw createError({statusCode: 400, message: 'Message cannot be empty.'})
   }
 
   // 1. Store user message
@@ -139,17 +139,17 @@ export default defineEventHandler(async (event) => {
     .run()
 
   // 2. Load full conversation history
-  const { results } = await DB
+  const {results} = await DB
     .prepare('SELECT role, content FROM chat_messages WHERE user_id = ? ORDER BY created_at ASC')
     .bind(userId)
-    .all<{ role: string; content: string }>()
+    .all<{role: string; content: string}>()
 
   const history = results || []
 
   // 3. Build messages array for Ollama
   const ollamaMessages: OllamaMessage[] = [
-    { role: 'system', content: INTERVIEW_SYSTEM_PROMPT },
-    ...history.map((m: any) => ({ role: m.role as 'user' | 'assistant', content: m.content }))
+    {role: 'system', content: INTERVIEW_SYSTEM_PROMPT},
+    ...history.map((m: any) => ({role: m.role as 'user' | 'assistant', content: m.content}))
   ]
 
   // 4. Get AI response
@@ -179,8 +179,8 @@ export default defineEventHandler(async (event) => {
       .join('\n')
 
     const extractionMessages: OllamaMessage[] = [
-      { role: 'system', content: EXTRACTION_SYSTEM_PROMPT },
-      { role: 'user', content: `Extract data from this interview conversation:\n\n${conversationText}` }
+      {role: 'system', content: EXTRACTION_SYSTEM_PROMPT},
+      {role: 'user', content: `Extract data from this interview conversation:\n\n${conversationText}`}
     ]
 
     const extractedRaw = await callOllama(extractionMessages)

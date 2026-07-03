@@ -1,64 +1,66 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: false
-})
+  layout: false,
+});
 
 useHead({
   title: "Login | Job Nova",
-})
+});
 
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuth } from '~/composables/useAuth'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuth } from "~/composables/useAuth";
 
-const router = useRouter()
-const { fetchUser } = useAuth()
+const router = useRouter();
+const { fetchUser } = useAuth();
 
-const email = ref('')
-const password = ref('')
-const showPassword = ref(false)
-const loading = ref(false)
-const errorMsg = ref('')
+const email = ref("");
+const password = ref("");
+const showPassword = ref(false);
+const loading = ref(false);
+const errorMsg = ref("");
 
 async function handleLogin() {
-  errorMsg.value = ''
-  loading.value = true
+  errorMsg.value = "";
+  loading.value = true;
 
   try {
     const res = await $fetch<{
-      success: boolean
-      userId: number
-      role: string
-      profile: { completeness_score: number; onboarding_completed: number; onboarding_skipped: number } | null
-    }>('/api/auth/login', {
-      method: 'POST',
-      body: { email: email.value, password: password.value }
-    })
+      success: boolean;
+      userId: number;
+      role: string;
+      profile: {
+        completeness_score: number;
+        onboarding_completed: number;
+        onboarding_skipped: number;
+      } | null;
+    }>("/api/auth/login", {
+      method: "POST",
+      body: { email: email.value, password: password.value },
+    });
 
     // Fetch the user globally into the state
-    await fetchUser()
+    await fetchUser();
 
     // Redirect depending on user role / profile completion
-    const isJobseeker = res.role === 'jobseeker'
+    const isJobseeker = res.role === "jobseeker";
     if (isJobseeker && res.profile) {
-      const score = res.profile.completeness_score
-      const skipped = res.profile.onboarding_skipped
-      const completed = res.profile.onboarding_completed
+      const score = res.profile.completeness_score;
+      const skipped = res.profile.onboarding_skipped;
+      const completed = res.profile.onboarding_completed;
 
       if (score < 30 && !skipped && !completed) {
-        router.push('/register-job-seeker-chat')
+        router.push("/register-job-seeker-chat");
       } else {
-        router.push('/jobseeker-dashboard')
+        router.push("/jobseeker-dashboard");
       }
     } else {
-      router.push('/manage-jobs-employer-dashboard')
+      router.push("/manage-jobs-employer-dashboard");
     }
-  }
-  catch (err: any) {
-    errorMsg.value = err.data?.message || 'Invalid email or password.'
-  }
-  finally {
-    loading.value = false
+  } catch (err: any) {
+    errorMsg.value = err.data?.message || "Invalid email or password.";
+  } finally {
+    loading.value = false;
   }
 }
 </script>
@@ -95,7 +97,7 @@ async function handleLogin() {
             Welcome Back
           </h1>
           <p
-            class="font-body-lg text-body-lg text-primary-fixed leading-relaxed max-w-md mx-auto"
+            class="font-body-lg text-body-lg text-primary-fixed leading-relaxed mx-auto"
           >
             Access your account and continue your career journey. Your next big
             opportunity is just one click away.
@@ -209,7 +211,7 @@ async function handleLogin() {
               <div class="flex items-center gap-sm px-xs">
                 <input
                   id="remember"
-                  class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 transition-all cursor-pointer"
+                  class="w-5 h-5 rounded accent-primary border-outline-variant text-primary focus:ring-primary/20 transition-all cursor-pointer"
                   type="checkbox"
                 />
                 <label
@@ -220,8 +222,14 @@ async function handleLogin() {
               </div>
 
               <!-- Error message -->
-              <div v-if="errorMsg" class="flex items-center gap-sm p-sm bg-error/10 text-error rounded-lg font-label-md text-label-md">
-                <UIcon name="i-lucide-circle-alert" class="text-[16px] shrink-0" />
+              <div
+                v-if="errorMsg"
+                class="flex items-center gap-sm p-sm bg-error/10 text-error rounded-lg font-label-md text-label-md"
+              >
+                <UIcon
+                  name="i-lucide-circle-alert"
+                  class="text-[16px] shrink-0"
+                />
                 {{ errorMsg }}
               </div>
 
@@ -231,8 +239,12 @@ async function handleLogin() {
                 type="submit"
                 :disabled="loading"
               >
-                <UIcon v-if="loading" name="i-lucide-loader-circle" class="text-[20px] animate-spin mr-2" />
-                {{ loading ? 'Logging in...' : 'Login' }}
+                <UIcon
+                  v-if="loading"
+                  name="i-lucide-loader-circle"
+                  class="text-[20px] animate-spin mr-2"
+                />
+                {{ loading ? "Logging in..." : "Login" }}
               </button>
               <!-- OR Divider -->
               <div class="relative py-md">

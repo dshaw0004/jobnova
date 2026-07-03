@@ -109,6 +109,11 @@ export function useAuth() {
       console.error('Logout error:', err)
     }
     finally {
+      // Notify other open tabs to redirect to home
+      const channel = new BroadcastChannel('jobnova_tab_sync')
+      channel.postMessage('jobnova_logout')
+      channel.close()
+
       user.value = null
       profile.value = null
       loading.value = false

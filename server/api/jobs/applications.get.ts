@@ -37,6 +37,10 @@ export default defineEventHandler(async (event) => {
       j.title as job_title,
       j.city as job_city,
       j.state as job_state,
+      j.sal_min as job_sal_min,
+      j.sal_max as job_sal_max,
+      j.exp_min as job_exp_min,
+      j.exp_max as job_exp_max,
       ep.company_name
     FROM job_applications ja
     JOIN jobs j ON ja.job_id = j.id
@@ -67,7 +71,8 @@ export default defineEventHandler(async (event) => {
         COUNT(*) as totalCount,
         SUM(CASE WHEN status = 'applied' THEN 1 ELSE 0 END) as appliedCount,
         SUM(CASE WHEN status = 'shortlisted' THEN 1 ELSE 0 END) as shortlistedCount,
-        SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejectedCount
+        SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejectedCount,
+        SUM(CASE WHEN status = 'offered' THEN 1 ELSE 0 END) as offeredCount
       FROM job_applications
       WHERE jobseeker_id = ?
     `)
@@ -78,7 +83,8 @@ export default defineEventHandler(async (event) => {
     total: summaryResult?.totalCount || 0,
     applied: summaryResult?.appliedCount || 0,
     shortlisted: summaryResult?.shortlistedCount || 0,
-    rejected: summaryResult?.rejectedCount || 0
+    rejected: summaryResult?.rejectedCount || 0,
+    offered: summaryResult?.offeredCount || 0
   }
 
   return {
