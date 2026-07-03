@@ -70,6 +70,13 @@ onMounted(async () => {
           <UIcon name="i-lucide-check-circle" class="text-[18px]" />
           <span class="font-body-md text-body-md">Selected Jobs</span>
         </NuxtLink>
+        <NuxtLink
+          class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high transition-all"
+          to="/job-agent"
+        >
+          <UIcon name="i-lucide-bot" class="text-[18px]" />
+          <span class="font-body-md text-body-md">AI Job Agent</span>
+        </NuxtLink>
       </div>
       <!-- Footer Links -->
       <div class="mt-auto flex flex-col gap-sm border-t border-outline-variant/30 pt-md">
@@ -114,6 +121,12 @@ onMounted(async () => {
             class="h-11 px-6 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-xl hover:scale-98 transition-transform flex items-center gap-2 border border-outline-variant/30"
           >
             <UIcon name="i-lucide-bot" class="text-[18px]" /> Talk to Aria (AI)
+          </NuxtLink>
+          <NuxtLink
+            to="/job-agent"
+            class="h-11 px-6 bg-tertiary-container text-on-tertiary-container font-label-md text-label-md rounded-xl hover:scale-98 transition-transform flex items-center gap-2 border border-outline-variant/30"
+          >
+            <UIcon name="i-lucide-briefcase" class="text-[18px]" /> Job AI Agent
           </NuxtLink>
         </div>
       </section>
