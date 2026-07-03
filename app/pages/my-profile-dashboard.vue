@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: false
+  layout: 'jobseeker'
 })
 
 import { ref, watch, onMounted } from 'vue'
@@ -12,7 +12,7 @@ useHead({
 })
 
 const router = useRouter()
-const { user, profile, loading, error, logout, updateProfile, fetchUser } = useAuth()
+const { user, profile, loading, error, updateProfile, fetchUser } = useAuth()
 
 // Local copy of profile fields for editing
 const form = ref({
@@ -116,72 +116,7 @@ function removeProfessional(index: number) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface">
-    <!-- SideNavBar -->
-    <nav class="bg-surface shadow-[0px_4px_20px_rgba(26,115,232,0.08)] h-screen w-72 fixed left-0 top-0 flex flex-col py-md px-md border-r border-outline-variant/30 z-50 hidden md:flex">
-      <div class="mb-xl flex items-center gap-md px-md py-sm">
-        <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md font-headline-md">
-          JN
-        </div>
-        <div>
-          <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
-          <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Premium Candidate</p>
-        </div>
-      </div>
-      <ul class="flex-1 space-y-2">
-        <li>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" to="/jobseeker-dashboard">
-            <UIcon name="i-lucide-layout-dashboard" class="text-[18px]" />
-            <span class="font-label-md text-label-md">Dashboard</span>
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-surface-container-low" to="/my-profile-dashboard">
-            <UIcon name="i-lucide-user" class="text-[18px]" />
-            <span class="font-label-md text-label-md">My Profile</span>
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" to="/applied-jobs-dashboard">
-            <UIcon name="i-lucide-history" class="text-[18px]" />
-            <span class="font-label-md text-label-md">Applied Jobs</span>
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" to="/selected-jobs-dashboard">
-            <UIcon name="i-lucide-check-circle" class="text-[18px]" />
-            <span class="font-label-md text-label-md">Selected Jobs</span>
-          </NuxtLink>
-        </li>
-      </ul>
-      <div class="mt-auto pt-xl border-t border-outline-variant/30">
-        <button
-          class="w-full flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-error-container/20 hover:text-error transition-colors duration-200"
-          @click="logout"
-        >
-          <UIcon name="i-lucide-log-out" class="text-[18px]" />
-          <span class="font-label-md text-label-md">Logout</span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Main Content Wrapper -->
-    <div class="flex-1 ml-0 md:ml-72 flex flex-col min-h-screen">
-      <!-- TopAppBar -->
-      <header class="bg-surface/80 backdrop-blur-md fixed top-0 right-0 w-full md:w-[calc(100%-18rem)] z-40 flex justify-between items-center h-16 px-gutter ml-auto border-b border-outline-variant/30">
-        <h2 class="font-headline-md text-headline-md font-bold text-primary">My Profile</h2>
-        <div class="flex items-center gap-md">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-[14px]">
-            {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
-          </div>
-          <span class="font-label-md text-label-md text-on-surface-variant hidden sm:inline-block">
-            {{ profile?.full_name || user?.email }}
-          </span>
-        </div>
-      </header>
-
-      <!-- Scrollable Canvas -->
-      <main class="flex-1 pt-24 pb-xl px-gutter md:px-xl max-w-7xl mx-auto w-full">
+  <main class="pt-8 pb-xl px-gutter md:px-xl max-w-7xl mx-auto w-full">
         <!-- Status alerts -->
         <div v-if="saveSuccess" class="mb-md p-md bg-green-50 border border-green-200 text-green-800 rounded-xl flex items-center gap-sm">
           <UIcon name="i-lucide-check-circle" class="text-green-600 text-[20px]" />
@@ -441,8 +376,6 @@ function removeProfessional(index: number) {
           </div>
         </div>
       </main>
-    </div>
-  </div>
 </template>
 
 <style scoped>

@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '~/composables/useAuth'
 
 definePageMeta({
-  layout: false
+  layout: 'jobseeker',
+  hideHeader: true
 })
 
 useHead({
@@ -104,70 +105,7 @@ const formatTime = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface flex">
-    <!-- SideNavBar (Copied from dashboard) -->
-    <nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 shadow-[0px_4px_20px_rgba(26,115,232,0.08)] bg-surface flex-col py-6 border-r border-outline-variant/30 z-50">
-      <div class="px-gutter mb-xl flex flex-col items-center text-center">
-        <div class="w-20 h-20 rounded-full mb-md overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 text-primary font-bold text-[28px] shadow-sm">
-          {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
-        </div>
-        <h2 class="font-headline-md text-headline-md font-bold text-primary truncate max-w-full px-2">
-          {{ profile?.full_name || 'Anonymous' }}
-        </h2>
-        <p class="font-label-md text-label-md text-on-surface-variant mt-xs">
-          {{ profile?.sector || 'Jobseeker' }}
-        </p>
-      </div>
-      <div class="flex-1 flex flex-col gap-sm">
-        <NuxtLink
-          class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high transition-all"
-          to="/jobseeker-dashboard"
-        >
-          <UIcon name="i-lucide-layout-dashboard" class="text-[18px]" />
-          <span class="font-body-md text-body-md">Dashboard</span>
-        </NuxtLink>
-        <NuxtLink
-          class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high transition-all"
-          to="/my-profile-dashboard"
-        >
-          <UIcon name="i-lucide-user" class="text-[18px]" />
-          <span class="font-body-md text-body-md">My Profile</span>
-        </NuxtLink>
-        <NuxtLink
-          class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high transition-all"
-          to="/applied-jobs-dashboard"
-        >
-          <UIcon name="i-lucide-history" class="text-[18px]" />
-          <span class="font-body-md text-body-md">Applied Jobs</span>
-        </NuxtLink>
-        <NuxtLink
-          class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high transition-all"
-          to="/selected-jobs-dashboard"
-        >
-          <UIcon name="i-lucide-check-circle" class="text-[18px]" />
-          <span class="font-body-md text-body-md">Selected Jobs</span>
-        </NuxtLink>
-        <NuxtLink
-          class="flex items-center gap-3 px-4 py-3 text-primary bg-secondary-container/10 border-r-4 border-primary font-bold hover:bg-surface-container-high transition-all"
-          to="/job-agent"
-        >
-          <UIcon name="i-lucide-bot" class="text-[18px]" />
-          <span class="font-body-md text-body-md">AI Job Agent</span>
-        </NuxtLink>
-      </div>
-      <div class="mt-auto flex flex-col gap-sm border-t border-outline-variant/30 pt-md">
-        <button
-          class="w-full flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/20 transition-all font-label-md text-label-md"
-          @click="logout"
-        >
-          <UIcon name="i-lucide-log-out" class="text-[18px]" />
-          <span class="text-left font-body-md text-body-md">Logout</span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="flex-1 md:ml-64 h-screen flex flex-col bg-surface relative z-10">
+  <main class="flex-1 h-screen flex flex-col bg-surface relative z-10">
       <!-- Header -->
       <header class="h-[72px] shrink-0 border-b border-outline-variant/30 bg-surface-container-lowest/80 backdrop-blur-md flex items-center justify-between px-lg z-20">
         <div class="flex items-center gap-md">
@@ -262,7 +200,6 @@ const formatTime = () => {
         </div>
       </div>
     </main>
-  </div>
 </template>
 
 <style scoped>
