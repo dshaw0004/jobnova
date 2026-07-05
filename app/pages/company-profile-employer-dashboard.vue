@@ -1,99 +1,19 @@
 <script setup>
+import { useAuth } from '~/composables/useAuth'
+
 definePageMeta({
-  layout: false
+  layout: 'employer'
 })
 
 useHead({
   title: "Company Profile - Job Nova"
 })
+
+const { logout } = useAuth()
 </script>
 
 <template>
-  <div>
-    <!-- SideNavBar (Shared Component) -->
-    <nav class="hidden md:flex bg-surface text-primary docked h-screen w-64 left-0 top-0 bg-surface shadow-sm shadow-sm flex flex-col h-full border-r border-outline-variant/30 fixed z-50">
-    <!-- Header -->
-    <div class="p-lg border-b border-outline-variant/30 flex items-center gap-md">
-    <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
-    <UIcon name="i-lucide-building-2" class="text-on-primary-container" style="font-variation-settings: 'FILL' 1;" />
-    </div>
-    <div>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
-    <p class="font-label-sm text-label-sm text-on-surface-variant">Employer Portal</p>
-    </div>
-    </div>
-    <!-- CTA -->
-    <div class="p-md">
-    <button class="w-full bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-colors py-sm px-md rounded-lg font-label-md text-label-md flex items-center justify-center gap-sm btn-hover-effect">
-    <UIcon name="i-lucide-plus" />
-                    Post New Job
-                </button>
-    </div>
-    <!-- Main Navigation Tabs -->
-    <div class="flex-1 overflow-y-auto py-sm flex flex-col gap-xs px-sm">
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/employer-dashboard-2">
-    <UIcon name="i-lucide-layout-dashboard" />
-    <span class="font-label-md text-label-md">Dashboard</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-fixed/10" href="/company-profile-employer-dashboard">
-    <UIcon name="i-lucide-building-2" style="font-variation-settings: 'FILL' 1;" />
-    <span class="font-label-md text-label-md">Company Profile</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/post-a-new-job-employer-dashboard">
-    <UIcon name="i-lucide-post-add" />
-    <span class="font-label-md text-label-md">Post Job</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/manage-jobs-employer-dashboard">
-    <UIcon name="i-lucide-history" />
-    <span class="font-label-md text-label-md">Manage Jobs</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/applicants-tracking-employer-dashboard">
-    <UIcon name="i-lucide-groups" />
-    <span class="font-label-md text-label-md">Applicants</span>
-    </a>
-    </div>
-    <!-- Footer Navigation -->
-    <div class="p-sm border-t border-outline-variant/30 flex flex-col gap-xs">
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/login">
-    <UIcon name="i-lucide-settings" />
-    <span class="font-label-md text-label-md">Settings</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="/login">
-    <UIcon name="i-lucide-log-out" />
-    <span class="font-label-md text-label-md">Logout</span>
-    </a>
-    </div>
-    </nav>
-    <!-- Main Content Canvas -->
-    <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
-    <!-- TopAppBar (Shared Component) -->
-    <header class="bg-surface/80 backdrop-blur-md text-primary docked full-width top-0 sticky z-40 bg-surface/80 shadow-sm flex justify-between items-center w-full px-lg py-md h-[72px]">
-    <!-- Left side (Search) -->
-    <div class="flex-1 max-w-md hidden sm:block">
-    <div class="relative">
-    <UIcon name="i-lucide-search" class="absolute left-3 top-1/2 -translate-y-1/2 text-outline" />
-    <input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Search..." type="text"/>
-    </div>
-    </div>
-    <div class="flex-1 sm:hidden">
-    <h2 class="font-headline-md text-headline-md font-bold">Job Nova</h2>
-    </div>
-    <!-- Right side (Actions) -->
-    <div class="flex items-center gap-md">
-    <button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative group">
-    <UIcon name="i-lucide-bell" />
-    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-    </button>
-    <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
-    <UIcon name="i-lucide-help-circle" />
-    </button>
-    <button class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant ml-sm">
-    <img alt="Employer Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate executive, smiling warmly, well-lit studio lighting, isolated against a light gray background, high resolution, suitable for a professional online profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbeBPCf850nmI8spA8QtvF3Cg4Uchp9fkuOtuX9ZZkwZN-fu2bWNoRb_XIRBpl25fXDNwWA8XmiFKbudeQaXJQFIdNJQ0BleTvLMMHyNL9mioBwkP-psP7wfvn6BZHAHPnglY5zPj7XAo1qVfnt5cMR0loCsnEQ0_af6yUESmvmDXoxwKrJq1z7nOv8Gfe-AedZjIVPPZNP9TnJE-niVW8AwI9HKJMUbuhRZ9bHV9acR2cDNxFCTjc-XKEE8EzTOfY9lQyDwtkPIt7"/>
-    </button>
-    </div>
-    </header>
-    <!-- Page Content -->
-    <main class="flex-1 p-md md:p-xl max-w-7xl mx-auto w-full">
+  <main class="flex-1 p-md md:p-xl max-w-7xl mx-auto w-full">
     <!-- Page Header -->
     <div class="mb-xl flex flex-col sm:flex-row justify-between items-start sm:items-end gap-md">
     <div>
@@ -250,9 +170,7 @@ useHead({
                         Save Changes
                     </button>
     </div>
-    </main>
-    </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

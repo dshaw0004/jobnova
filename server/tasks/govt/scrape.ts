@@ -13,9 +13,11 @@ export default defineTask({
     if (!DB) {
       console.error('[Task govt:scrape] D1 Database binding (DB) is missing in context. Make sure wrangler/D1 is configured.')
       return {
-        success: false,
-        error: 'Database binding (DB) is missing.',
-      }
+        result: {
+          success: false,
+          error: 'Database binding (DB) is missing.',
+        }
+      } as any
     }
 
     const TARGET_URL = 'https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All'
@@ -34,9 +36,11 @@ export default defineTask({
     } catch (err: any) {
       console.error('[Task govt:scrape] Error accessing portal:', err)
       return {
-        success: false,
-        error: `Error accessing job portal: ${err.message}`,
-      }
+        result: {
+          success: false,
+          error: `Error accessing job portal: ${err.message}`,
+        }
+      } as any
     }
 
     // 2. Parse HTML using a platform-agnostic regex parser (works in both Node.js/local and Cloudflare/production)
@@ -54,13 +58,13 @@ export default defineTask({
     let isHeader = true
 
     while ((match = trRegex.exec(html)) !== null) {
-      const rowContent = match[1]
+      const rowContent = match[1] || ''
       const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi
       let tdMatch
       const cols: string[] = []
 
       while ((tdMatch = tdRegex.exec(rowContent)) !== null) {
-        const cellText = tdMatch[1]
+        const cellText = (tdMatch[1] || '')
           .replace(/<[^>]+>/g, '') // Strip inner HTML tags
           .replace(/&nbsp;/g, ' ') // Replace HTML non-breaking spaces
           .trim()
@@ -73,11 +77,11 @@ export default defineTask({
           continue
         }
         scrapedJobs.push({
-          issued_date: cols[0],
-          organisation: cols[1],
-          post: cols[2],
-          method: cols[3],
-          last_date: cols[4],
+          issued_date: cols[0] || '',
+          organisation: cols[1] || '',
+          post: cols[2] || '',
+          method: cols[3] || '',
+          last_date: cols[4] || '',
         })
       }
     }
@@ -85,11 +89,13 @@ export default defineTask({
     if (scrapedJobs.length === 0) {
       console.log('[Task govt:scrape] No jobs found on page or page format changed.')
       return {
-        success: true,
-        scrapedCount: 0,
-        newJobsCount: 0,
-        message: 'No jobs found on page or page format changed.',
-      }
+        result: {
+          success: true,
+          scrapedCount: 0,
+          newJobsCount: 0,
+          message: 'No jobs found on page or page format changed.',
+        }
+      } as any
     }
 
     console.log(`[Task govt:scrape] Parsed ${scrapedJobs.length} jobs. Inserting new ones...`)
@@ -113,10 +119,12 @@ export default defineTask({
     console.log(`[Task govt:scrape] Complete. Total parsed: ${scrapedJobs.length}, New inserted: ${newJobs.length}`)
 
     return {
-      success: true,
-      scrapedCount: scrapedJobs.length,
-      newJobsCount: newJobs.length,
-      newJobs,
-    }
+      result: {
+        success: true,
+        scrapedCount: scrapedJobs.length,
+        newJobsCount: newJobs.length,
+        newJobs,
+      }
+    } as any
   },
 })

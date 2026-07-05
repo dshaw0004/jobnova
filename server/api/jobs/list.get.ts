@@ -29,7 +29,12 @@ export default defineEventHandler(async (event) => {
   const searchFilter = query.search ? String(query.search).trim() : ''
   const sortFilter = query.sort ? String(query.sort).toLowerCase() : 'newest'
 
-  let sql = 'SELECT * FROM jobs WHERE employer_id = ?'
+  let sql = `
+    SELECT *,
+      (SELECT COUNT(*) FROM job_applications ja WHERE ja.job_id = jobs.id) as applicantsCount
+    FROM jobs
+    WHERE employer_id = ?
+  `
   const params: any[] = [userId]
 
   if (statusFilter !== 'all' && ['active', 'draft', 'expired'].includes(statusFilter)) {
@@ -53,7 +58,7 @@ export default defineEventHandler(async (event) => {
     .bind(...params)
     .all<any>()
 
-  // Add mock applications count of 0 for each job since there's no applications table yet
+  // Map jobs and parse skills
   const jobs = (result.results || []).map(job => {
     let parsedSkills = []
     try {
@@ -63,8 +68,7 @@ export default defineEventHandler(async (event) => {
     }
     return {
       ...job,
-      skills: parsedSkills,
-      applicantsCount: 0 // Will default to 0 for now
+      skills: parsedSkills
     }
   })
 

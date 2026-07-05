@@ -58,13 +58,13 @@ export default defineEventHandler(async (event) => {
   let isHeader = true
 
   while ((match = trRegex.exec(html)) !== null) {
-    const rowContent = match[1]
+    const rowContent = match[1] || ''
     const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi
     let tdMatch
     const cols: string[] = []
 
     while ((tdMatch = tdRegex.exec(rowContent)) !== null) {
-      const cellText = tdMatch[1]
+      const cellText = (tdMatch[1] || '')
         .replace(/<[^>]+>/g, '') // Strip inner HTML tags
         .replace(/&nbsp;/g, ' ') // Replace HTML non-breaking spaces
         .trim()
@@ -77,11 +77,11 @@ export default defineEventHandler(async (event) => {
         continue
       }
       scrapedJobs.push({
-        issued_date: cols[0],
-        organisation: cols[1],
-        post: cols[2],
-        method: cols[3],
-        last_date: cols[4],
+        issued_date: cols[0] || '',
+        organisation: cols[1] || '',
+        post: cols[2] || '',
+        method: cols[3] || '',
+        last_date: cols[4] || '',
       })
     }
   }

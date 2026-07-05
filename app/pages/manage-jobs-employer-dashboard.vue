@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: false
+  layout: 'employer'
 })
 
 import { ref, reactive, watch, onMounted } from 'vue'
@@ -12,7 +12,7 @@ useHead({
 })
 
 const router = useRouter()
-const { user, fetchUser } = useAuth()
+const { user, fetchUser, logout } = useAuth()
 
 const jobs = ref<any[]>([])
 const summary = reactive({
@@ -118,67 +118,7 @@ function formatDate(dateStr: string) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface flex">
-    <!-- SideNavBar -->
-    <nav class="bg-surface h-screen w-64 fixed left-0 top-0 shadow-sm flex flex-col border-r border-outline-variant z-50">
-      <div class="p-6">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-lg">
-            {{ user?.email ? user.email.charAt(0).toUpperCase() : 'C' }}
-          </div>
-          <div>
-            <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
-            <p class="font-label-sm text-label-sm text-on-surface-variant">Employer Console</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex-grow px-4 py-6 flex flex-col gap-2">
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg font-label-md" to="/manage-jobs-employer-dashboard">
-          <UIcon name="i-lucide-layout-dashboard" />
-          <span>Dashboard</span>
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg font-label-md" to="/company-profile-employer-dashboard">
-          <UIcon name="i-lucide-building" />
-          <span>Company Profile</span>
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg font-label-md" to="/post-a-new-job-employer-dashboard">
-          <UIcon name="i-lucide-plus" />
-          <span>Post Job</span>
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-primary bg-secondary-container/10 rounded-lg font-bold hover:bg-surface-container-low font-label-md" to="/manage-jobs-employer-dashboard">
-          <UIcon name="i-lucide-briefcase" />
-          <span>Manage Jobs</span>
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg font-label-md" to="/applicants-tracking-employer-dashboard">
-          <UIcon name="i-lucide-users" />
-          <span>Applicants</span>
-        </NuxtLink>
-        <div class="mt-auto">
-          <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg font-label-md" to="/login">
-            <UIcon name="i-lucide-log-out" />
-            <span>Logout</span>
-          </NuxtLink>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Main Content Area -->
-    <div class="flex-grow ml-64 min-h-screen flex flex-col">
-      <!-- TopNavBar -->
-      <header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant h-16 fixed top-0 right-0 w-[calc(100%-256px)] flex justify-between items-center px-8 z-40">
-        <div class="flex-grow"></div>
-        <div class="flex items-center gap-4">
-          <button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-high">
-            <UIcon name="i-lucide-bell" />
-          </button>
-          <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-            <img alt="Employer Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwLY6jOBl2FGxsNSMamFS0LkAGQtIHB2D51gzwuWf3ttrTvkbmzEJFJiHDK3cZZI7kIhZhlXalBnZGFxSkXYTskMeH0fnZoW7giMsYS0ktb0h7h59qdxeoOsJgPFmxBpNM3L1DeuxotinuK5gkZnYlsw6x11_uBHdSbjq1-MzMU0pHIKXTox28wf_585cunM5VOFcS21Vgh7pQNRMwVMncn-SfguQXm2Km9D6xOO_Jhl8x-7a5huMuPl0PiA7909l2GosC7DNWEgjS"/>
-          </div>
-        </div>
-      </header>
-
-      <!-- Page Content -->
-      <main class="flex-grow mt-16 p-8 max-w-[1280px] mx-auto w-full space-y-8">
+  <main class="p-8 max-w-[1280px] mx-auto w-full space-y-8">
         <!-- Page Header -->
         <div class="flex justify-between items-end">
           <div>
@@ -381,9 +321,7 @@ function formatDate(dateStr: string) {
             </table>
           </div>
         </div>
-      </main>
-    </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

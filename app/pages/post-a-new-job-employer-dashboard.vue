@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: false
+  layout: 'employer'
 })
 
 import { ref, reactive, computed, onMounted } from 'vue'
@@ -12,7 +12,7 @@ useHead({
 })
 
 const router = useRouter()
-const { user, fetchUser } = useAuth()
+const { user, fetchUser, logout } = useAuth()
 
 const form = reactive({
   title: '',
@@ -116,61 +116,7 @@ const previewSalary = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface flex flex-col">
-    <!-- SideNavBar -->
-    <nav class="h-screen w-64 fixed left-0 top-0 bg-surface shadow-md flex flex-col p-4 border-r border-outline-variant z-50 hidden md:flex">
-      <div class="mb-8 px-4 py-2">
-        <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
-        <p class="font-label-md text-label-md text-on-surface-variant">Employer Portal</p>
-      </div>
-      <div class="flex flex-col gap-2 flex-grow">
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" to="/manage-jobs-employer-dashboard">
-          <UIcon name="i-lucide-layout-dashboard" />
-          Dashboard
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" to="/company-profile-employer-dashboard">
-          <UIcon name="i-lucide-building" />
-          Company Profile
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold hover:bg-surface-container-high scale-[0.98] transition-transform duration-200 font-label-md text-label-md" to="/post-a-new-job-employer-dashboard">
-          <UIcon name="i-lucide-plus" />
-          Post Job
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" to="/manage-jobs-employer-dashboard">
-          <UIcon name="i-lucide-briefcase" />
-          Manage Jobs
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" to="/applicants-tracking-employer-dashboard">
-          <UIcon name="i-lucide-users" />
-          Applicants
-        </NuxtLink>
-      </div>
-      <div class="mt-auto">
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-lg font-label-md text-label-md" to="/login">
-          <UIcon name="i-lucide-log-out" />
-          Logout
-        </NuxtLink>
-      </div>
-    </nav>
-
-    <!-- Main Content Area -->
-    <main class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
-      <!-- TopAppBar -->
-      <header class="flex justify-between items-center w-full h-16 pl-4 md:pl-8 pr-4 md:pr-8 z-40 sticky top-0 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant/30">
-        <div class="flex items-center gap-4">
-          <h2 class="font-headline-md text-headline-md font-bold text-on-surface hidden md:block">Post a New Job</h2>
-        </div>
-        <div class="flex items-center gap-4">
-          <button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-high">
-            <UIcon name="i-lucide-bell" />
-          </button>
-          <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-            <img alt="Employer Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwLY6jOBl2FGxsNSMamFS0LkAGQtIHB2D51gzwuWf3ttrTvkbmzEJFJiHDK3cZZI7kIhZhlXalBnZGFxSkXYTskMeH0fnZoW7giMsYS0ktb0h7h59qdxeoOsJgPFmxBpNM3L1DeuxotinuK5gkZnYlsw6x11_uBHdSbjq1-MzMU0pHIKXTox28wf_585cunM5VOFcS21Vgh7pQNRMwVMncn-SfguQXm2Km9D6xOO_Jhl8x-7a5huMuPl0PiA7909l2GosC7DNWEgjS"/>
-          </div>
-        </div>
-      </header>
-
-      <div class="p-4 md:p-8 flex-1 max-w-7xl mx-auto w-full">
+  <div class="p-4 md:p-8 flex-grow max-w-7xl mx-auto w-full">
         <div class="mb-xl">
           <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Post a New Job</h1>
           <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Create a job posting and start receiving applications.</p>
@@ -501,8 +447,6 @@ const previewSalary = computed(() => {
             </div>
           </div>
         </div>
-      </div>
-    </main>
   </div>
 </template>
 

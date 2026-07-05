@@ -79,7 +79,7 @@ const tools = [
   }
 ]
 
-async function callOllamaWithTools(messages: OllamaMessage[]): Promise<Record<string, unknown>> {
+async function callOllamaWithTools(messages: OllamaMessage[]): Promise<Record<string, any>> {
   const response = await fetch(OLLAMA_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -160,7 +160,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  let aiMessage = responseData.message
+  let aiMessage = responseData.message as OllamaMessage
 
   // 4. Handle tool calls if any
   if (aiMessage.tool_calls && aiMessage.tool_calls.length > 0) {

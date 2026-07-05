@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '~/composables/useAuth'
 
 definePageMeta({
-  layout: false
+  layout: 'employer'
 })
 
 useHead({
@@ -78,88 +78,7 @@ function formatRelativeTime(dateStr: string) {
 </script>
 
 <template>
-  <div>
-    <!-- Shell Container -->
-    <div class="flex h-screen w-full">
-      <!-- SideNavBar -->
-      <aside class="hidden md:flex flex-col h-full border-r border-outline-variant/30 bg-surface shadow-sm docked h-screen w-64 left-0 top-0 fixed z-50">
-        <!-- Header -->
-        <div class="p-lg border-b border-outline-variant/30 flex items-center gap-md">
-          <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container shadow-soft shrink-0">
-            <UIcon name="i-lucide-briefcase" class="text-[20px]" />
-          </div>
-          <div>
-            <h1 class="font-headline-md text-headline-md font-bold text-primary">Job Nova</h1>
-            <p class="font-label-sm text-label-sm text-on-surface-variant">Employer Portal</p>
-          </div>
-        </div>
-        <!-- CTA -->
-        <div class="p-md">
-          <NuxtLink to="/post-a-new-job-employer-dashboard" class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors shadow-sm hover:scale-[0.98] duration-200">
-            <UIcon name="i-lucide-plus" />
-            Post New Job
-          </NuxtLink>
-        </div>
-        <!-- Main Navigation -->
-        <nav class="flex-1 overflow-y-auto px-sm py-sm space-y-1">
-          <!-- Active Tab: Dashboard -->
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-fixed/10 hover:bg-surface-container-high transition-colors" to="/employer-dashboard-2">
-            <UIcon name="i-lucide-layout-dashboard" />
-            <span class="font-label-md text-label-md">Dashboard</span>
-          </NuxtLink>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" to="/company-profile-employer-dashboard">
-            <UIcon name="i-lucide-building-2" />
-            <span class="font-label-md text-label-md">Company Profile</span>
-          </NuxtLink>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" to="/post-a-new-job-employer-dashboard">
-            <UIcon name="i-lucide-file-plus" />
-            <span class="font-label-md text-label-md">Post Job</span>
-          </NuxtLink>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" to="/manage-jobs-employer-dashboard">
-            <UIcon name="i-lucide-history" />
-            <span class="font-label-md text-label-md">Manage Jobs</span>
-          </NuxtLink>
-          <NuxtLink class="flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" to="/applicants-tracking-employer-dashboard">
-            <UIcon name="i-lucide-users" />
-            <span class="font-label-md text-label-md">Applicants</span>
-          </NuxtLink>
-        </nav>
-        <!-- Footer Navigation -->
-        <div class="p-sm border-t border-outline-variant/30 space-y-1">
-          <button @click="logout" class="w-full flex items-center gap-md px-md py-3 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
-            <UIcon name="i-lucide-log-out" />
-            <span class="font-label-md text-label-md">Logout</span>
-          </button>
-        </div>
-      </aside>
-
-      <!-- Main Content Wrapper -->
-      <div class="flex-1 flex flex-col min-h-screen md:ml-64 w-full md:w-[calc(100%-16rem)] relative">
-        <!-- TopAppBar -->
-        <header class="flex justify-between items-center w-full px-lg py-md bg-surface/80 backdrop-blur-md shadow-sm docked full-width top-0 sticky z-40">
-          <!-- Left: Search Bar -->
-          <div class="flex-1 max-w-md">
-            <div class="relative group">
-              <UIcon name="i-lucide-search" class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" />
-              <input class="w-full h-12 pl-12 pr-4 bg-surface-container-lowest border border-outline-variant/50 rounded-xl font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm" placeholder="Search dashboard..." type="text"/>
-            </div>
-          </div>
-          <!-- Right: Actions & Profile -->
-          <div class="flex items-center gap-sm">
-            <button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container">
-              <UIcon name="i-lucide-bell" />
-            </button>
-            <div class="ml-sm pl-sm border-l border-outline-variant/30 flex items-center gap-sm">
-              <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold">
-                E
-              </div>
-              <span class="font-label-md text-label-md text-on-surface-variant font-semibold">Employer Console</span>
-            </div>
-          </div>
-        </header>
-
-        <!-- Main Canvas -->
-        <main class="flex-1 p-md md:p-xl overflow-y-auto w-full max-w-7xl mx-auto">
+  <main class="flex-grow p-md md:p-xl overflow-y-auto w-full max-w-7xl mx-auto">
           <!-- Welcome Section -->
           <section class="mb-xl">
             <div class="relative bg-primary-container text-on-primary-container rounded-2xl p-lg md:p-xl overflow-hidden ambient-shadow flex flex-col justify-center min-h-[160px]">
@@ -375,10 +294,7 @@ function formatRelativeTime(dateStr: string) {
               </section>
             </div>
           </div>
-        </main>
-      </div>
-    </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

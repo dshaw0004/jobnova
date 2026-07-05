@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '~/composables/useAuth'
 
 definePageMeta({
-  layout: false
+  layout: 'employer'
 })
 
 useHead({
@@ -143,84 +143,7 @@ function safeParseJson(jsonStr: string | null, fallback: any[] = []) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface flex">
-    <!-- SideNavBar -->
-    <aside class="h-screen w-64 fixed left-0 top-0 bg-surface shadow-sm z-50 flex flex-col py-lg px-md border-r border-outline-variant/30">
-      <!-- Brand -->
-      <div class="flex items-center gap-3 mb-xl px-2">
-        <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container shadow-soft">
-          <UIcon name="i-lucide-briefcase" class="text-[20px]" />
-        </div>
-        <div>
-          <div class="text-headline-md font-headline-md text-primary font-bold tracking-tight">Job Nova</div>
-          <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider opacity-80 mt-1">Employer Console</div>
-        </div>
-      </div>
-      <!-- Navigation -->
-      <nav class="flex-1 space-y-2">
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" to="/employer-dashboard-2">
-          <UIcon name="i-lucide-layout-dashboard" />
-          Dashboard
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" to="/company-profile-employer-dashboard">
-          <UIcon name="i-lucide-building-2" />
-          Company Profile
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" to="/post-a-new-job-employer-dashboard">
-          <UIcon name="i-lucide-file-plus" />
-          Post Job
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" to="/manage-jobs-employer-dashboard">
-          <UIcon name="i-lucide-history" />
-          Manage Jobs
-        </NuxtLink>
-        <NuxtLink class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-primary-container/10 transition-colors font-body-md text-body-md" to="/applicants-tracking-employer-dashboard">
-          <UIcon name="i-lucide-users" />
-          Applicants
-        </NuxtLink>
-      </nav>
-      <!-- CTA & Footer -->
-      <div class="mt-auto space-y-4">
-        <NuxtLink to="/post-a-new-job-employer-dashboard" class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-sm">
-          <UIcon name="i-lucide-plus" class="text-[20px]" />
-          Post New Job
-        </NuxtLink>
-        <div class="pt-4 border-t border-surface-variant">
-          <button @click="logout" class="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors font-body-md text-body-md">
-            <UIcon name="i-lucide-log-out" />
-            Logout
-          </button>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content Wrapper -->
-    <div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
-      <!-- TopAppBar -->
-      <header class="fixed top-0 right-0 w-[calc(100%-256px)] z-40 bg-surface/80 backdrop-blur-md flex justify-between items-center h-16 px-lg border-b border-outline-variant/30">
-        <div class="flex items-center gap-4">
-          <span class="font-headline-md text-headline-sm font-bold text-primary">Applicants Manager</span>
-        </div>
-        <!-- Right: Actions & Profile -->
-        <div class="flex items-center gap-4">
-          <button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors relative">
-            <UIcon name="i-lucide-bell" />
-          </button>
-          <button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
-            <UIcon name="i-lucide-settings" />
-          </button>
-          <div class="h-8 w-px bg-surface-variant mx-2"></div>
-          <div class="flex items-center gap-sm">
-            <div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm">
-              E
-            </div>
-            <span class="font-label-md text-label-md text-on-surface-variant font-semibold">Employer Console</span>
-          </div>
-        </div>
-      </header>
-
-      <!-- Main Scrollable Canvas -->
-      <main class="flex-1 overflow-y-auto pt-24 pb-12 px-xl">
+  <main class="flex-grow p-xl overflow-y-auto">
         <div class="max-w-7xl mx-auto space-y-xl">
           <!-- Page Header -->
           <div>
@@ -433,8 +356,6 @@ function safeParseJson(jsonStr: string | null, fallback: any[] = []) {
             </div>
           </div>
         </div>
-      </main>
-    </div>
 
     <!-- Candidate Detailed Profile Modal -->
     <div
@@ -589,7 +510,7 @@ function safeParseJson(jsonStr: string | null, fallback: any[] = []) {
         </footer>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>
