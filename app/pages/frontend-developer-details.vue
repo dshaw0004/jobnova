@@ -28,6 +28,7 @@ const mockJob = {
   id: null,
   title: "Frontend Developer",
   company_name: "NovaStream Technologies",
+  employer_id: null,
   industry: "FinTech",
   sal_min: 18,
   sal_max: 28,
@@ -56,6 +57,7 @@ const activeJob = computed(() => {
       id: job.value.id,
       title: job.value.title,
       company_name: job.value.company_name || 'Verified Employer',
+      employer_id: job.value.employer_id,
       industry: job.value.industry || 'Technology',
       sal_min: job.value.sal_min,
       sal_max: job.value.sal_max,
@@ -164,7 +166,13 @@ onMounted(async () => {
                     <span class="px-sm py-xs rounded-full premium-badge-gradient text-on-primary font-label-sm text-label-sm uppercase">Featured</span>
                   </div>
                   <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">{{ activeJob.title }}</h1>
-                  <p class="font-body-lg text-body-lg text-on-surface-variant">{{ activeJob.company_name }} • <span class="text-primary">{{ activeJob.industry }}</span></p>
+                  <p class="font-body-lg text-body-lg text-on-surface-variant">
+                    <NuxtLink v-if="activeJob.employer_id" :to="`/company-profile?id=${activeJob.employer_id}`" class="hover:underline text-primary font-semibold">
+                      {{ activeJob.company_name }}
+                    </NuxtLink>
+                    <span v-else>{{ activeJob.company_name }}</span>
+                    • <span class="text-primary">{{ activeJob.industry }}</span>
+                  </p>
                 </div>
               </div>
               <div class="flex gap-sm">

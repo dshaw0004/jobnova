@@ -34,8 +34,9 @@ const navLinks = [
     <aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 shadow-[0px_4px_20px_rgba(26,115,232,0.08)] bg-surface flex-col py-6 border-r border-outline-variant/30 z-50">
       <!-- Brand/Profile -->
       <div class="px-gutter mb-xl flex flex-col items-center text-center">
-        <div class="w-20 h-20 rounded-full mb-md overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 text-primary font-bold text-[28px] shadow-sm">
-          {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
+        <div class="w-20 h-20 rounded-full mb-md overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 text-primary font-bold text-[28px] shadow-sm relative">
+          <img v-if="profile?.photo_url" :src="profile.photo_url" class="w-full h-full object-cover" alt="Profile" />
+          <span v-else>{{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}</span>
         </div>
         <h2 class="font-headline-md text-headline-md font-bold text-primary truncate max-w-full px-2">
           {{ profile?.full_name || 'Anonymous' }}
@@ -98,8 +99,9 @@ const navLinks = [
 
         <!-- Brand/Profile -->
         <div class="px-gutter mb-xl flex flex-col items-center text-center mt-4">
-          <div class="w-16 h-16 rounded-full mb-md overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 text-primary font-bold text-[24px] shadow-sm">
-            {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
+          <div class="w-16 h-16 rounded-full mb-md overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 text-primary font-bold text-[24px] shadow-sm relative">
+            <img v-if="profile?.photo_url" :src="profile.photo_url" class="w-full h-full object-cover" alt="Profile" />
+            <span v-else>{{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}</span>
           </div>
           <h2 class="font-headline-md text-headline-sm font-bold text-primary truncate max-w-full px-2">
             {{ profile?.full_name || 'Anonymous' }}
@@ -169,8 +171,9 @@ const navLinks = [
           <UIcon name="i-lucide-bell" class="text-[18px]" />
         </button>
         <NuxtLink to="/my-profile-dashboard" class="flex items-center gap-sm">
-          <div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm">
-            {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
+          <div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm overflow-hidden relative">
+            <img v-if="profile?.photo_url" :src="profile.photo_url" class="w-full h-full object-cover" alt="Profile" />
+            <span v-else>{{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}</span>
           </div>
           <span class="font-label-md text-label-md text-on-surface-variant hidden sm:inline-block font-semibold">
             {{ profile?.full_name || 'Anonymous' }}

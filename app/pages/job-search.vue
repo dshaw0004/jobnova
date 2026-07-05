@@ -276,7 +276,15 @@ function formatDate(dateStr: string) {
                       {{ job.title }}
                     </h3>
                     <div class="flex items-center gap-sm mt-xs flex-wrap">
-                      <span class="font-label-md text-label-md text-on-surface font-semibold">
+                      <NuxtLink 
+                        v-if="job.employer_id" 
+                        :to="`/company-profile?id=${job.employer_id}`" 
+                        class="font-label-md text-label-md text-primary font-semibold hover:underline"
+                        @click.stop
+                      >
+                        {{ job.company_name }}
+                      </NuxtLink>
+                      <span v-else class="font-label-md text-label-md text-on-surface font-semibold">
                         {{ job.company_name || 'Verified Employer' }}
                       </span>
                       <span class="w-1 h-1 bg-outline rounded-full"></span>
@@ -350,7 +358,14 @@ function formatDate(dateStr: string) {
                 {{ selectedJob.title }}
               </h2>
               <div class="flex items-center gap-sm mt-xs">
-                <span class="font-headline-md text-headline-md text-primary">
+                <NuxtLink 
+                  v-if="selectedJob.employer_id" 
+                  :to="`/company-profile?id=${selectedJob.employer_id}`" 
+                  class="font-headline-md text-headline-md text-primary hover:underline font-bold"
+                >
+                  {{ selectedJob.company_name }}
+                </NuxtLink>
+                <span v-else class="font-headline-md text-headline-md text-on-surface font-bold">
                   {{ selectedJob.company_name || 'Verified Employer' }}
                 </span>
                 <span class="text-body-md text-on-surface-variant">• {{ selectedJob.city ? `${selectedJob.city}, ${selectedJob.state || ''}` : 'Remote' }}</span>

@@ -31,7 +31,8 @@ export default defineEventHandler(async (event) => {
         SELECT
           full_name, phone, location, about_self, academic_info, professional_info,
           sector, sector_reason, team_scenario_answer,
-          completeness_score, onboarding_completed, onboarding_skipped, updated_at
+          completeness_score, onboarding_completed, onboarding_skipped, updated_at,
+          skills, photo_url, resume_url, resume_name
         FROM jobseeker_profiles
         WHERE user_id = ?
       `)
@@ -48,6 +49,11 @@ export default defineEventHandler(async (event) => {
         try { profile.professional_info = JSON.parse(profile.professional_info) } catch { profile.professional_info = [] }
       } else if (!profile.professional_info) {
         profile.professional_info = []
+      }
+      if (typeof profile.skills === 'string') {
+        try { profile.skills = JSON.parse(profile.skills) } catch { profile.skills = [] }
+      } else if (!profile.skills) {
+        profile.skills = []
       }
     }
   } else if (user.role === 'employer') {

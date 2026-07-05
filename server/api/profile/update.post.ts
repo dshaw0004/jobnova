@@ -16,17 +16,22 @@ interface ProfileUpdateBody {
   sector?: string | null
   sector_reason?: string | null
   team_scenario_answer?: string | null
+  skills?: any[] | null
+  photo_url?: string | null
+  resume_url?: string | null
+  resume_name?: string | null
 }
 
 function calcCompleteness(profile: ProfileUpdateBody): number {
   const weights: Record<string, number> = {
-    full_name: 15,
-    about_self: 15,
-    academic_info: 20,
-    professional_info: 20,
+    full_name: 10,
+    about_self: 10,
+    academic_info: 15,
+    professional_info: 15,
     sector: 10,
-    sector_reason: 10,
-    team_scenario_answer: 10
+    skills: 15,
+    photo_url: 10,
+    resume_url: 15
   }
 
   let score = 0
@@ -66,7 +71,10 @@ export default defineEventHandler(async (event) => {
     'about_self',
     'sector',
     'sector_reason',
-    'team_scenario_answer'
+    'team_scenario_answer',
+    'photo_url',
+    'resume_url',
+    'resume_name'
   ] as const
 
   for (const field of stringFields) {
@@ -84,6 +92,11 @@ export default defineEventHandler(async (event) => {
   if (body.professional_info !== undefined) {
     fieldsToSet.push('professional_info = ?')
     bindings.push(body.professional_info ? JSON.stringify(body.professional_info) : '[]')
+  }
+
+  if (body.skills !== undefined) {
+    fieldsToSet.push('skills = ?')
+    bindings.push(body.skills ? JSON.stringify(body.skills) : '[]')
   }
 
   // Always update completeness score and updated_at

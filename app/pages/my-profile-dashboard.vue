@@ -24,7 +24,11 @@ const form = ref({
   sector_reason: '',
   team_scenario_answer: '',
   academic_info: [] as any[],
-  professional_info: [] as any[]
+  professional_info: [] as any[],
+  skills: [] as string[],
+  photo_url: '',
+  resume_url: '',
+  resume_name: ''
 })
 
 // Sync global profile state into local form state
@@ -39,7 +43,11 @@ function syncProfile() {
       sector_reason: profile.value.sector_reason || '',
       team_scenario_answer: profile.value.team_scenario_answer || '',
       academic_info: profile.value.academic_info ? JSON.parse(JSON.stringify(profile.value.academic_info)) : [],
-      professional_info: profile.value.professional_info ? JSON.parse(JSON.stringify(profile.value.professional_info)) : []
+      professional_info: profile.value.professional_info ? JSON.parse(JSON.stringify(profile.value.professional_info)) : [],
+      skills: profile.value.skills ? JSON.parse(JSON.stringify(profile.value.skills)) : [],
+      photo_url: profile.value.photo_url || '',
+      resume_url: profile.value.resume_url || '',
+      resume_name: profile.value.resume_name || ''
     }
   }
 }
@@ -75,7 +83,11 @@ async function handleSaveAll() {
       professional_info: form.value.professional_info,
       sector: form.value.sector,
       sector_reason: form.value.sector_reason,
-      team_scenario_answer: form.value.team_scenario_answer
+      team_scenario_answer: form.value.team_scenario_answer,
+      skills: form.value.skills,
+      photo_url: form.value.photo_url,
+      resume_url: form.value.resume_url,
+      resume_name: form.value.resume_name
     })
     saveSuccess.value = true
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -85,6 +97,87 @@ async function handleSaveAll() {
   } catch (err: any) {
     saveError.value = err.message || 'Failed to save changes'
   }
+}
+
+// Skills Tag Manager
+const newSkillText = ref('')
+function addSkill() {
+  const skill = newSkillText.value.trim()
+  if (skill && !form.value.skills.includes(skill)) {
+    form.value.skills.push(skill)
+  }
+  newSkillText.value = ''
+}
+function removeSkill(index: number) {
+  form.value.skills.splice(index, 1)
+}
+
+// Photo & Resume Upload helpers
+const photoInput = ref<HTMLInputElement | null>(null)
+const resumeInput = ref<HTMLInputElement | null>(null)
+
+function triggerPhotoUpload() {
+  photoInput.value?.click()
+}
+
+function triggerResumeUpload() {
+  resumeInput.value?.click()
+}
+
+function onPhotoChange(e: Event) {
+  const target = e.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+
+  if (file.size > 500 * 1024) {
+    saveError.value = 'Photo file size exceeds the 500 KB limit.'
+    return
+  }
+
+  const reader = new FileReader()
+  reader.onload = (event) => {
+    form.value.photo_url = event.target?.result as string
+  }
+  reader.readAsDataURL(file)
+}
+
+function removePhoto() {
+  form.value.photo_url = ''
+  if (photoInput.value) photoInput.value.value = ''
+}
+
+function onResumeChange(e: Event) {
+  const target = e.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+
+  if (file.size > 2 * 1024 * 1024) {
+    saveError.value = 'Resume file size exceeds the 2 MB limit.'
+    return
+  }
+
+  const reader = new FileReader()
+  reader.onload = (event) => {
+    form.value.resume_url = event.target?.result as string
+    form.value.resume_name = file.name
+  }
+  reader.readAsDataURL(file)
+}
+
+function removeResume() {
+  form.value.resume_url = ''
+  form.value.resume_name = ''
+  if (resumeInput.value) resumeInput.value.value = ''
+}
+
+function downloadResume() {
+  if (!form.value.resume_url) return
+  const link = document.createElement('a')
+  link.href = form.value.resume_url
+  link.download = form.value.resume_name || 'resume.pdf'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 
 // Helpers for adding/editing education & experience
@@ -146,9 +239,24 @@ function removeProfessional(index: number) {
           <div class="lg:col-span-1 space-y-xl">
             <!-- Profile Summary Card -->
             <div class="bg-surface-container-lowest rounded-xl p-xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-outline-variant/30 flex flex-col items-center text-center">
-              <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[36px] font-bold mb-md border border-primary/20">
-                {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
+              <div class="relative group mb-md">
+                <div class="w-24 h-24 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 shadow-sm relative">
+                  <img v-if="form.photo_url" :src="form.photo_url" class="w-full h-full object-cover" alt="Profile Photo" />
+                  <span v-else class="text-primary text-[36px] font-bold">
+                    {{ profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U' }}
+                  </span>
+                </div>
+                <div @click="triggerPhotoUpload" class="absolute inset-0 rounded-full bg-black/50 hidden group-hover:flex items-center justify-center cursor-pointer transition-all">
+                  <UIcon name="i-lucide-camera" class="text-on-primary text-[20px]" />
+                </div>
+                <input type="file" ref="photoInput" accept="image/png, image/jpeg" @change="onPhotoChange" class="hidden" />
               </div>
+              <div class="flex gap-sm mb-lg">
+                <button type="button" @click="triggerPhotoUpload" class="text-xs text-primary hover:underline font-semibold">Upload Photo</button>
+                <span v-if="form.photo_url" class="text-xs text-outline">|</span>
+                <button v-if="form.photo_url" type="button" @click="removePhoto" class="text-xs text-error hover:underline font-semibold">Remove</button>
+              </div>
+
               <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-xs">
                 {{ profile?.full_name || 'Anonymous User' }}
               </h3>
@@ -168,18 +276,37 @@ function removeProfessional(index: number) {
                 <UIcon name="i-lucide-file-text" class="text-primary" />
                 Resume
               </h4>
-              <div class="bg-surface-container-low rounded-lg p-md mb-md border border-outline-variant/30 flex items-center gap-md">
+              <div v-if="form.resume_url" class="bg-surface-container-low rounded-lg p-md mb-md border border-outline-variant/30 flex items-center gap-md">
                 <div class="bg-primary/10 p-2 rounded text-primary flex items-center justify-center">
                   <UIcon name="i-lucide-file-text" class="text-[24px]" />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Status: Ready</p>
-                  <p class="font-label-md text-label-md text-on-surface truncate font-semibold">Auto-Generated Resume</p>
+                  <p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Uploaded Resume</p>
+                  <p class="font-label-md text-label-md text-on-surface truncate font-semibold">{{ form.resume_name || 'Resume File' }}</p>
                 </div>
               </div>
-              <p class="text-sm text-on-surface-variant mb-md">
-                Your resume will be generated dynamically using the profile information below.
-              </p>
+              <div v-else class="bg-surface-container-low rounded-lg p-md mb-md border border-dashed border-outline-variant/30 flex flex-col items-center justify-center py-6 text-center">
+                <UIcon name="i-lucide-upload-cloud" class="text-outline text-[32px] mb-2" />
+                <p class="text-sm font-semibold text-on-surface">No resume uploaded</p>
+                <p class="text-xs text-on-surface-variant mt-1">Upload PDF or Word (Max 2MB)</p>
+              </div>
+
+              <input type="file" ref="resumeInput" accept=".pdf,.doc,.docx" @change="onResumeChange" class="hidden" />
+
+              <div class="flex flex-col gap-2 w-full">
+                <button type="button" @click="triggerResumeUpload" class="w-full h-10 bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md font-semibold rounded-lg transition-colors flex items-center justify-center gap-sm">
+                  <UIcon name="i-lucide-upload" />
+                  {{ form.resume_url ? 'Change Resume' : 'Upload Resume' }}
+                </button>
+                <div class="flex gap-2" v-if="form.resume_url">
+                  <button type="button" @click="downloadResume" class="flex-1 h-9 border border-outline-variant text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-sm">
+                    <UIcon name="i-lucide-download" /> Download
+                  </button>
+                  <button type="button" @click="removeResume" class="flex-1 h-9 border border-outline-variant text-error hover:bg-error-container/10 font-label-sm text-label-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-sm">
+                    <UIcon name="i-lucide-trash-2" /> Remove
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -323,6 +450,37 @@ function removeProfessional(index: number) {
                       <textarea v-model="exp.description" placeholder="Describe your responsibilities, technologies used, and achievements." class="w-full rounded-lg bg-surface border border-outline-variant/30 px-3 py-2 text-body-md text-on-surface" rows="2"></textarea>
                     </div>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Skills -->
+            <section class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-outline-variant/30">
+              <h4 class="font-headline-md text-headline-md font-semibold text-on-surface mb-lg pb-sm border-b border-outline-variant/30">Skills</h4>
+              <div class="space-y-md">
+                <div>
+                  <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide block mb-xs">Add Skill</label>
+                  <div class="flex gap-sm">
+                    <input
+                      v-model="newSkillText"
+                      type="text"
+                      placeholder="e.g. TypeScript, React, Docker"
+                      class="flex-1 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface focus:ring-0 px-4 py-2 font-body-md text-body-md text-on-surface transition-colors"
+                      @keydown.enter.prevent="addSkill"
+                    >
+                    <button type="button" @click="addSkill" class="px-md h-[40px] bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors">
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-xs">
+                  <span v-for="(skill, idx) in form.skills" :key="idx" class="inline-flex items-center gap-xs px-sm py-1 bg-primary/10 text-primary rounded-full font-label-md text-label-md font-semibold">
+                    {{ skill }}
+                    <button type="button" @click="removeSkill(idx)" class="text-primary hover:text-error transition-colors flex items-center">
+                      <UIcon name="i-lucide-x" class="text-sm" />
+                    </button>
+                  </span>
+                  <p v-if="form.skills.length === 0" class="text-sm text-on-surface-variant/60 italic">No skills added yet.</p>
                 </div>
               </div>
             </section>

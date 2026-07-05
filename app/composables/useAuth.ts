@@ -35,6 +35,10 @@ export interface Profile {
   completeness_score: number
   onboarding_skipped: number
   onboarding_completed: number
+  skills?: string[]
+  photo_url?: string | null
+  resume_url?: string | null
+  resume_name?: string | null
   updated_at?: string
 }
 
