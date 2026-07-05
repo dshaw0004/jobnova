@@ -26,6 +26,7 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody(event)
   const {
+    companyName,
     companyType,
     industryType,
     executiveName,
@@ -35,7 +36,8 @@ export default defineEventHandler(async (event) => {
     pincode,
     country,
     state,
-    city
+    city,
+    logoUrl
   } = body ?? {}
 
   // Update employer profile in the database
@@ -43,6 +45,7 @@ export default defineEventHandler(async (event) => {
     .prepare(`
       UPDATE employer_profiles
       SET
+        company_name = ?,
         company_type = ?,
         industry_type = ?,
         executive_name = ?,
@@ -53,10 +56,12 @@ export default defineEventHandler(async (event) => {
         country = ?,
         state = ?,
         city = ?,
+        logo_url = ?,
         updated_at = (datetime('now'))
       WHERE user_id = ?
     `)
     .bind(
+      companyName || null,
       companyType || null,
       industryType || null,
       executiveName || null,
@@ -67,6 +72,7 @@ export default defineEventHandler(async (event) => {
       country || 'India',
       state || null,
       city || null,
+      logoUrl || null,
       userId
     )
     .run()

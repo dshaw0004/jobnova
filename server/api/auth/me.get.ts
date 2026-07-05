@@ -24,29 +24,44 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Session invalid. Please log in again.' })
   }
 
-  const profile = await DB
-    .prepare(`
-      SELECT
-        full_name, phone, location, about_self, academic_info, professional_info,
-        sector, sector_reason, team_scenario_answer,
-        completeness_score, onboarding_completed, onboarding_skipped, updated_at
-      FROM jobseeker_profiles
-      WHERE user_id = ?
-    `)
-    .bind(userId)
-    .first<any>()
+  let profile = null
+  if (user.role === 'jobseeker') {
+    profile = await DB
+      .prepare(`
+        SELECT
+          full_name, phone, location, about_self, academic_info, professional_info,
+          sector, sector_reason, team_scenario_answer,
+          completeness_score, onboarding_completed, onboarding_skipped, updated_at
+        FROM jobseeker_profiles
+        WHERE user_id = ?
+      `)
+      .bind(userId)
+      .first<any>()
 
-  if (profile) {
-    if (typeof profile.academic_info === 'string') {
-      try { profile.academic_info = JSON.parse(profile.academic_info) } catch { profile.academic_info = [] }
-    } else if (!profile.academic_info) {
-      profile.academic_info = []
+    if (profile) {
+      if (typeof profile.academic_info === 'string') {
+        try { profile.academic_info = JSON.parse(profile.academic_info) } catch { profile.academic_info = [] }
+      } else if (!profile.academic_info) {
+        profile.academic_info = []
+      }
+      if (typeof profile.professional_info === 'string') {
+        try { profile.professional_info = JSON.parse(profile.professional_info) } catch { profile.professional_info = [] }
+      } else if (!profile.professional_info) {
+        profile.professional_info = []
+      }
     }
-    if (typeof profile.professional_info === 'string') {
-      try { profile.professional_info = JSON.parse(profile.professional_info) } catch { profile.professional_info = [] }
-    } else if (!profile.professional_info) {
-      profile.professional_info = []
-    }
+  } else if (user.role === 'employer') {
+    profile = await DB
+      .prepare(`
+        SELECT
+          company_name, company_type, industry_type,
+          executive_name, executive_phone, description,
+          address, pincode, country, state, city, is_approved, logo_url, updated_at
+        FROM employer_profiles
+        WHERE user_id = ?
+      `)
+      .bind(userId)
+      .first<any>()
   }
 
   return {
