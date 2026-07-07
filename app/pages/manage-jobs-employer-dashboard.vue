@@ -102,6 +102,32 @@ async function handleDeleteJob(id: number) {
   }
 }
 
+// Edit job handler
+function handleEditJob(id: number) {
+  router.push(`/post-a-new-job-employer-dashboard?id=${id}`)
+}
+
+// Clone/Duplicate job handler
+function handleCloneJob(id: number) {
+  router.push(`/post-a-new-job-employer-dashboard?cloneId=${id}`)
+}
+
+// Expire job handler
+async function handleExpireJob(id: number) {
+  if (!confirm('Are you sure you want to close/expire this job posting?')) {
+    return
+  }
+  try {
+    await $fetch('/api/jobs/status', {
+      method: 'POST',
+      body: { id, status: 'expired' }
+    })
+    await loadJobs()
+  } catch (err: any) {
+    alert(err.data?.message || 'Failed to close job.')
+  }
+}
+
 function formatDate(dateStr: string) {
   if (!dateStr) return '--'
   try {
@@ -306,6 +332,31 @@ function formatDate(dateStr: string) {
                   </td>
                   <td class="py-4 px-6 text-right">
                     <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                        title="Edit Job"
+                        type="button"
+                        @click="handleEditJob(job.id)"
+                      >
+                        <UIcon name="i-lucide-pencil" class="text-[20px]" />
+                      </button>
+                      <button
+                        class="p-2 text-on-surface-variant hover:text-secondary hover:bg-secondary/10 rounded-lg transition-colors"
+                        title="Duplicate/Clone Job"
+                        type="button"
+                        @click="handleCloneJob(job.id)"
+                      >
+                        <UIcon name="i-lucide-copy" class="text-[20px]" />
+                      </button>
+                      <button
+                        v-if="job.status !== 'expired'"
+                        class="p-2 text-on-surface-variant hover:text-warning hover:bg-warning/10 rounded-lg transition-colors"
+                        title="Close/Expire Job"
+                        type="button"
+                        @click="handleExpireJob(job.id)"
+                      >
+                        <UIcon name="i-lucide-calendar-x" class="text-[20px]" />
+                      </button>
                       <button
                         class="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-lg transition-colors"
                         title="Delete Job"

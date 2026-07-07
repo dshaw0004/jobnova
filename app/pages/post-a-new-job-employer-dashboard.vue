@@ -4,15 +4,20 @@ definePageMeta({
 })
 
 import { ref, reactive, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useAuth } from '~/composables/useAuth'
 
-useHead({
-  title: "Post a New Job - Job Nova Employer Dashboard"
-})
-
 const router = useRouter()
+const route = useRoute()
 const { user, fetchUser, logout } = useAuth()
+
+const jobId = computed(() => route.query.id ? Number(route.query.id) : null)
+const cloneId = computed(() => route.query.cloneId ? Number(route.query.cloneId) : null)
+const isEdit = computed(() => !!jobId.value)
+
+useHead({
+  title: isEdit.value ? "Edit Job - Job Nova Employer Dashboard" : "Post a New Job - Job Nova Employer Dashboard"
+})
 
 const form = reactive({
   title: '',
@@ -29,7 +34,8 @@ const form = reactive({
   city: '',
   ugQualification: '',
   pgQualification: '',
-  skills: [] as string[]
+  skills: [] as string[],
+  expiryDate: ''
 })
 
 const newSkill = ref('')
@@ -42,8 +48,46 @@ onMounted(async () => {
   }
   if (!user.value || user.value.role !== 'employer') {
     router.push('/login')
+    return
+  }
+
+  const targetId = jobId.value || cloneId.value
+  if (targetId) {
+    await loadJobDetails(targetId)
   }
 })
+
+async function loadJobDetails(id: number) {
+  loading.value = true
+  try {
+    const res = await $fetch<{ success: boolean; job: any }>('/api/jobs/get', {
+      query: { id }
+    })
+    if (res.success && res.job) {
+      const j = res.job
+      form.title = j.title
+      form.functionalArea = j.functional_area
+      form.industry = j.industry
+      form.description = j.description
+      form.vacancies = j.vacancies
+      form.expMin = j.exp_min !== null ? String(j.exp_min) : ''
+      form.expMax = j.exp_max !== null ? String(j.exp_max) : ''
+      form.salMin = j.sal_min !== null ? String(j.sal_min) : ''
+      form.salMax = j.sal_max !== null ? String(j.sal_max) : ''
+      form.country = j.country || 'India'
+      form.state = j.state || ''
+      form.city = j.city || ''
+      form.ugQualification = j.ug_qualification || ''
+      form.pgQualification = j.pg_qualification || ''
+      form.skills = j.skills || []
+      form.expiryDate = j.expiry_date || ''
+    }
+  } catch (err: any) {
+    errorMsg.value = err.data?.message || 'Failed to load job details.'
+  } finally {
+    loading.value = false
+  }
+}
 
 // Skills Tag management
 function addSkill() {
@@ -52,10 +96,6 @@ function addSkill() {
     form.skills.push(skill)
   }
   newSkill.value = ''
-}
-
-function removeSkill(index: number) {
-  form.skills.splice(index, 1)
 }
 
 // Form Submission (Publish or Save Draft)
@@ -69,21 +109,36 @@ async function submitJob(status: 'active' | 'draft') {
 
   loading.value = true
   try {
-    await $fetch('/api/jobs/create', {
-      method: 'POST',
-      body: {
-        ...form,
-        status
-      }
-    })
+    if (isEdit.value) {
+      await $fetch('/api/jobs/update', {
+        method: 'POST',
+        body: {
+          id: jobId.value,
+          ...form,
+          status
+        }
+      })
+    } else {
+      await $fetch('/api/jobs/create', {
+        method: 'POST',
+        body: {
+          ...form,
+          status
+        }
+      })
+    }
     router.push('/manage-jobs-employer-dashboard')
   }
   catch (err: any) {
-    errorMsg.value = err.data?.message || 'Failed to post job. Please try again.'
+    errorMsg.value = err.data?.message || 'Failed to save job. Please try again.'
   }
   finally {
     loading.value = false
   }
+}
+
+function removeSkill(index: number) {
+  form.skills.splice(index, 1)
 }
 
 // Computed properties for live preview card
@@ -118,8 +173,10 @@ const previewSalary = computed(() => {
 <template>
   <div class="p-4 md:p-8 flex-grow max-w-7xl mx-auto w-full">
         <div class="mb-xl">
-          <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Post a New Job</h1>
-          <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Create a job posting and start receiving applications.</p>
+          <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">{{ isEdit ? 'Edit Job Posting' : 'Post a New Job' }}</h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">
+            {{ isEdit ? 'Update the details of your job posting.' : 'Create a job posting and start receiving applications.' }}
+          </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
@@ -242,6 +299,14 @@ const previewSalary = computed(() => {
                     />
                   </div>
                 </div>
+                <div>
+                  <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Expiration Date</label>
+                  <input
+                    v-model="form.expiryDate"
+                    class="w-full px-4 py-3 bg-surface-container-highest border border-transparent rounded-lg focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-on-surface"
+                    type="date"
+                  />
+                </div>
               </div>
 
               <!-- Location & Education -->
@@ -347,7 +412,7 @@ const previewSalary = computed(() => {
                 @click="submitJob('active')"
               >
                 <UIcon v-if="loading" name="i-lucide-loader-circle" class="animate-spin text-[20px]" />
-                <span>Publish Job</span>
+                <span>{{ isEdit ? 'Update Job' : 'Publish Job' }}</span>
               </button>
               <div class="flex gap-4 flex-1">
                 <button
@@ -382,7 +447,7 @@ const previewSalary = computed(() => {
                 >
                   <UIcon v-if="loading" name="i-lucide-loader-circle" class="animate-spin text-[20px]" />
                   <UIcon v-else name="i-lucide-send" class="text-[20px]" />
-                  <span>Publish Job</span>
+                  <span>{{ isEdit ? 'Update Job' : 'Publish Job' }}</span>
                 </button>
                 <div class="flex gap-2">
                   <button

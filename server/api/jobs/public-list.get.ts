@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       ep.industry_type as company_industry
     FROM jobs j
     LEFT JOIN employer_profiles ep ON j.employer_id = ep.user_id
-    WHERE j.status = 'active'
+    WHERE j.status = 'active' AND (j.expiry_date IS NULL OR date(j.expiry_date) >= date('now'))
   `
   const params: any[] = []
 
