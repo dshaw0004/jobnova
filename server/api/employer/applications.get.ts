@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
       ja.id as application_id,
       ja.status as application_status,
       ja.created_at as applied_at,
+      ja.cover_letter,
       j.id as job_id,
       j.title as job_title,
       u.email as candidate_email,

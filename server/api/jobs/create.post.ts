@@ -42,7 +42,8 @@ export default defineEventHandler(async (event) => {
     pgQualification,
     skills,
     status,
-    expiryDate
+    expiryDate,
+    applicationDeadline
   } = body ?? {}
 
   // Basic validation
@@ -73,8 +74,9 @@ export default defineEventHandler(async (event) => {
         pg_qualification,
         skills,
         status,
-        expiry_date
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        expiry_date,
+        application_deadline
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .bind(
       userId,
@@ -94,7 +96,8 @@ export default defineEventHandler(async (event) => {
       pgQualification || null,
       skillsString,
       jobStatus,
-      expiryDate || null
+      expiryDate || null,
+      applicationDeadline || null
     )
     .run()
 

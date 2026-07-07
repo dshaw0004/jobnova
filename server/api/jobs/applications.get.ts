@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
       ja.id as application_id,
       ja.status as application_status,
       ja.created_at as applied_at,
+      ja.cover_letter,
       j.id as job_id,
       j.title as job_title,
       j.city as job_city,
@@ -41,6 +42,7 @@ export default defineEventHandler(async (event) => {
       j.sal_max as job_sal_max,
       j.exp_min as job_exp_min,
       j.exp_max as job_exp_max,
+      j.application_deadline,
       ep.company_name
     FROM job_applications ja
     JOIN jobs j ON ja.job_id = j.id

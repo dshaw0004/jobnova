@@ -140,6 +140,20 @@ function safeParseJson(jsonStr: string | null, fallback: any[] = []) {
     return fallback
   }
 }
+
+function exportApplications() {
+  const params = new URLSearchParams()
+  if (filters.status) params.set('status', filters.status)
+  if (filters.jobId) params.set('jobId', filters.jobId)
+  const url = `/api/employer/export?${params.toString()}`
+  // Trigger a file download
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `applications_${Date.now()}.csv`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
 </script>
 
 <template>
@@ -229,6 +243,15 @@ function safeParseJson(jsonStr: string | null, fallback: any[] = []) {
               <option value="offered">Offered</option>
               <option value="rejected">Rejected</option>
             </select>
+            <!-- Export Button -->
+            <button
+              class="ml-auto h-11 px-4 rounded-lg bg-surface-container border border-outline-variant text-on-surface font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-high hover:border-primary hover:text-primary transition-all"
+              title="Export as CSV"
+              @click="exportApplications"
+            >
+              <UIcon name="i-lucide-download" class="text-[18px]" />
+              Export CSV
+            </button>
           </div>
 
           <!-- Loading State -->
@@ -450,6 +473,14 @@ function safeParseJson(jsonStr: string | null, fallback: any[] = []) {
               </div>
             </div>
             <p v-else class="font-body-md text-body-md text-on-surface-variant/80 italic">No professional work experience details recorded.</p>
+          </section>
+
+          <!-- Cover Letter section -->
+          <section v-if="selectedApp.cover_letter" class="space-y-sm">
+            <h5 class="font-headline-md text-body-lg font-bold text-on-surface border-l-4 border-primary pl-xs">Cover Letter</h5>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed whitespace-pre-wrap bg-surface-container-low/60 rounded-xl p-md border border-outline-variant/30">
+              {{ selectedApp.cover_letter }}
+            </p>
           </section>
 
           <!-- Academic History -->

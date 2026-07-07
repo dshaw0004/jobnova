@@ -35,7 +35,8 @@ const form = reactive({
   ugQualification: '',
   pgQualification: '',
   skills: [] as string[],
-  expiryDate: ''
+  expiryDate: '',
+  applicationDeadline: ''
 })
 
 const newSkill = ref('')
@@ -81,6 +82,7 @@ async function loadJobDetails(id: number) {
       form.pgQualification = j.pg_qualification || ''
       form.skills = j.skills || []
       form.expiryDate = j.expiry_date || ''
+      form.applicationDeadline = j.application_deadline || ''
     }
   } catch (err: any) {
     errorMsg.value = err.data?.message || 'Failed to load job details.'
@@ -303,6 +305,15 @@ const previewSalary = computed(() => {
                   <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Expiration Date</label>
                   <input
                     v-model="form.expiryDate"
+                    class="w-full px-4 py-3 bg-surface-container-highest border border-transparent rounded-lg focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-on-surface"
+                    type="date"
+                  />
+                </div>
+                <div>
+                  <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Application Deadline</label>
+                  <p class="font-label-sm text-label-sm text-on-surface-variant mb-1 font-normal opacity-70">Last date candidates can apply.</p>
+                  <input
+                    v-model="form.applicationDeadline"
                     class="w-full px-4 py-3 bg-surface-container-highest border border-transparent rounded-lg focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-on-surface"
                     type="date"
                   />

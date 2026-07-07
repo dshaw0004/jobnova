@@ -30,6 +30,8 @@ const filters = reactive({
 
 const loading = ref(false)
 const errorMsg = ref('')
+const withdrawingId = ref<number | null>(null)
+const expandedCoverLetter = ref<number | null>(null)
 
 onMounted(async () => {
   if (!user.value) {
@@ -119,6 +121,41 @@ function getTrackLineWidth(status: string) {
   if (status === 'offered') return 'width: 90%; background-color: var(--color-primary);'
   if (status === 'rejected') return 'width: 25%; background-color: #ef4444;'
   return 'width: 0%; background-color: var(--color-primary);'
+}
+
+async function handleWithdraw(applicationId: number) {
+  if (!confirm('Are you sure you want to withdraw this application? This cannot be undone.')) return
+  withdrawingId.value = applicationId
+  try {
+    await $fetch('/api/jobs/withdraw', {
+      method: 'POST',
+      body: { applicationId }
+    })
+    await loadApplications()
+  } catch (err: any) {
+    alert(err.data?.message || 'Failed to withdraw application.')
+  } finally {
+    withdrawingId.value = null
+  }
+}
+
+function toggleCoverLetter(id: number) {
+  expandedCoverLetter.value = expandedCoverLetter.value === id ? null : id
+}
+
+function formatDeadline(dateStr: string | null) {
+  if (!dateStr) return null
+  try {
+    const deadline = new Date(dateStr)
+    const now = new Date()
+    const isPast = now > new Date(dateStr + 'T23:59:59')
+    return {
+      label: deadline.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      isPast
+    }
+  } catch {
+    return null
+  }
 }
 </script>
 
@@ -322,17 +359,44 @@ function getTrackLineWidth(status: string) {
               </div>
             </div>
           </div>
-          <div class="flex gap-sm mt-sm md:mt-0">
+          <div class="flex flex-wrap gap-sm mt-sm md:mt-0 items-center">
+            <!-- Deadline badge -->
+            <template v-if="formatDeadline(app.application_deadline)">
+              <span
+                :class="[
+                  'inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-[11px] border',
+                  formatDeadline(app.application_deadline)!.isPast
+                    ? 'bg-error/10 text-error border-error/20'
+                    : 'bg-surface-container text-on-surface-variant border-outline-variant/40'
+                ]"
+              >
+                <UIcon name="i-lucide-clock" class="text-[13px]" />
+                {{ formatDeadline(app.application_deadline)!.isPast ? 'Deadline passed' : 'Deadline: ' + formatDeadline(app.application_deadline)!.label }}
+              </span>
+            </template>
             <NuxtLink
               :to="`/job-search`"
               class="px-md py-sm rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-lowest hover:border-primary hover:text-primary transition-all active:scale-[0.98] flex items-center justify-center"
             >
-              View Job Listing
+              View Job
             </NuxtLink>
             <button
-              class="px-md py-sm rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-fixed-variant transition-colors active:scale-[0.98] shadow-sm flex items-center justify-center"
+              v-if="app.application_status === 'applied'"
+              class="px-md py-sm rounded-lg border border-error/40 text-error font-label-md text-label-md hover:bg-error/10 transition-colors active:scale-[0.98] flex items-center gap-1 disabled:opacity-50"
+              :disabled="withdrawingId === app.application_id"
+              @click="handleWithdraw(app.application_id)"
             >
-              Contact Employer
+              <UIcon v-if="withdrawingId === app.application_id" name="i-lucide-loader-circle" class="animate-spin text-[16px]" />
+              <UIcon v-else name="i-lucide-x-circle" class="text-[16px]" />
+              Withdraw
+            </button>
+            <button
+              v-if="app.cover_letter"
+              class="px-md py-sm rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:border-primary hover:text-primary transition-all active:scale-[0.98] flex items-center gap-1"
+              @click="toggleCoverLetter(app.application_id)"
+            >
+              <UIcon name="i-lucide-file-text" class="text-[16px]" />
+              {{ expandedCoverLetter === app.application_id ? 'Hide' : 'Cover Letter' }}
             </button>
           </div>
         </div>
@@ -421,6 +485,17 @@ function getTrackLineWidth(status: string) {
               </span>
             </div>
           </div>
+        </div>
+
+        <!-- Cover Letter Panel -->
+        <div
+          v-if="app.cover_letter && expandedCoverLetter === app.application_id"
+          class="bg-surface-container-low/60 rounded-xl p-md border border-outline-variant/30 text-sm text-on-surface-variant leading-relaxed whitespace-pre-wrap"
+        >
+          <p class="font-label-md text-label-md text-on-surface font-semibold mb-2 flex items-center gap-1">
+            <UIcon name="i-lucide-file-text" class="text-primary" /> Cover Letter
+          </p>
+          {{ app.cover_letter }}
         </div>
       </div>
     </div>

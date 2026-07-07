@@ -16,6 +16,14 @@ const loading = ref(false)
 const applyLoading = ref(false)
 const errorMsg = ref('')
 
+// Cover letter modal state
+const applyModal = reactive({
+  open: false,
+  jobId: null as number | null,
+  jobTitle: '' as string,
+  coverLetter: ''
+})
+
 const filters = reactive({
   search: '',
   location: '',
@@ -58,8 +66,8 @@ function selectJob(job: any) {
   selectedJob.value = job
 }
 
-// Handle applying to a job
-async function applyToJob(jobId: number) {
+// Handle applying to a job — opens cover letter modal first
+function applyToJob(jobId: number) {
   if (!user.value) {
     router.push(`/login?redirect=/job-search`)
     return
@@ -70,20 +78,34 @@ async function applyToJob(jobId: number) {
     return
   }
 
+  const job = jobs.value.find(j => j.id === jobId) || selectedJob.value
+  applyModal.jobId = jobId
+  applyModal.jobTitle = job?.title || 'this job'
+  applyModal.coverLetter = ''
+  applyModal.open = true
+}
+
+function closeApplyModal() {
+  applyModal.open = false
+  applyModal.jobId = null
+  applyModal.coverLetter = ''
+}
+
+async function submitApplication() {
+  if (!applyModal.jobId) return
   applyLoading.value = true
   try {
     const res = await $fetch<{ success: boolean; message: string }>('/api/jobs/apply', {
       method: 'POST',
-      body: { jobId }
+      body: { jobId: applyModal.jobId, coverLetter: applyModal.coverLetter || undefined }
     })
     if (res.success) {
-      alert(res.message)
-      // Update local state
-      const job = jobs.value.find(j => j.id === jobId)
+      const job = jobs.value.find(j => j.id === applyModal.jobId)
       if (job) job.hasApplied = true
-      if (selectedJob.value?.id === jobId) {
+      if (selectedJob.value?.id === applyModal.jobId) {
         selectedJob.value.hasApplied = true
       }
+      closeApplyModal()
     }
   } catch (err: any) {
     alert(err.data?.message || 'Failed to submit application.')
@@ -432,6 +454,66 @@ function formatDate(dateStr: string) {
         </aside>
       </div>
     </main>
+  </div>
+
+  <!-- Cover Letter Apply Modal -->
+  <div
+    v-if="applyModal.open"
+    class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+    @click.self="closeApplyModal"
+  >
+    <div class="bg-surface-container-lowest rounded-2xl w-full max-w-lg shadow-2xl border border-outline-variant overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30">
+        <div>
+          <h3 class="font-headline-md text-headline-md font-bold text-on-surface">Apply for Position</h3>
+          <p class="font-body-sm text-on-surface-variant mt-0.5 text-sm truncate max-w-xs">{{ applyModal.jobTitle }}</p>
+        </div>
+        <button
+          class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          @click="closeApplyModal"
+        >
+          <UIcon name="i-lucide-x" class="text-[20px]" />
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1">
+            Cover Letter <span class="text-on-surface-variant font-normal">(optional)</span>
+          </label>
+          <p class="font-body-sm text-sm text-on-surface-variant mb-2">
+            Introduce yourself and explain why you're a great fit for this role.
+          </p>
+          <textarea
+            v-model="applyModal.coverLetter"
+            class="w-full px-4 py-3 bg-surface-container-highest border border-outline-variant/50 rounded-xl focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-on-surface resize-y transition-colors"
+            placeholder="Dear Hiring Manager, I am excited to apply for this position because..."
+            rows="6"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-outline-variant/30 flex justify-end gap-3 bg-surface-container-low/50">
+        <button
+          class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-colors"
+          @click="closeApplyModal"
+        >
+          Cancel
+        </button>
+        <button
+          class="px-6 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity shadow-md flex items-center gap-2 disabled:opacity-60"
+          :disabled="applyLoading"
+          @click="submitApplication"
+        >
+          <UIcon v-if="applyLoading" name="i-lucide-loader-circle" class="animate-spin text-[18px]" />
+          <UIcon v-else name="i-lucide-send" class="text-[18px]" />
+          Submit Application
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 

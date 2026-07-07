@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  const { jobId } = body ?? {}
+  const { jobId, coverLetter } = body ?? {}
 
   if (!jobId) {
     throw createError({ statusCode: 400, message: 'Missing job ID.' })
@@ -33,9 +33,9 @@ export default defineEventHandler(async (event) => {
 
   // Verify the job exists and is active
   const job = await DB
-    .prepare("SELECT id, status FROM jobs WHERE id = ?")
+    .prepare("SELECT id, status, application_deadline FROM jobs WHERE id = ?")
     .bind(jobId)
-    .first<{ id: number; status: string }>()
+    .first<{ id: number; status: string; application_deadline: string | null }>()
 
   if (!job) {
     throw createError({ statusCode: 404, message: 'Job posting not found.' })
@@ -43,6 +43,15 @@ export default defineEventHandler(async (event) => {
 
   if (job.status !== 'active') {
     throw createError({ statusCode: 400, message: 'This job posting is no longer active.' })
+  }
+
+  // Validate application deadline
+  if (job.application_deadline) {
+    const deadline = new Date(job.application_deadline)
+    deadline.setHours(23, 59, 59, 999) // end of deadline day
+    if (new Date() > deadline) {
+      throw createError({ statusCode: 400, message: 'The application deadline for this job has passed.' })
+    }
   }
 
   // Check if they have already applied
@@ -57,8 +66,8 @@ export default defineEventHandler(async (event) => {
 
   // Create the application
   const result = await DB
-    .prepare('INSERT INTO job_applications (job_id, jobseeker_id, status) VALUES (?, ?, ?)')
-    .bind(jobId, userId, 'applied')
+    .prepare('INSERT INTO job_applications (job_id, jobseeker_id, status, cover_letter) VALUES (?, ?, ?, ?)')
+    .bind(jobId, userId, 'applied', coverLetter || null)
     .run()
 
   if (!result.success) {
