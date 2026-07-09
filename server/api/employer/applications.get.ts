@@ -33,12 +33,17 @@ export default defineEventHandler(async (event) => {
       ja.cover_letter,
       j.id as job_id,
       j.title as job_title,
+      j.ai_screening_enabled as job_ai_screening_enabled,
       u.email as candidate_email,
       jp.full_name as candidate_name,
       jp.sector as candidate_sector,
       jp.location as candidate_location,
       jp.academic_info as candidate_academic,
-      jp.professional_info as candidate_professional
+      jp.professional_info as candidate_professional,
+      ja.ai_screening_completed,
+      ja.ai_screening_score,
+      ja.ai_screening_summary,
+      ja.ai_screening_chat_history
     FROM job_applications ja
     JOIN jobs j ON ja.job_id = j.id
     JOIN users u ON ja.jobseeker_id = u.id

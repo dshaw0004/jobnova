@@ -37,6 +37,7 @@ const errorMsg = ref('')
 // Modal state
 const selectedApp = ref<any | null>(null)
 const isModalOpen = ref(false)
+const showChatHistory = ref(false)
 
 onMounted(async () => {
   if (!user.value) {
@@ -110,6 +111,7 @@ async function updateStatus(applicationId: number, status: string) {
 
 function viewProfile(app: any) {
   selectedApp.value = app
+  showChatHistory.value = false
   isModalOpen.value = true
 }
 
@@ -443,6 +445,84 @@ function exportApplications() {
               </div>
             </div>
           </div>
+
+          <!-- AI Screening Section -->
+          <section v-if="selectedApp.job_ai_screening_enabled === 1" class="space-y-sm bg-primary/5 p-lg rounded-2xl border border-primary/20">
+            <div class="flex items-center gap-sm">
+              <UIcon name="i-lucide-bot" class="text-primary text-[24px]" />
+              <h5 class="font-headline-md text-body-lg font-bold text-on-surface">AI Screening Interview Assessment</h5>
+            </div>
+            
+            <div v-if="selectedApp.ai_screening_completed === 1" class="space-y-md">
+              <div class="flex flex-col md:flex-row gap-lg items-center bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30">
+                <!-- Score Indicator -->
+                <div class="relative w-20 h-20 shrink-0">
+                  <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--color-surface-variant)" stroke-width="8" />
+                    <circle
+                      cx="50" cy="50" r="40" fill="none"
+                      stroke="var(--color-primary)"
+                      stroke-width="8"
+                      stroke-linecap="round"
+                      :stroke-dasharray="`${2 * Math.PI * 40}`"
+                      :stroke-dashoffset="`${2 * Math.PI * 40 * (1 - selectedApp.ai_screening_score / 100)}`"
+                      class="transition-all duration-700"
+                    />
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="font-headline font-bold text-headline-md text-primary">{{ selectedApp.ai_screening_score }}</span>
+                    <span class="text-[10px] text-outline uppercase tracking-wider font-semibold">Fit Score</span>
+                  </div>
+                </div>
+
+                <!-- Suitability summary -->
+                <div class="flex-grow space-y-1">
+                  <div class="text-label-md font-semibold text-on-surface">AI Evaluation Summary:</div>
+                  <p class="text-body-md text-on-surface-variant leading-relaxed">{{ selectedApp.ai_screening_summary || 'Evaluation completed successfully.' }}</p>
+                </div>
+              </div>
+
+              <!-- Collapsible Chat History -->
+              <div class="space-y-sm">
+                <button
+                  class="font-label-md text-label-md text-primary hover:underline flex items-center gap-xs cursor-pointer"
+                  @click="showChatHistory = !showChatHistory"
+                >
+                  <UIcon :name="showChatHistory ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" />
+                  {{ showChatHistory ? 'Hide Screening Chat Transcript' : 'View Screening Chat Transcript' }}
+                </button>
+
+                <div v-if="showChatHistory" class="bg-surface-container-low rounded-xl border border-outline-variant/30 overflow-hidden">
+                  <div class="p-md font-bold text-label-md bg-surface-container-high/40 border-b border-outline-variant/20 flex items-center justify-between">
+                    <span>Interview Transcript</span>
+                    <span class="text-xs text-on-surface-variant font-normal">Aria AI Assistant</span>
+                  </div>
+                  <div class="p-md max-h-[300px] overflow-y-auto space-y-md">
+                    <div
+                      v-for="(msg, idx) in safeParseJson(selectedApp.ai_screening_chat_history)"
+                      :key="idx"
+                      :class="['flex gap-sm', msg.role === 'assistant' ? '' : 'flex-row-reverse']"
+                    >
+                      <div :class="['w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-white text-[12px] ' + (msg.role === 'assistant' ? 'bg-primary' : 'bg-secondary')]" style="display: flex; align-items: center; justify-content: center;">
+                        <UIcon :name="msg.role === 'assistant' ? 'i-lucide-bot' : 'i-lucide-user'" />
+                      </div>
+                      <div :class="['max-w-[80%] rounded-xl px-sm py-1.5 text-sm shadow-sm', msg.role === 'assistant' ? 'bg-surface-container-lowest text-on-surface' : 'bg-primary text-on-primary']">
+                        <p class="whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div v-else class="flex items-center gap-sm bg-surface-container-lowest p-md rounded-xl border border-dashed border-outline-variant">
+              <UIcon name="i-lucide-clock" class="text-outline text-xl animate-pulse" />
+              <div>
+                <div class="text-label-md font-bold text-on-surface">Screening Pending</div>
+                <p class="text-xs text-on-surface-variant">The applicant has not completed the mandatory AI screening interview yet.</p>
+              </div>
+            </div>
+          </section>
 
           <!-- Professional Summary / About Me -->
           <section class="space-y-sm">

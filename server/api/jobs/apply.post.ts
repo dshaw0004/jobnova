@@ -33,9 +33,9 @@ export default defineEventHandler(async (event) => {
 
   // Verify the job exists and is active
   const job = await DB
-    .prepare("SELECT id, status, application_deadline FROM jobs WHERE id = ?")
+    .prepare("SELECT id, status, application_deadline, ai_screening_enabled FROM jobs WHERE id = ?")
     .bind(jobId)
-    .first<{ id: number; status: string; application_deadline: string | null }>()
+    .first<{ id: number; status: string; application_deadline: string | null; ai_screening_enabled: number }>()
 
   if (!job) {
     throw createError({ statusCode: 404, message: 'Job posting not found.' })
@@ -76,6 +76,8 @@ export default defineEventHandler(async (event) => {
 
   return {
     success: true,
-    message: 'Application submitted successfully.'
+    message: 'Application submitted successfully.',
+    aiScreeningRequired: job.ai_screening_enabled === 1,
+    jobId: job.id
   }
 })

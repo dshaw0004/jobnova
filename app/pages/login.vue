@@ -50,7 +50,7 @@ async function handleLogin() {
       const completed = res.profile.onboarding_completed;
 
       if (score < 30 && !skipped && !completed) {
-        router.push("/register-job-seeker-chat");
+        router.push("/register-job-seeker-step-2");
       } else {
         router.push("/jobseeker-dashboard");
       }

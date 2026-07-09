@@ -34,7 +34,7 @@ async function handleRegister() {
       method: 'POST',
       body: { email: form.email, password: form.password }
     })
-    router.push('/register-job-seeker-chat')
+    router.push('/register-job-seeker-step-2')
   }
   catch (err: unknown) {
     const e = err as { data?: { message?: string } }

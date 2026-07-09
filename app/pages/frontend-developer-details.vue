@@ -98,13 +98,18 @@ async function applyToJob() {
 
   applyLoading.value = true
   try {
-    const response = await $fetch<{ success: boolean; message: string }>('/api/jobs/apply', {
+    const response = await $fetch<{ success: boolean; message: string; aiScreeningRequired?: boolean }>('/api/jobs/apply', {
       method: 'POST',
       body: { jobId: id }
     })
     if (response.success) {
-      alert(response.message)
-      await refresh()
+      if (response.aiScreeningRequired) {
+        alert("This application requires a brief AI screening interview. Redirecting you to the interview room...")
+        router.push(`/job-screening-chat?jobId=${id}`)
+      } else {
+        alert(response.message)
+        await refresh()
+      }
     }
   } catch (err: any) {
     alert(err.data?.message || 'Failed to submit application.')

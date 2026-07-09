@@ -36,7 +36,9 @@ const form = reactive({
   pgQualification: '',
   skills: [] as string[],
   expiryDate: '',
-  applicationDeadline: ''
+  applicationDeadline: '',
+  aiScreeningEnabled: false,
+  aiScreeningPrompt: ''
 })
 
 const newSkill = ref('')
@@ -83,6 +85,8 @@ async function loadJobDetails(id: number) {
       form.skills = j.skills || []
       form.expiryDate = j.expiry_date || ''
       form.applicationDeadline = j.application_deadline || ''
+      form.aiScreeningEnabled = j.ai_screening_enabled === 1
+      form.aiScreeningPrompt = j.ai_screening_prompt || ''
     }
   } catch (err: any) {
     errorMsg.value = err.data?.message || 'Failed to load job details.'
@@ -374,6 +378,31 @@ const previewSalary = computed(() => {
                     <option value="Not Required">Not Required</option>
                   </select>
                 </div>
+              </div>
+            </div>
+
+            <!-- AI Screening Settings -->
+            <div class="bg-surface rounded-xl p-md md:p-lg border border-outline-variant/30 shadow-sm space-y-4">
+              <div class="flex items-center justify-between pb-sm border-b border-outline-variant/30">
+                <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                  <UIcon name="i-lucide-bot" class="text-primary text-[20px]" />
+                  AI Post-Application Screening
+                </h3>
+                <UCheckbox v-model="form.aiScreeningEnabled" name="aiScreeningEnabled" label="Enable AI Screening" />
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                If enabled, candidates will undergo an automated AI screening chat immediately after applying. 
+                The AI will use your custom criteria below to interview the candidate.
+              </p>
+              <div v-if="form.aiScreeningEnabled" class="space-y-2">
+                <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Ideal Candidate Profile & Screening Criteria *</label>
+                <textarea
+                  v-model="form.aiScreeningPrompt"
+                  required
+                  class="w-full px-4 py-3 bg-surface-container-highest border border-outline-variant/50 rounded-lg focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-on-surface resize-y"
+                  placeholder="Describe your ideal candidate and key questions the AI should ask. E.g.: We are looking for a Node.js developer who is familiar with event loops, resides in Bangalore, and is available to join within 15 days. Ask about their previous projects, experience with worker threads, and notice period."
+                  rows="4"
+                ></textarea>
               </div>
             </div>
 

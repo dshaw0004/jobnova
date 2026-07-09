@@ -44,7 +44,9 @@ export default defineEventHandler(async (event) => {
     skills,
     status,
     expiryDate,
-    applicationDeadline
+    applicationDeadline,
+    aiScreeningEnabled,
+    aiScreeningPrompt
   } = body ?? {}
 
   // Basic validation
@@ -92,6 +94,8 @@ export default defineEventHandler(async (event) => {
         status = ?,
         expiry_date = ?,
         application_deadline = ?,
+        ai_screening_enabled = ?,
+        ai_screening_prompt = ?,
         updated_at = datetime('now')
       WHERE id = ?
     `)
@@ -114,6 +118,8 @@ export default defineEventHandler(async (event) => {
       status || 'active',
       expiryDate || null,
       applicationDeadline || null,
+      aiScreeningEnabled ? 1 : 0,
+      aiScreeningPrompt || null,
       id
     )
     .run()

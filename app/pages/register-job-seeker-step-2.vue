@@ -1,228 +1,499 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: false
 })
 
 useHead({
-  title: "Job Seeker Registration - Step 2 | Job Nova"
+  title: "Professional Information - Step 2 | Job Nova"
 })
 
-import { onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-onMounted(() => {
+const router = useRouter()
+const loading = ref(false)
+const fetching = ref(true)
+const errorMsg = ref('')
+
+// Core Form State
+const form = reactive({
+  full_name: '',
+  phone: '',
+  location: '',
+  about_self: '',
+  skillsInput: '',
+  sector: '',
+  sector_reason: '',
+  academic_info: [] as Array<{ degree: string; institution: string; year: string; grade: string }>,
+  professional_info: [] as Array<{ company: string; role: string; duration: string; description: string }>
+})
+
+// Temp inputs for adding education/experience
+const tempEdu = reactive({ degree: '', institution: '', year: '', grade: '' })
+const tempWork = reactive({ company: '', role: '', duration: '', description: '' })
+
+// Load profile if exists
+onMounted(async () => {
   try {
-  // Simple micro-interaction for input fields
-          document.querySelectorAll('input, select').forEach(el => {
-              el.addEventListener('focus', () => {
-                  el.parentElement.querySelector('label')?.classList.add('text-primary');
-              });
-              el.addEventListener('blur', () => {
-                  el.parentElement.querySelector('label')?.classList.remove('text-primary');
-              });
-          });
-  
-          // Form submission prevention for demo
-          document.querySelector('form').addEventListener('submit', (e) => {
-              e.preventDefault();
-              const btn = e.target.querySelector('button[type="submit"]');
-              const originalContent = btn.innerHTML;
-              btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span> Processing...';
-              btn.disabled = true;
-              
-              setTimeout(() => {
-                  btn.innerHTML = 'Account Created!';
-                  btn.classList.remove('bg-primary');
-                  btn.classList.add('bg-green-600');
-              }, 1500);
-          });
-  } catch (e) {
-    console.error('Error in page script:', e)
+    const data = await $fetch<any>('/api/profile')
+    if (data) {
+      form.full_name = data.full_name || ''
+      form.phone = data.phone || ''
+      form.location = data.location || ''
+      form.about_self = data.about_self || ''
+      form.sector = data.sector || ''
+      form.sector_reason = data.sector_reason || ''
+      
+      if (data.skills) {
+        try {
+          const parsedSkills = typeof data.skills === 'string' ? JSON.parse(data.skills) : data.skills
+          if (Array.isArray(parsedSkills)) {
+            form.skillsInput = parsedSkills.join(', ')
+          }
+        } catch {
+          form.skillsInput = String(data.skills)
+        }
+      }
+      
+      form.academic_info = Array.isArray(data.academic_info) ? data.academic_info : []
+      form.professional_info = Array.isArray(data.professional_info) ? data.professional_info : []
+    }
+  } catch (err) {
+    console.error('Failed to load profile details:', err)
+  } finally {
+    fetching.value = false
   }
 })
+
+function addEducation() {
+  if (!tempEdu.degree || !tempEdu.institution) return
+  form.academic_info.push({ ...tempEdu })
+  tempEdu.degree = ''
+  tempEdu.institution = ''
+  tempEdu.year = ''
+  tempEdu.grade = ''
+}
+
+function removeEducation(index: number) {
+  form.academic_info.splice(index, 1)
+}
+
+function addWork() {
+  if (!tempWork.company || !tempWork.role) return
+  form.professional_info.push({ ...tempWork })
+  tempWork.company = ''
+  tempWork.role = ''
+  tempWork.duration = ''
+  tempWork.description = ''
+}
+
+function removeWork(index: number) {
+  form.professional_info.splice(index, 1)
+}
+
+async function handleSave() {
+  errorMsg.value = ''
+  loading.value = true
+
+  // Parse skills
+  const skillsArray = form.skillsInput
+    ? form.skillsInput.split(',').map(s => s.trim()).filter(Boolean)
+    : []
+
+  try {
+    await $fetch('/api/profile/update', {
+      method: 'POST',
+      body: {
+        full_name: form.full_name,
+        phone: form.phone,
+        location: form.location,
+        about_self: form.about_self,
+        sector: form.sector,
+        sector_reason: form.sector_reason,
+        skills: skillsArray,
+        academic_info: form.academic_info,
+        professional_info: form.professional_info,
+        onboarding_completed: 1
+      }
+    })
+    router.push('/jobseeker-dashboard')
+  } catch (err: any) {
+    errorMsg.value = err.data?.message || 'Something went wrong. Please try again.'
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleSkip() {
+  try {
+    await $fetch('/api/profile/skip', { method: 'POST' })
+  } catch {
+    // Best effort
+  }
+  router.push('/jobseeker-dashboard')
+}
 </script>
 
 <template>
-  <div>
+  <div class="min-h-screen bg-surface flex flex-col">
     <!-- Top Navigation Bar -->
     <header class="w-full top-0 sticky bg-surface-container-lowest shadow-[0px_4px_20px_rgba(26,115,232,0.08)] z-50">
-    <div class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
-    <div class="font-headline-md text-headline-md font-bold text-primary">
-                    Job Nova
-                </div>
-    <nav class="hidden md:flex gap-lg items-center">
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Find Jobs</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Companies</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/job-search">Salaries</a>
-    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="/my-career-hub">Career Advice</a>
-    </nav>
-    <div class="flex items-center gap-md">
-    <button class="font-label-md text-label-md text-primary px-md py-sm rounded-lg hover:bg-surface-container-low transition-all">Login</button>
-    <button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md shadow-sm active:scale-95 duration-150">Post a Job</button>
-    </div>
-    </div>
+      <div class="flex justify-between items-center h-[72px] px-lg max-w-7xl mx-auto">
+        <div class="font-headline-md text-headline-md font-bold text-primary">
+          Job Nova
+        </div>
+        <button 
+          class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all flex items-center gap-xs"
+          @click="handleSkip"
+        >
+          Skip for now
+          <UIcon name="i-lucide-skip-forward" class="text-[16px]" />
+        </button>
+      </div>
     </header>
-    <main class="max-w-7xl mx-auto px-lg py-xl flex flex-col items-center">
-    <!-- Progress Container -->
-    <div class="w-full max-w-[640px] mb-lg">
-    <div class="flex justify-between items-end mb-sm">
-    <span class="font-label-sm text-label-sm text-on-surface-variant">STEP 2 OF 2</span>
-    <span class="font-label-sm text-label-sm text-primary font-semibold">50% Completed</span>
-    </div>
-    <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-    <div class="h-full w-full step-progress-bar"></div>
-    </div>
-    </div>
-    <!-- Registration Card -->
-    <div class="w-full max-w-[640px] bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] p-xl border border-outline-variant/30">
-    <!-- Header Section -->
-    <div class="mb-xl text-center md:text-left">
-    <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Professional Information</h1>
-    <p class="font-body-md text-body-md text-on-surface-variant">Help us match you with relevant jobs.</p>
-    </div>
-    <!-- Form Content -->
-    <form class="space-y-lg">
-    <!-- Experience & Skills Row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-    <div class="space-y-xs">
-    <label class="font-label-md text-label-md text-on-surface-variant">Experience Level</label>
-    <select class="form-select w-full h-[48px] bg-surface-container-low border-none rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all">
-    <option value="">Select level</option>
-    <option value="fresher">Fresher (0 years)</option>
-    <option value="entry">Entry Level (1-3 years)</option>
-    <option value="mid">Mid Level (3-7 years)</option>
-    <option value="senior">Senior Level (7+ years)</option>
-    </select>
-    </div>
-    <div class="space-y-xs">
-    <label class="font-label-md text-label-md text-on-surface-variant">Skills</label>
-    <div class="flex flex-wrap gap-2 p-2 min-h-[48px] bg-surface-container-low border-none rounded-lg items-center">
-    <span class="flex items-center gap-1 bg-primary-container text-on-primary px-2 py-1 rounded-md text-[13px] font-medium">
-                                    React
-                                    <UIcon name="i-lucide-x" class="text-[14px] cursor-pointer" data-icon="close" />
-    </span>
-    <span class="flex items-center gap-1 bg-primary-container text-on-primary px-2 py-1 rounded-md text-[13px] font-medium">
-                                    Tailwind
-                                    <UIcon name="i-lucide-x" class="text-[14px] cursor-pointer" data-icon="close" />
-    </span>
-    <input class="bg-transparent border-none focus:ring-0 text-[14px] placeholder:text-outline p-0 w-24" placeholder="Add more..." type="text">
-    </div>
-    </div>
-    </div>
-    <!-- Qualification Row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-    <div class="space-y-xs">
-    <label class="font-label-md text-label-md text-on-surface-variant">UG Qualification</label>
-    <select class="form-select w-full h-[48px] bg-surface-container-low border-none rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all">
-    <option value="">Select degree</option>
-    <option value="be">B.E. / B.Tech</option>
-    <option value="bca">BCA</option>
-    <option value="bsc">B.Sc</option>
-    <option value="bcom">B.Com</option>
-    </select>
-    </div>
-    <div class="space-y-xs">
-    <label class="font-label-md text-label-md text-on-surface-variant">PG Qualification</label>
-    <select class="form-select w-full h-[48px] bg-surface-container-low border-none rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all">
-    <option value="">Select degree</option>
-    <option value="me">M.E. / M.Tech</option>
-    <option value="mca">MCA</option>
-    <option value="mba">MBA</option>
-    <option value="none">Not Applicable</option>
-    </select>
-    </div>
-    </div>
-    <!-- Location Triptych -->
-    <div class="space-y-xs">
-    <label class="font-label-md text-label-md text-on-surface-variant">Preferred Work Location</label>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
-    <select class="form-select w-full h-[48px] bg-surface-container-low border-none rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all">
-    <option value="india">India</option>
-    </select>
-    <select class="form-select w-full h-[48px] bg-surface-container-low border-none rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all">
-    <option value="">State</option>
-    <option value="karnataka">Karnataka</option>
-    <option value="maharashtra">Maharashtra</option>
-    <option value="delhi">Delhi</option>
-    </select>
-    <select class="form-select w-full h-[48px] bg-surface-container-low border-none rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all">
-    <option value="">City</option>
-    <option value="bangalore">Bangalore</option>
-    <option value="mumbai">Mumbai</option>
-    <option value="pune">Pune</option>
-    </select>
-    </div>
-    <p class="text-[12px] text-outline mt-1 italic">Dropdowns are dependent on your country selection.</p>
-    </div>
-    <!-- Information Box -->
-    <div class="bg-primary/5 border border-primary/10 rounded-lg p-md flex gap-md items-start">
-    <UIcon name="i-lucide-info" class="text-primary" data-icon="info" data-weight="fill" />
-    <p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
-                            Your qualifications and location help us recommend relevant jobs and opportunities tailored to your profile.
-                        </p>
-    </div>
-    <!-- Action Buttons -->
-    <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-md pt-lg">
-    <button class="w-full sm:w-auto px-xl py-sm border border-outline-variant text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-all active:scale-95" type="button">
-                            Back
-                        </button>
-    <button class="w-full sm:w-auto px-xl py-sm bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-lg shadow-primary/20 hover:bg-secondary transition-all active:scale-95" type="submit">
-                            Create Account
-                        </button>
-    </div>
-    </form>
-    </div>
-    <!-- Trust Signals / Illustration Section (Subtle) -->
-    <div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-xl max-w-[800px] text-center opacity-60">
-    <div class="flex flex-col items-center">
-    <UIcon name="i-lucide-verified-user" class="text-[32px] text-primary mb-sm" data-icon="verified_user" />
-    <p class="font-label-sm text-label-sm">Secure Data Storage</p>
-    </div>
-    <div class="flex flex-col items-center">
-    <UIcon name="i-lucide-precision-manufacturing" class="text-[32px] text-primary mb-sm" data-icon="precision_manufacturing" />
-    <p class="font-label-sm text-label-sm">AI Matching Engine</p>
-    </div>
-    <div class="flex flex-col items-center">
-    <UIcon name="i-lucide-bell-ring" class="text-[32px] text-primary mb-sm" data-icon="notifications_active" />
-    <p class="font-label-sm text-label-sm">Instant Job Alerts</p>
-    </div>
-    </div>
+
+    <main class="max-w-4xl mx-auto px-lg py-xl flex-grow w-full flex flex-col items-center">
+      <!-- Progress Container -->
+      <div class="w-full mb-lg">
+        <div class="flex justify-between items-end mb-sm">
+          <span class="font-label-sm text-label-sm text-on-surface-variant">STEP 2 OF 2</span>
+          <span class="font-label-sm text-label-sm text-primary font-semibold">Almost Done!</span>
+        </div>
+        <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+          <div class="h-full bg-primary rounded-full transition-all duration-500 w-3/4"></div>
+        </div>
+      </div>
+
+      <!-- Registration Card -->
+      <div class="w-full bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] p-lg md:p-xl border border-outline-variant/30">
+        <!-- Header Section -->
+        <div class="mb-xl text-center md:text-left">
+          <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Professional Profile Setup</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Help us match you with premium jobs and recommendations.</p>
+        </div>
+
+        <div v-if="fetching" class="flex flex-col items-center justify-center py-2xl gap-md text-outline">
+          <UIcon name="i-lucide-loader-circle" class="text-[40px] animate-spin text-primary" />
+          <p class="font-label-md">Loading your profile data...</p>
+        </div>
+
+        <!-- Form Content -->
+        <form v-else class="space-y-xl" @submit.prevent="handleSave">
+          
+          <!-- Basic Profile Info -->
+          <div class="space-y-lg">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-primary border-b border-outline-variant/30 pb-xs">
+              1. Basic Information
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+              <div class="space-y-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="fullName">Full Name</label>
+                <div class="relative">
+                  <UIcon name="i-lucide-user" class="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                  <input 
+                    id="fullName" 
+                    v-model="form.full_name" 
+                    class="w-full h-[52px] pl-12 pr-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all"
+                    placeholder="Enter your full name" 
+                    required 
+                    type="text"
+                  >
+                </div>
+              </div>
+
+              <div class="space-y-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="mobile">Phone Number</label>
+                <div class="relative">
+                  <UIcon name="i-lucide-phone" class="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                  <input 
+                    id="mobile" 
+                    v-model="form.phone" 
+                    class="w-full h-[52px] pl-12 pr-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all"
+                    placeholder="E.g. +91 9876543210" 
+                    required 
+                    type="tel"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+              <div class="space-y-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="location">Preferred Location (City)</label>
+                <div class="relative">
+                  <UIcon name="i-lucide-map-pin" class="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                  <input 
+                    id="location" 
+                    v-model="form.location" 
+                    class="w-full h-[52px] pl-12 pr-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all"
+                    placeholder="E.g. Bangalore, Mumbai" 
+                    required 
+                    type="text"
+                  >
+                </div>
+              </div>
+
+              <div class="space-y-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="skills">Skills (Comma-separated)</label>
+                <div class="relative">
+                  <UIcon name="i-lucide-cpu" class="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                  <input 
+                    id="skills" 
+                    v-model="form.skillsInput" 
+                    class="w-full h-[52px] pl-12 pr-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all"
+                    placeholder="React, Node.js, Typescript, SQL" 
+                    type="text"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-xs">
+              <label class="font-label-md text-label-md text-on-surface" for="about">Brief Bio (About Yourself)</label>
+              <textarea 
+                id="about" 
+                v-model="form.about_self" 
+                rows="3"
+                class="w-full p-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all resize-none"
+                placeholder="Brief summary of your professional profile, background, and goals..."
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Academic Information Section -->
+          <div class="space-y-lg">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-primary border-b border-outline-variant/30 pb-xs">
+              2. Academic Information
+            </h3>
+
+            <!-- List of existing qualifications -->
+            <div v-if="form.academic_info.length > 0" class="space-y-sm">
+              <div 
+                v-for="(edu, idx) in form.academic_info" 
+                :key="idx"
+                class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/20 shadow-sm"
+              >
+                <div>
+                  <h4 class="font-label-md text-label-md text-on-surface font-semibold">{{ edu.degree }}</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">{{ edu.institution }} · {{ edu.year }} · {{ edu.grade || 'N/A' }}</p>
+                </div>
+                <button 
+                  type="button" 
+                  class="text-error hover:bg-error/10 p-sm rounded-lg transition-colors flex items-center justify-center"
+                  @click="removeEducation(idx)"
+                >
+                  <UIcon name="i-lucide-trash-2" class="text-[18px]" />
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Adder -->
+            <div class="bg-surface-container-low/50 p-md rounded-xl border border-outline-variant/30 space-y-md">
+              <p class="font-label-sm text-label-sm font-semibold text-on-surface-variant">Add Education Entry</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                <input 
+                  v-model="tempEdu.degree" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Degree (e.g. B.Tech Computer Science)"
+                  type="text"
+                >
+                <input 
+                  v-model="tempEdu.institution" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Institution (e.g. IIT Delhi)"
+                  type="text"
+                >
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                <input 
+                  v-model="tempEdu.year" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Graduation Year (e.g. 2024)"
+                  type="text"
+                >
+                <input 
+                  v-model="tempEdu.grade" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Grade / CGPA (e.g. 8.5/10)"
+                  type="text"
+                >
+              </div>
+              <button 
+                type="button"
+                class="px-md h-[40px] bg-primary-container text-on-primary font-label-sm text-label-sm rounded-lg hover:bg-primary transition-all flex items-center gap-xs"
+                @click="addEducation"
+              >
+                <UIcon name="i-lucide-plus" /> Add Education
+              </button>
+            </div>
+          </div>
+
+          <!-- Experience Section -->
+          <div class="space-y-lg">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-primary border-b border-outline-variant/30 pb-xs">
+              3. Work Experience
+            </h3>
+
+            <!-- List of existing work -->
+            <div v-if="form.professional_info.length > 0" class="space-y-sm">
+              <div 
+                v-for="(work, idx) in form.professional_info" 
+                :key="idx"
+                class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/20 shadow-sm"
+              >
+                <div>
+                  <h4 class="font-label-md text-label-md text-on-surface font-semibold">{{ work.role }}</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">{{ work.company }} · {{ work.duration }}</p>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant/80 mt-xs leading-relaxed">{{ work.description }}</p>
+                </div>
+                <button 
+                  type="button" 
+                  class="text-error hover:bg-error/10 p-sm rounded-lg transition-colors flex items-center justify-center shrink-0 ml-md"
+                  @click="removeWork(idx)"
+                >
+                  <UIcon name="i-lucide-trash-2" class="text-[18px]" />
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Adder -->
+            <div class="bg-surface-container-low/50 p-md rounded-xl border border-outline-variant/30 space-y-md">
+              <p class="font-label-sm text-label-sm font-semibold text-on-surface-variant">Add Work Experience Entry</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                <input 
+                  v-model="tempWork.company" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Company Name (e.g. Infosys)"
+                  type="text"
+                >
+                <input 
+                  v-model="tempWork.role" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Role (e.g. Software Engineer)"
+                  type="text"
+                >
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                <input 
+                  v-model="tempWork.duration" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Duration (e.g. June 2022 - Present)"
+                  type="text"
+                >
+                <input 
+                  v-model="tempWork.description" 
+                  class="h-[44px] px-sm bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-sm"
+                  placeholder="Brief description of work/responsibilities..."
+                  type="text"
+                >
+              </div>
+              <button 
+                type="button"
+                class="px-md h-[40px] bg-primary-container text-on-primary font-label-sm text-label-sm rounded-lg hover:bg-primary transition-all flex items-center gap-xs"
+                @click="addWork"
+              >
+                <UIcon name="i-lucide-plus" /> Add Work Experience
+              </button>
+            </div>
+          </div>
+
+          <!-- Sector & Motivation -->
+          <div class="space-y-lg">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-primary border-b border-outline-variant/30 pb-xs">
+              4. Career Aspirations
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+              <div class="space-y-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="sector">Target Sector / Domain</label>
+                <select 
+                  id="sector" 
+                  v-model="form.sector"
+                  required
+                  class="w-full h-[52px] px-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all"
+                >
+                  <option value="">Select industry domain</option>
+                  <option value="Software Engineering">Software Engineering</option>
+                  <option value="Finance & Accounting">Finance & Accounting</option>
+                  <option value="Marketing & Design">Marketing & Design</option>
+                  <option value="Healthcare & Pharma">Healthcare & Pharma</option>
+                  <option value="Sales & Business Development">Sales & Business Development</option>
+                  <option value="Human Resources">Human Resources</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="space-y-xs">
+              <label class="font-label-md text-label-md text-on-surface" for="motivation">Why do you want to work in this sector?</label>
+              <textarea 
+                id="motivation" 
+                v-model="form.sector_reason" 
+                rows="2"
+                class="w-full p-4 bg-surface-container-low border border-transparent rounded-xl font-body-md focus:outline-none focus:border-primary focus:bg-surface-container-lowest transition-all resize-none"
+                placeholder="Share your passion, interests, or career goals in this domain..."
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Error Alert -->
+          <div v-if="errorMsg" class="flex items-center gap-sm p-sm bg-error/10 text-error rounded-lg font-label-md text-label-md">
+            <UIcon name="i-lucide-circle-alert" class="text-[16px] shrink-0" />
+            {{ errorMsg }}
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-md pt-lg border-t border-outline-variant/30">
+            <button 
+              type="button"
+              class="w-full sm:w-auto px-lg h-[50px] border border-outline-variant text-on-surface-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-all"
+              @click="handleSkip"
+            >
+              Skip and Set Up Later
+            </button>
+            <button 
+              type="submit" 
+              :disabled="loading"
+              class="w-full sm:w-auto px-xl h-[52px] bg-primary text-on-primary rounded-xl font-headline-sm text-headline-sm font-semibold hover:bg-secondary active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-sm shadow-lg shadow-primary/20"
+            >
+              <UIcon v-if="loading" name="i-lucide-loader-circle" class="text-[20px] animate-spin" />
+              <span>{{ loading ? 'Saving Profile...' : 'Complete Profile & Dashboard' }}</span>
+              <UIcon v-if="!loading" name="i-lucide-arrow-right" class="text-[20px]" />
+            </button>
+          </div>
+
+        </form>
+      </div>
     </main>
+
     <!-- Footer -->
     <footer class="w-full mt-xl bg-surface-container-low border-t border-outline-variant">
-    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto gap-md">
-    <div class="font-headline-md text-headline-md font-bold text-primary">
-                    Job Nova
-                </div>
-    <div class="flex flex-wrap justify-center gap-md">
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">About Us</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Contact</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Privacy Policy</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Terms of Service</a>
-    <a class="font-label-md text-label-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="/">Help Center</a>
-    </div>
-    <div class="font-label-md text-label-md text-on-surface-variant">
-                    © 2024 Job Nova India. All rights reserved.
-                </div>
-    </div>
+      <div class="flex flex-col md:flex-row justify-between items-center py-lg px-lg max-w-7xl mx-auto gap-md">
+        <div class="font-headline-md text-headline-md font-bold text-primary">
+          Job Nova
+        </div>
+        <div class="font-label-md text-label-md text-on-surface-variant">
+          © 2026 Job Nova India. All rights reserved.
+        </div>
+      </div>
     </footer>
-    
   </div>
 </template>
 
 <style scoped>
-body { font-family: 'Inter', sans-serif; }
-        
-        .form-select {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
-            padding-right: 2.5rem;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-        .step-progress-bar {
-            background: linear-gradient(to right, var(--color-primary-container) 50%, var(--color-surface-variant) 50%);
-        }
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--color-surface);
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 1rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25em 1.25em;
+}
 </style>

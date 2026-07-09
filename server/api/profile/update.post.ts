@@ -20,6 +20,7 @@ interface ProfileUpdateBody {
   photo_url?: string | null
   resume_url?: string | null
   resume_name?: string | null
+  onboarding_completed?: number | null
 }
 
 function calcCompleteness(profile: ProfileUpdateBody): number {
@@ -97,6 +98,11 @@ export default defineEventHandler(async (event) => {
   if (body.skills !== undefined) {
     fieldsToSet.push('skills = ?')
     bindings.push(body.skills ? JSON.stringify(body.skills) : '[]')
+  }
+
+  if (body.onboarding_completed !== undefined) {
+    fieldsToSet.push('onboarding_completed = ?')
+    bindings.push(body.onboarding_completed ? 1 : 0)
   }
 
   // Always update completeness score and updated_at

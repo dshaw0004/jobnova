@@ -95,7 +95,7 @@ async function submitApplication() {
   if (!applyModal.jobId) return
   applyLoading.value = true
   try {
-    const res = await $fetch<{ success: boolean; message: string }>('/api/jobs/apply', {
+    const res = await $fetch<{ success: boolean; message: string; aiScreeningRequired?: boolean }>('/api/jobs/apply', {
       method: 'POST',
       body: { jobId: applyModal.jobId, coverLetter: applyModal.coverLetter || undefined }
     })
@@ -105,7 +105,15 @@ async function submitApplication() {
       if (selectedJob.value?.id === applyModal.jobId) {
         selectedJob.value.hasApplied = true
       }
+      const targetJobId = applyModal.jobId
       closeApplyModal()
+
+      if (res.aiScreeningRequired) {
+        alert("This application requires a brief AI screening interview. Redirecting you to the interview room...")
+        router.push(`/job-screening-chat?jobId=${targetJobId}`)
+      } else {
+        alert(res.message)
+      }
     }
   } catch (err: any) {
     alert(err.data?.message || 'Failed to submit application.')

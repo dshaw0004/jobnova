@@ -51,10 +51,15 @@ async function applyToJob(jobId) {
       body: { jobId }
     })
     if (res.success) {
-      alert(res.message)
-      // Update local state
-      const job = privateJobs.value.find(j => j.id === jobId)
-      if (job) job.hasApplied = true
+      if (res.aiScreeningRequired) {
+        alert("This application requires a brief AI screening interview. Redirecting you to the interview room...")
+        router.push(`/job-screening-chat?jobId=${jobId}`)
+      } else {
+        alert(res.message)
+        // Update local state
+        const job = privateJobs.value.find(j => j.id === jobId)
+        if (job) job.hasApplied = true
+      }
     }
   } catch (err) {
     alert(err.data?.message || 'Failed to submit application.')
