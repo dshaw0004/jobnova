@@ -32,6 +32,12 @@ CREATE TABLE IF NOT EXISTS jobseeker_profiles (
   onboarding_skipped    INTEGER NOT NULL DEFAULT 0 CHECK (onboarding_skipped IN (0, 1)),
   onboarding_completed  INTEGER NOT NULL DEFAULT 0 CHECK (onboarding_completed IN (0, 1)),
 
+  -- Profile details & documents
+  skills                TEXT,
+  photo_url             TEXT,
+  resume_url            TEXT,
+  resume_name           TEXT,
+
   created_at            TEXT    NOT NULL DEFAULT (datetime('now')),
   updated_at            TEXT    NOT NULL DEFAULT (datetime('now'))
 );

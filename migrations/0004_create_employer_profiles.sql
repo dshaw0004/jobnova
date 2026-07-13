@@ -26,6 +26,11 @@ CREATE TABLE IF NOT EXISTS employer_profiles (
   -- Approval/Status tracking
   is_approved         INTEGER NOT NULL DEFAULT 0 CHECK (is_approved IN (0, 1)),
 
+  -- Logo & Verification Documents
+  logo_url                   TEXT,
+  verification_document_url  TEXT,
+  verification_document_name TEXT,
+
   created_at          TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at          TEXT NOT NULL DEFAULT (datetime('now'))
 );

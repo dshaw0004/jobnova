@@ -30,6 +30,12 @@
 			"migrations_dir": "./migrations"
 		}
 	],
+	"r2_buckets": [
+		{
+			"binding": "BUCKET",
+			"bucket_name": "jobnova-bucket"
+		}
+	],
 	"triggers": {
 		"crons": [
 			"0 0 * * *"

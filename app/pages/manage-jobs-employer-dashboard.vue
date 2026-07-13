@@ -256,7 +256,7 @@ function formatDate(dateStr: string) {
               <UIcon name="i-lucide-briefcase" class="text-[48px] text-primary/40" />
             </div>
             <h3 class="font-headline-md text-headline-md text-on-surface mb-2">No jobs posted yet</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-md">
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6 ">
               Your active, draft, and past job postings will appear here. Get started by posting your first opportunity.
             </p>
             <button

@@ -18,6 +18,10 @@ CREATE TABLE IF NOT EXISTS jobs (
   pg_qualification TEXT,
   skills TEXT, -- stored as JSON stringified array
   status TEXT DEFAULT 'active', -- 'active', 'draft', 'expired'
+  expiry_date TEXT,
+  application_deadline TEXT,
+  ai_screening_enabled INTEGER NOT NULL DEFAULT 0 CHECK (ai_screening_enabled IN (0, 1)),
+  ai_screening_prompt TEXT,
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now')),
   FOREIGN KEY (employer_id) REFERENCES users(id) ON DELETE CASCADE

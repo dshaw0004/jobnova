@@ -9,7 +9,7 @@ import { useAuth } from '~/composables/useAuth'
 
 const router = useRouter()
 const route = useRoute()
-const { user, fetchUser, logout } = useAuth()
+const { user, profile, fetchUser, logout } = useAuth()
 
 const jobId = computed(() => route.query.id ? Number(route.query.id) : null)
 const cloneId = computed(() => route.query.cloneId ? Number(route.query.cloneId) : null)
@@ -46,7 +46,7 @@ const loading = ref(false)
 const errorMsg = ref('')
 
 onMounted(async () => {
-  if (!user.value) {
+  if (!user.value || !profile.value) {
     await fetchUser()
   }
   if (!user.value || user.value.role !== 'employer') {
@@ -335,23 +335,8 @@ const previewSalary = computed(() => {
                     <option value="India">India</option>
                   </select>
                   <div class="grid grid-cols-2 gap-2">
-                    <select
-                      v-model="form.state"
-                      class="w-full px-4 py-3 bg-surface-container-highest border border-transparent rounded-lg focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-on-surface"
-                    >
-                      <option disabled value="">State</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                    </select>
-                    <input
-                      v-model="form.city"
-                      class="w-full px-4 py-3 bg-surface-container-highest border border-transparent rounded-lg focus:bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-on-surface"
-                      placeholder="City"
-                      type="text"
-                    />
+                    <StateSelect v-model="form.state" />
+                    <CitySelect v-model="form.city" />
                   </div>
                 </div>
 
@@ -519,13 +504,16 @@ const previewSalary = computed(() => {
                 <div class="p-md">
                   <div class="flex items-start gap-4 mb-4">
                     <div class="w-12 h-12 rounded bg-primary/10 flex items-center justify-center overflow-hidden shrink-0">
-                      <UIcon name="i-lucide-building" class="text-primary text-[24px]" />
+                      <img v-if="(profile as any)?.logo_url" :src="(profile as any)?.logo_url" class="w-full h-full object-cover" />
+                      <UIcon v-else name="i-lucide-building" class="text-primary text-[24px]" />
                     </div>
                     <div>
                       <h4 class="font-headline-md text-headline-md text-on-surface leading-tight">
                         {{ form.title || 'Job Title Placeholder' }}
                       </h4>
-                      <p class="font-body-md text-body-md text-primary mt-1">TechCorp India</p>
+                      <p class="font-body-md text-body-md text-primary mt-1">
+                        {{ (profile as any)?.company_name || 'TechCorp India' }}
+                      </p>
                     </div>
                   </div>
                   <div class="flex flex-wrap gap-2 mb-4">
