@@ -53,29 +53,34 @@ const { user, logout } = useAuth();
         <template v-if="user">
           <NuxtLink
             v-if="user.role === 'employer'"
-            class="hidden sm:block font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all"
+            class="bg-primary text-on-primary font-Inter text-label-md px-5 py-2.5 rounded-xl font-semibold shadow-sm hover:bg-secondary active:scale-[0.98] transition-all flex items-center gap-1.5"
             to="/employer-dashboard-2"
-            >Dashboard</NuxtLink
           >
+            <UIcon name="i-lucide-layout-dashboard" class="text-[16px]" />
+            <span>Dashboard</span>
+          </NuxtLink>
           <NuxtLink
             v-else
-            class="hidden sm:block font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all"
+            class="bg-primary text-on-primary font-Inter text-label-md px-5 py-2.5 rounded-xl font-semibold shadow-sm hover:bg-secondary active:scale-[0.98] transition-all flex items-center gap-1.5"
             to="/jobseeker-dashboard"
-            >Dashboard</NuxtLink
           >
+            <UIcon name="i-lucide-layout-dashboard" class="text-[16px]" />
+            <span>Dashboard</span>
+          </NuxtLink>
           <button
             @click="logout"
-            class="hidden sm:block font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all"
+            class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all px-2 py-2"
           >
             Logout
           </button>
         </template>
         <template v-else>
           <NuxtLink
-            class="hidden sm:block font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all"
+            class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all px-2 py-2"
             to="/login"
-            >Login / Register</NuxtLink
           >
+            Login / Register
+          </NuxtLink>
         </template>
         <NuxtLink
           v-if="!user || user?.role === 'employer'"

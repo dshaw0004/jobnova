@@ -18,6 +18,12 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
   },
 
+  vite: {
+    server: {
+      allowedHosts: [".ngrok-free.dev", ".ngrok.app", ".ngrok-free.app"],
+    },
+  },
+
   css: ["~/assets/css/main.css"],
 
   routeRules: {

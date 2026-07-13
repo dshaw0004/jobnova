@@ -139,8 +139,34 @@ async function handleSave() {
 }
 
 async function handleSkip() {
+  const payload: Record<string, any> = {}
+
+  if (form.full_name) payload.full_name = form.full_name
+  if (form.phone) payload.phone = form.phone
+  if (form.location) payload.location = form.location
+  if (form.about_self) payload.about_self = form.about_self
+  if (form.sector) payload.sector = form.sector
+  if (form.sector_reason) payload.sector_reason = form.sector_reason
+
+  if (form.skillsInput) {
+    const skillsArray = form.skillsInput.split(',').map(s => s.trim()).filter(Boolean)
+    if (skillsArray.length > 0) {
+      payload.skills = skillsArray
+    }
+  }
+
+  if (form.academic_info && form.academic_info.length > 0) {
+    payload.academic_info = form.academic_info
+  }
+  if (form.professional_info && form.professional_info.length > 0) {
+    payload.professional_info = form.professional_info
+  }
+
   try {
-    await $fetch('/api/profile/skip', { method: 'POST' })
+    await $fetch('/api/profile/skip', {
+      method: 'POST',
+      body: payload
+    })
     await fetchUser()
   } catch {
     // Best effort
