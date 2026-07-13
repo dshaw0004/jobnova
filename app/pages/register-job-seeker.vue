@@ -7,8 +7,10 @@ useHead({ title: 'Create Jobseeker Account - Job Nova' })
 
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '~/composables/useAuth'
 
 const router = useRouter()
+const { fetchUser } = useAuth()
 
 const form = reactive({ email: '', password: '', confirmPassword: '' })
 const showPassword = ref(false)
@@ -34,6 +36,7 @@ async function handleRegister() {
       method: 'POST',
       body: { email: form.email, password: form.password }
     })
+    await fetchUser()
     router.push('/register-job-seeker-step-2')
   }
   catch (err: unknown) {

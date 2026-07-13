@@ -7,8 +7,10 @@ useHead({ title: 'AI Interview — Build Your Profile | Job Nova' })
 
 import { ref, reactive, computed, nextTick, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '~/composables/useAuth'
 
 const router = useRouter()
+const { user, fetchUser } = useAuth()
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 interface Message {
@@ -230,6 +232,7 @@ async function skipInterview() {
   try {
     // Mark as skipped in DB
     await $fetch('/api/profile/skip', { method: 'POST' })
+    await fetchUser()
   }
   catch {
     // best effort
@@ -245,6 +248,17 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 onMounted(async () => {
+  if (!user.value) {
+    await fetchUser()
+  }
+  if (!user.value) {
+    router.push('/login')
+    return
+  } else if (user.value.role !== 'jobseeker') {
+    router.push('/')
+    return
+  }
+
   await Promise.all([loadProfile(), loadHistory()])
   inputRef.value?.focus()
 })

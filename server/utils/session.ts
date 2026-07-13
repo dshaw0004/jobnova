@@ -26,7 +26,7 @@ export function getSessionUserId(event: H3Event): number | null {
 export function setSessionUserId(event: H3Event, userId: number): void {
   setCookie(event, SESSION_COOKIE, String(userId), {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: COOKIE_MAX_AGE,
     path: '/'

@@ -9,8 +9,10 @@ useHead({
 
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '~/composables/useAuth'
 
 const router = useRouter()
+const { user, fetchUser } = useAuth()
 const loading = ref(false)
 const fetching = ref(true)
 const errorMsg = ref('')
@@ -34,6 +36,17 @@ const tempWork = reactive({ company: '', role: '', duration: '', description: ''
 
 // Load profile if exists
 onMounted(async () => {
+  if (!user.value) {
+    await fetchUser()
+  }
+  if (!user.value) {
+    router.push('/login')
+    return
+  } else if (user.value.role !== 'jobseeker') {
+    router.push('/')
+    return
+  }
+
   try {
     const data = await $fetch<any>('/api/profile')
     if (data) {
@@ -116,6 +129,7 @@ async function handleSave() {
         onboarding_completed: 1
       }
     })
+    await fetchUser()
     router.push('/jobseeker-dashboard')
   } catch (err: any) {
     errorMsg.value = err.data?.message || 'Something went wrong. Please try again.'
@@ -127,6 +141,7 @@ async function handleSave() {
 async function handleSkip() {
   try {
     await $fetch('/api/profile/skip', { method: 'POST' })
+    await fetchUser()
   } catch {
     // Best effort
   }
