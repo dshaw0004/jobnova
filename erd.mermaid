@@ -1,0 +1,130 @@
+erDiagram
+    users {
+        INTEGER id PK
+        TEXT email "UNIQUE"
+        TEXT password
+        TEXT role
+        TEXT created_at
+        TEXT updated_at
+    }
+
+    jobseeker_profiles {
+        INTEGER id PK
+        INTEGER user_id FK "UNIQUE"
+        TEXT full_name
+        TEXT phone
+        TEXT location
+        TEXT about_self
+        TEXT academic_info
+        TEXT professional_info
+        TEXT sector
+        TEXT sector_reason
+        TEXT team_scenario_answer
+        INTEGER completeness_score
+        INTEGER onboarding_skipped
+        INTEGER onboarding_completed
+        TEXT skills
+        TEXT photo_url
+        TEXT resume_url
+        TEXT resume_name
+        TEXT created_at
+        TEXT updated_at
+    }
+
+    employer_profiles {
+        INTEGER id PK
+        INTEGER user_id FK "UNIQUE"
+        TEXT company_name
+        TEXT company_type
+        TEXT industry_type
+        TEXT executive_name
+        TEXT executive_phone
+        TEXT description
+        TEXT address
+        TEXT pincode
+        TEXT country
+        TEXT state
+        TEXT city
+        INTEGER is_approved
+        TEXT logo_url
+        TEXT verification_document_url
+        TEXT verification_document_name
+        TEXT created_at
+        TEXT updated_at
+    }
+
+    jobs {
+        INTEGER id PK
+        INTEGER employer_id FK
+        TEXT title
+        TEXT functional_area
+        TEXT industry
+        TEXT description
+        INTEGER vacancies
+        INTEGER exp_min
+        INTEGER exp_max
+        INTEGER sal_min
+        INTEGER sal_max
+        TEXT country
+        TEXT state
+        TEXT city
+        TEXT ug_qualification
+        TEXT pg_qualification
+        TEXT skills
+        TEXT status
+        TEXT expiry_date
+        TEXT application_deadline
+        INTEGER ai_screening_enabled
+        TEXT ai_screening_prompt
+        TEXT created_at
+        TEXT updated_at
+    }
+
+    job_applications {
+        INTEGER id PK
+        INTEGER job_id FK
+        INTEGER jobseeker_id FK
+        TEXT status
+        TEXT cover_letter
+        INTEGER ai_screening_completed
+        INTEGER ai_screening_score
+        TEXT ai_screening_summary
+        TEXT ai_screening_chat_history
+        TEXT created_at
+        TEXT updated_at
+    }
+
+    chat_messages {
+        INTEGER id PK
+        INTEGER user_id FK
+        TEXT role
+        TEXT content
+        TEXT created_at
+    }
+
+    agent_messages {
+        INTEGER id PK
+        INTEGER user_id FK
+        TEXT role
+        TEXT content
+        TEXT created_at
+    }
+
+    govt_jobs {
+        INTEGER id PK
+        TEXT issued_date
+        TEXT organisation
+        TEXT post
+        TEXT method
+        TEXT last_date
+        TEXT scraped_at
+    }
+
+    users ||--o| jobseeker_profiles : "has one (jobseeker)"
+    users ||--o| employer_profiles : "has one (employer)"
+    users ||--o| jobs : "posts (as employer)"
+    users ||--o{ chat_messages : "sends/receives"
+    users ||--o{ agent_messages : "sends/receives"
+    
+    jobs ||--o{ job_applications : "receives"
+    users ||--o{ job_applications : "submits (as jobseeker)"

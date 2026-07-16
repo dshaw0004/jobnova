@@ -20,13 +20,13 @@ export default defineEventHandler(async (event) => {
       SELECT 
         user_id as id,
         company_name,
-        industry,
-        location,
-        about_company,
+        industry_type as industry,
+        city as location,
+        description as about_company,
         logo_url,
-        website,
-        founded_in,
-        team_size
+        NULL as website,
+        NULL as founded_in,
+        NULL as team_size
       FROM employer_profiles
       WHERE user_id = ?
     `)
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
         exp_max,
         sal_min,
         sal_max,
-        job_type,
+        'Full Time' as job_type,
         created_at
       FROM jobs
       WHERE employer_id = ? AND status = 'active'

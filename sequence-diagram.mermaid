@@ -1,0 +1,61 @@
+sequenceDiagram
+    autonumber
+    actor JobSeeker as "Job Seeker"
+    participant Client as "Nuxt Client (Frontend)"
+    participant Server as "Nitro Server (Backend)"
+    participant DB as "Cloudflare D1"
+    participant Ollama as "Ollama API (:11434)"
+
+    %% Scenario 1: AI Onboarding Chat & Profile Extraction
+    Note over JobSeeker, Ollama: Scenario 1: AI Onboarding Chat & Profile Extraction
+    JobSeeker->>Client: Type and send onboarding message
+    Client->>Server: POST /api/chat { message }
+    activate Server
+    Server->>DB: Validate Session & Retrieve User ID
+    Server->>DB: INSERT INTO chat_messages (user_id, role, content)
+    Server->>DB: SELECT role, content FROM chat_messages (full history)
+    DB-->>Server: Return chronological history
+    Server->>Ollama: POST /api/chat (gemma3:270m, history + interview prompt)
+    activate Ollama
+    Ollama-->>Server: Return chat response (Aria's reply)
+    deactivate Ollama
+    Server->>DB: INSERT INTO chat_messages (assistant response)
+    
+    %% Non-blocking background data extraction
+    Note over Server, Ollama: Async Profile Data Extraction
+    Server->>Ollama: POST /api/chat (history + extraction prompt)
+    activate Ollama
+    Ollama-->>Server: Return extracted JSON profile data
+    deactivate Ollama
+    Server->>DB: UPDATE jobseeker_profiles (set fields & completeness score)
+    
+    Server-->>Client: Return { reply, profile, completeness }
+    deactivate Server
+    Client-->>JobSeeker: Display Aria's response & update progress bar
+
+    %% Scenario 2: Post-Application AI Screening
+    Note over JobSeeker, Ollama: Scenario 2: Post-Application AI Screening
+    JobSeeker->>Client: Send message during screening interview
+    Client->>Server: POST /api/jobs/screening { jobId, message }
+    activate Server
+    Server->>DB: Fetch job details, candidate profile, and app status
+    DB-->>Server: Return application & profile data
+    Server->>DB: UPDATE job_applications (append user message to chat history)
+    Server->>Ollama: POST /api/chat (granite4:350m, screening prompt + chat history)
+    activate Ollama
+    Ollama-->>Server: Return screening question (or Concluded message with [CONCLUDED])
+    deactivate Ollama
+    Server->>DB: UPDATE job_applications (append AI message to chat history)
+    
+    alt If Response contains '[CONCLUDED]'
+        Note over Server, Ollama: Candidate Evaluation
+        Server->>Ollama: POST /api/chat (transcript + eval prompt)
+        activate Ollama
+        Ollama-->>Server: Return SCORE: XX, SUMMARY: ...
+        deactivate Ollama
+        Server->>DB: UPDATE job_applications SET ai_screening_completed=1, ai_screening_score=XX, ai_screening_summary=...
+    end
+    
+    Server-->>Client: Return { reply, completed, score/summary }
+    deactivate Server
+    Client-->>JobSeeker: Show final message & update UI status

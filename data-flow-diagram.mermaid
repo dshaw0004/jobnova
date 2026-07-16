@@ -1,0 +1,67 @@
+
+graph TD
+    %% Entities
+    User[User: Job Seeker / Employer]
+    Scraper[Govt Job Scraper CLI/Cron]
+    
+    subgraph Client ["Nuxt Frontend (Client)"]
+        UI[Vue Pages & UI Components]
+        AuthComp[useAuth Composable]
+        FileUploader[FileReader Base64 Encoder]
+    end
+
+    subgraph Server ["Nitro Backend (Cloudflare Pages/Workers)"]
+        SessionUtil[Session Validator & Cookie Manager]
+        AuthAPI[Auth Endpoints: /api/auth/*]
+        ChatAPI[Onboarding API: /api/chat]
+        ScreenAPI[Screening API: /api/jobs/screening]
+        ProfileAPI[Profile API: /api/profile/*]
+        FileRoute[File Serving Route: /files/*]
+    end
+
+    subgraph AI ["Local AI Services"]
+        Ollama[Ollama Instance :11434]
+    end
+
+    subgraph Storage ["Cloudflare Infrastructure"]
+        D1[(Cloudflare D1 Database)]
+        R2[(Cloudflare R2 Bucket)]
+    end
+
+    %% Data Flows
+    User -->|Interacts / Submits Form| UI
+    User -->|Selects File| FileUploader
+    FileUploader -->|Base64 Data URI| UI
+    
+    %% API Boundaries
+    UI -->|1. Credentials / JSON Form Data| SessionUtil
+    UI -->|2. Base64 Files & JSON Fields| ProfileAPI
+    UI -->|3. Message Content| ChatAPI
+    UI -->|4. Screening Chat Messages| ScreenAPI
+    
+    %% Session & File serving
+    SessionUtil -->|Validate & Route| AuthAPI
+    FileRoute -->|Fetch Object| R2
+    R2 -->|Binary File Stream| FileRoute
+    FileRoute -->|View Document/Image| UI
+    
+    %% DB Transactions
+    AuthAPI -->|Read/Write Credentials| D1
+    ProfileAPI -->|Update Profiles| D1
+    ProfileAPI -->|Save Uploads| R2
+    ChatAPI -->|Store Chat Messages| D1
+    ChatAPI -->|Read History| D1
+    ScreenAPI -->|Store screening chat & scores| D1
+    Scraper -->|Bulk Insert government jobs| D1
+
+    %% AI Pipeline (Ollama)
+    ChatAPI -->|Send Interview History| Ollama
+    Ollama -->|Return Chat Reply| ChatAPI
+    ChatAPI -.->|Async: Request Data Extraction| Ollama
+    Ollama -.->|Return JSON Extracted Profile| ChatAPI
+    ChatAPI -.->|Save Extracted Fields| D1
+
+    ScreenAPI -->|Send Screening Chat History| Ollama
+    Ollama -->|Return Screening Chat Reply| ScreenAPI
+    ScreenAPI -.->|On Conclusion: Request Suitability Score| Ollama
+    Ollama -.->|Return Score & Summary| ScreenAPI
