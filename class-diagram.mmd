@@ -1,0 +1,111 @@
+classDiagram
+    class User {
+        +Integer id
+        +String email
+        +String password
+        +String role
+        +DateTime created_at
+        +DateTime updated_at
+        +authenticate()
+    }
+
+    class JobSeekerProfile {
+        +Integer id
+        +Integer user_id
+        +String full_name
+        +String phone
+        +String location
+        +String about_self
+        +JSON academic_info
+        +JSON professional_info
+        +String skills
+        +String resume_url
+        +String resume_name
+        +Integer completeness_score
+        +updateProfile()
+    }
+
+    class EmployerProfile {
+        +Integer id
+        +Integer user_id
+        +String company_name
+        +String company_type
+        +String industry_type
+        +String executive_name
+        +String executive_phone
+        +String address
+        +String city
+        +String state
+        +String pincode
+        +Boolean is_approved
+        +String logo_url
+        +String verification_document_url
+        +verifyEmployer()
+    }
+
+    class Job {
+        +Integer id
+        +Integer employer_id
+        +String title
+        +String functional_area
+        +String industry
+        +String description
+        +Integer vacancies
+        +Integer exp_min
+        +Integer exp_max
+        +Integer sal_min
+        +Integer sal_max
+        +String city
+        +String state
+        +Boolean is_msme
+        +Boolean ai_screening_enabled
+        +String ai_screening_prompt
+        +publish()
+        +closeListing()
+    }
+
+    class JobApplication {
+        +Integer id
+        +Integer job_id
+        +Integer jobseeker_id
+        +String status
+        +Float ai_screening_score
+        +String ai_screening_summary
+        +DateTime applied_at
+        +processApplication()
+    }
+
+    class ChatMessage {
+        +Integer id
+        +Integer user_id
+        +String role
+        +String content
+        +DateTime timestamp
+    }
+
+    class AgentMessage {
+        +Integer id
+        +Integer user_id
+        +String role
+        +String content
+        +DateTime timestamp
+    }
+    
+    class GovtJob {
+        +Integer id
+        +String title
+        +String organization
+        +String sector
+        +String location
+        +String details_url
+        +DateTime deadline
+        +DateTime scraped_at
+    }
+
+    User "1" -- "0..1" JobSeekerProfile : has
+    User "1" -- "0..1" EmployerProfile : has
+    EmployerProfile "1" -- "*" Job : posts
+    JobSeekerProfile "1" -- "*" JobApplication : submits
+    Job "1" -- "*" JobApplication : receives
+    User "1" -- "*" ChatMessage : interacts
+    User "1" -- "*" AgentMessage : interacts

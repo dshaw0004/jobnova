@@ -18,6 +18,7 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{fontawesome5}
+\usepackage{setspace}
 
 % listings styling
 \lstset{
@@ -163,6 +164,8 @@ University Of Technology for the year 2024-25}}
 
 \end{titlepage}
 
+\pagenumbering{roman} 
+
 \begin{center}
             \centering
             \vspace{0.5cm}
@@ -189,7 +192,7 @@ University Of Technology for the year 2024-25}}
             \parbox{0.95\textwidth}{
                 \onehalfspacing
                 \large
-                This is to certify that this report of MCA final year project, Job Nova is a record of bona-fide work, carried out by \textbf{Dipankar Shaw, Asif Shohood , Ananta Mondal & Abhranil Das} under my supervision and guidance.
+                This is to certify that this report of MCA final year project, Job Nova is a record of bona-fide work, carried out by \textbf{Dipankar Shaw, Asif Shohood , Ananta Mondal \& Abhranil Das} under my supervision and guidance.
 
                 \vspace{1em}
 
@@ -369,6 +372,9 @@ This project has been a great learning experience, and I am truly thankful to ev
 
 % Table of contents
 \tableofcontents
+\cleardoublepage        % or \clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
 \newpage
 
 
@@ -433,7 +439,7 @@ JobNova is a modern SaaS recruitment platform designed to connect job seekers an
     \item \textbf{AI Job Agent}: An interactive career companion that recommends jobs, answers questions, and lists available positions.
     \item \textbf{AI Candidate Screening}: Employers can enable AI-driven interviews for their job posts. Candidates undergo a chat-based screening, and the AI evaluates their responses.
     \item \textbf{Employer Control Panel}: Employers post jobs, specify screening prompts, upload verification documents to Cloudflare R2, and view candidate screening scores and summaries.
-    \item \textbf{Unified Jobs Portal}: Supports searching and filtering of both private postings and scraped Indian government listings (e.g. SSC, public sector organizations).
+    \item \textbf{Unified Jobs Portal}: Supports searching and filtering of private postings, scraped Indian government listings (e.g. SSC, public sector organizations), and highlighted MSME (Micro, Small, and Medium Enterprises) opportunities.
     \item \textbf{Serverless Edge Architecture}: The frontend and backend run entirely on Cloudflare's network, backed by D1 SQLite-compatible databases.
 \end{itemize}
 
@@ -530,8 +536,23 @@ Instead of deploying a traditional VM-based architecture with separate web serve
 
 \section{Overview}
 
-JobNova is built using a layered serverless architecture. The client frontend communicates with server-side routes compiled as Cloudflare edge functions. These functions query the Cloudflare D1 SQL database, read/write files from Cloudflare R2, and connect to local or remote AI models via Ollama.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=6cm, keepaspectratio]{devops.png}
+    \caption{Dev Ops Image.\small Ref:\url{https://octopus.com/devops/i/x/octopus-devops-infinity.png}}
+    \label{fig:overview_graphic}
+\end{figure}
 
+JobNova is built using a layered serverless architecture tailored for high scalability, global low latency, and zero-maintenance operations. The client frontend communicates with server-side routes compiled as Cloudflare edge functions. These functions securely query the Cloudflare D1 SQL database for relational data, perform read/write operations for unstructured files via Cloudflare R2 object storage, and connect to local or remote AI models via Ollama.
+
+The core design philosophy revolves around three main pillars:
+\begin{itemize}
+    \item \textbf{Decoupled AI Processing}: By separating the core web services (Cloudflare) from the AI inference engine (Ollama), the system ensures that long-running LLM generation tasks do not block standard web requests or database transactions.
+    \item \textbf{Edge-First Execution}: All API routes and server-side rendering logic execute on edge nodes geographically closest to the user, drastically reducing network latency and improving the responsiveness of the conversational interface.
+    \item \textbf{Data Privacy and Security}: Resumes, verification documents, and chat transcripts are securely isolated. The use of local LLMs ensures that sensitive user profile data is not transmitted to third-party APIs during the extraction and screening phases.
+\end{itemize}
+
+\newpage
 \section{Layered Architecture}
 
 The system is organized into four main layers:
@@ -545,24 +566,34 @@ The system is organized into four main layers:
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=2cm,
-        layer/.style={rectangle, draw, fill=blue!10, text width=8cm, align=center, rounded corners, minimum height=0.9cm, font=\small, thick},
-        arrow/.style={draw, <->, >=stealth, thick}
+        box/.style={rectangle, draw, rounded corners, align=center, font=\small, thick},
+        bidirectional/.style={draw, <->, >=stealth, thick}
     ]
-        \node [layer, fill=green!10] (client) {Frontend Client (Nuxt 4 / Vue 3 / Tailwind CSS)};
-        \node [layer, below of=client, fill=blue!15] (edge) {Edge Serverless Engine (Cloudflare Workers / Pages)};
-        \node [layer, below of=edge, xshift=-2.5cm, fill=orange!10, text width=3.8cm] (db) {Cloudflare D1 (SQL)};
-        \node [layer, below of=edge, xshift=2.5cm, fill=orange!10, text width=3.8cm] (storage) {Cloudflare R2 (Storage)};
-        \node [layer, below of=db, xshift=2.5cm, fill=purple!10] (ai) {AI Inference Layer (Ollama / Granite LLM)};
+        % Nodes
+        \node [box, fill=green!10, text width=9.5cm, minimum height=1.3cm] (client) at (0, 0) {\textbf{Frontend Presentation Layer}\\ \textit{Nuxt 4 / Vue 3 / Tailwind CSS}};
         
-        \path [arrow] (client) -- (edge);
-        \path [arrow] (edge) -- (db);
-        \path [arrow] (edge) -- (storage);
-        \path [arrow] (edge) -- (ai);
+        \node [box, fill=blue!15, text width=9.5cm, minimum height=1.3cm] (edge) at (0, -2.5) {\textbf{Edge Serverless Logic Layer}\\ \textit{Cloudflare Workers \& Pages (Nitro)}};
+        
+        \node [box, fill=orange!10, text width=4.5cm, minimum height=1.3cm] (db) at (-2.5, -5.5) {\textbf{Structured Database}\\ \textit{Cloudflare D1 (SQL)}};
+        
+        \node [box, fill=orange!10, text width=4.5cm, minimum height=1.3cm] (storage) at (2.5, -5.5) {\textbf{Binary Storage}\\ \textit{Cloudflare R2 Bucket}};
+        
+        \node [box, fill=purple!10, text width=9.5cm, minimum height=1.3cm] (ai) at (0, -8.5) {\textbf{AI Processing Layer}\\ \textit{Ollama Framework (Granite-350m)}};
+        
+        % Connections
+        \path [bidirectional] (client) -- node[right, font=\scriptsize] {HTTPS / REST API Requests} (edge);
+        
+        \path [bidirectional] (edge) -- node[left, font=\scriptsize, align=right, xshift=-0.1cm] {Prepared\\SQL Queries} (db);
+        \path [bidirectional] (edge) -- node[right, font=\scriptsize, align=left, xshift=0.1cm] {S3-Compatible\\Blob Operations} (storage);
+        
+        % The line passes between db and storage, label is positioned in the empty space below them
+        \path [bidirectional] (edge) -- node[right, font=\scriptsize, pos=0.75] {Local Inference API} (ai);
+        
     \end{tikzpicture}
-    \caption{JobNova Layered Serverless Architecture}
+    \caption{JobNova Detailed Layered Serverless Architecture}
 \end{figure}
 
+\newpage
 \section{Use Case Diagram}
 
 The Use Case Diagram illustrates the primary interactions of the target actors (Job Seekers, Employers, and Administrators) with the key functions of the JobNova system.
@@ -574,6 +605,7 @@ The Use Case Diagram illustrates the primary interactions of the target actors (
     \label{fig:use_case_diagram}
 \end{figure}
 
+\newpage
 \section{Data Flow Diagram}
 
 The Data Flow Diagram (DFD) illustrates the flow of information through the JobNova application. It shows how user inputs are collected by the frontend client, processed through serverless edge functions, authenticated, stored, and sent for AI processing:
@@ -592,6 +624,7 @@ The Data Flow Diagram (DFD) illustrates the flow of information through the JobN
     \label{fig:data_flow_diagram}
 \end{figure}
 
+\newpage
 \section{Sequence Diagram}
 
 The Sequence Diagram details the step-by-step runtime interactions between the system actors, Nuxt Client, Nitro server backend, D1 database, and the local Ollama LLM service for the core AI operations:
@@ -606,6 +639,54 @@ The Sequence Diagram details the step-by-step runtime interactions between the s
     \caption{JobNova AI System Sequence Diagram}
     \label{fig:sequence_diagram}
 \end{figure}
+
+\newpage
+\section{Class Diagram}
+
+The Class Diagram illustrates the object-oriented structure of the core data entities within the JobNova application. It defines the attributes, methods, and relationships between primary entities such as User, JobSeekerProfile, EmployerProfile, Job, and JobApplication.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=20cm]{class-diagram.png}
+    \caption{JobNova Class Diagram}
+    \label{fig:class_diagram}
+\end{figure}
+
+\newpage
+\section{Deployment Guide}
+
+The deployment of JobNova leverages Cloudflare's serverless edge infrastructure for maximum scalability and minimal maintenance. Below are the steps and prerequisites required to deploy the application from source to production:
+
+\subsection{Prerequisites}
+\begin{itemize}[itemsep=0pt]
+    \item A registered \textbf{Cloudflare Account}.
+    \item \textbf{Bun Runtime} (v1.1+) or Node.js (v20+) installed locally.
+    \item \textbf{Wrangler CLI} installed and authenticated (\texttt{npm install -g wrangler} \& \texttt{wrangler login}).
+    \item A locally running instance of \textbf{Ollama} (with the \texttt{granite4:350m} model pulled).
+\end{itemize}
+
+\subsection{1. Provisioning Cloudflare Resources}
+\begin{enumerate}[itemsep=0pt]
+    \item \textbf{Create the D1 Database}: Run \texttt{wrangler d1 create jobnova-db}. Note the generated \texttt{database\_name} and \texttt{database\_id} to update your \texttt{wrangler.toml}.
+    \item \textbf{Create the R2 Bucket}: Run \texttt{wrangler r2 bucket create jobnova-bucket}. Update the binding in \texttt{wrangler.toml}.
+    \item \textbf{Run Database Migrations}: Execute \texttt{wrangler d1 execute jobnova-db --local --file=./migrations/0000\_initial.sql} for local development, or omit \texttt{--local} for production setup.
+\end{enumerate}
+
+\subsection{2. Environment Configuration}
+Create a \texttt{.env} file in the root directory and configure the necessary application secrets:
+\begin{lstlisting}[language=bash, caption=Sample Environment Configuration]
+NUXT_SESSION_PASSWORD="your-32-character-secure-secret"
+OLLAMA_URL="http://127.0.0.1:11434/api/chat"
+\end{lstlisting}
+
+\subsection{3. Building and Deploying}
+The application uses the Nuxt Nitro engine to compile the Vue frontend and server API into a single Worker compatible format.
+\begin{enumerate}[itemsep=0pt]
+    \item \textbf{Install Dependencies}: Run \texttt{bun install} in the project root.
+    \item \textbf{Local Development}: Run \texttt{bun run dev} to test the application locally with Miniflare.
+    \item \textbf{Production Build}: Run \texttt{bun run build} to generate the static assets and edge functions.
+    \item \textbf{Deploy to Edge}: Run \texttt{bun run deploy} (which triggers \texttt{wrangler pages deploy dist}) to push the application live across Cloudflare's global network.
+\end{enumerate}
 
 
 % Chapter 7: Database Design
@@ -656,6 +737,8 @@ updated\_at & TEXT & DEFAULT (datetime('now')) & Timestamp of last profile updat
 \caption{Users Table Schema}
 \end{table}
 
+\newpage 
+
 \subsection{2. Job Seeker Profiles Table}
 Tracks candidate metadata and unstructured info.
 \begin{table}[H]
@@ -679,6 +762,8 @@ completeness\_score & INTEGER & DEFAULT 0 & Score tracking profile completeness 
 \end{tabular}
 \caption{Job Seeker Profiles Table Schema}
 \end{table}
+
+\newpage
 
 \subsection{3. Employer Profiles Table}
 Tracks company registrations and admin verification.
@@ -706,6 +791,8 @@ verification\_document\_url & TEXT & - & Cloudflare R2 URL of verification proof
 \caption{Employer Profiles Table Schema}
 \end{table}
 
+\newpage
+
 \subsection{4. Jobs Table}
 Stores private job vacancies.
 \begin{table}[H]
@@ -727,6 +814,7 @@ sal\_min & INTEGER & - & Minimum salary offered. \\ \hline
 sal\_max & INTEGER & - & Maximum salary offered. \\ \hline
 city & TEXT & - & City location of the posting. \\ \hline
 state & TEXT & - & State location. \\ \hline
+is\_msme & INTEGER & DEFAULT 0 & Flag indicating if the employer is an MSME (0 or 1). \\ \hline
 ai\_screening\_enabled & INTEGER & DEFAULT 0 & Flag indicating if AI screening is enabled (0 or 1). \\ \hline
 ai\_screening\_prompt & TEXT & - & Custom prompt instructions for the AI screener. \\ \hline
 \end{tabular}
@@ -815,34 +903,101 @@ The conversational logic connects to Ollama, running a localized model (`granite
 
 \section{Account Selection and Authentication}
 The user is presented with a choice to register as a job seeker or an employer. The clean, professional landing page features a minimalist input form for login.
+
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.8\textwidth}{\centering \textit{[Screenshot: Login and Account Registration Selection]}\\ \small Clean selection buttons: "Job Seeker" or "Employer", with login forms.}}
-    \caption{Account Authentication and Selection Interface}
+    \includegraphics[width=0.85\textwidth]{screenshots/index.png}
+    \caption{JobNova Landing Page / Homepage}
+    \label{fig:screenshot_index}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/register-choose-account-type.png}
+    \caption{Account Registration Role Selection}
+    \label{fig:screenshot_register_choose}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/login.png}
+    \caption{User Login Page}
+    \label{fig:screenshot_login}
 \end{figure}
 
 \section{AI Profile Builder Chat}
 When job seekers sign up, they are guided by the AI recruiter chatbot. Instead of a long form, they answer questions in a conversational panel, and their details are progressively extracted.
+
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.8\textwidth}{\centering \textit{[Screenshot: AI Conversational Profile Builder]}\\ \small Chat panel showing the assistant requesting academic details and the user replying in free text.}}
-    \caption{AI Profile Builder Interface}
+    \includegraphics[width=0.85\textwidth]{screenshots/register-job-seeker-chat.png}
+    \caption{AI Conversational Onboarding for Job Seekers}
+    \label{fig:screenshot_register_chat}
 \end{figure}
 
 \section{Job Seeker Dashboard and AI Job Agent}
 The main portal for candidates displays personalized job listings, application statuses, and a panel for the conversational AI Job Agent, which answers questions and processes applications.
+
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.8\textwidth}{\centering \textit{[Screenshot: Job Seeker Dashboard and Job Agent]}\\ \small Side-by-side view of active private/govt job listings and the AI Job Agent chat widget.}}
-    \caption{Job Seeker Dashboard and AI Agent Widget}
+    \includegraphics[width=0.85\textwidth]{screenshots/jobseeker-dashboard.png}
+    \caption{Job Seeker Dashboard and Profiles Overview}
+    \label{fig:screenshot_jobseeker_dashboard}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/job-agent.png}
+    \caption{Conversational AI Job Agent Interface}
+    \label{fig:screenshot_job_agent}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/job-search.png}
+    \caption{Job Search Engine with Advanced Filters}
+    \label{fig:screenshot_job_search}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/job-screening-chat.png}
+    \caption{AI Interview Screening Chat for Candidates}
+    \label{fig:screenshot_job_screening}
 \end{figure}
 
 \section{Employer Dashboard and Applicant Tracking}
 Employers can view their job listings, candidate details, R2 uploaded documents, and AI-generated screening scores and summaries, helping them identify qualified leads.
+
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.8\textwidth}{\centering \textit{[Screenshot: Employer Applicant Tracking Dashboard]}\\ \small Table of applicants with their AI screening scores (e.g., 85/100) and collapsible screening summaries.}}
-    \caption{Employer Applicant Tracking Interface}
+    \includegraphics[width=0.85\textwidth]{screenshots/applicants-tracking-employer-dashboard.png}
+    \caption{Employer Dashboard: Candidate Applications with AI Screening Scores}
+    \label{fig:screenshot_applicants_tracking}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/post-a-new-job-employer-dashboard.png}
+    \caption{Employer Dashboard: Job Post Creator with AI Screening Configurations}
+    \label{fig:screenshot_post_job}
+\end{figure}
+
+\section{Government Jobs Portal}
+The platform also aggregates public sector jobs, allowing users to view details for listings like SSC CGL directly within JobNova.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/government-jobs.png}
+    \caption{Unified Government Jobs Feed (Scraped Openings)}
+    \label{fig:screenshot_government_jobs}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{screenshots/ssc-cgl-2026-details.png}
+    \caption{Government Job Details View (Scraped Info)}
+    \label{fig:screenshot_gov_details}
 \end{figure}
 
 
@@ -922,7 +1077,7 @@ definePageMeta({
 })
 
 useHead({
-  title: "Job Nova — AI Job Agent",
+  title: "Job Nova - AI Job Agent",
 })
 
 const router = useRouter()
@@ -1050,7 +1205,7 @@ const formatTime = () => {
                 <p class="font-body-md text-body-md text-on-surface whitespace-pre-wrap leading-relaxed prose prose-sm">{{ msg.content }}</p>
               </div>
               <p class="font-label-sm text-label-sm text-outline mt-xs ml-xs">
-                Agent · {{ formatTime() }}
+                Agent - {{ formatTime() }}
               </p>
             </div>
           </div>
@@ -1063,7 +1218,7 @@ const formatTime = () => {
                 </p>
               </div>
               <p class="font-label-sm text-label-sm text-outline mt-xs mr-xs text-right">
-                You · {{ formatTime() }}
+                You - {{ formatTime() }}
               </p>
             </div>
             <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-1">
@@ -1126,7 +1281,7 @@ body {
 \section{Backend REST Endpoint (\texttt{agent.post.ts})}
 Below is the TypeScript backend handler managing Ollama tool-calling declarations, database transactions, and the final response synthesis.
 
-\begin{lstlisting}[language=JavaScript, caption=Backend AI Job Agent API Route (agent.post.ts)]
+\begin{lstlisting}[caption=Backend AI Job Agent API Route (agent.post.ts)]
 import { defineEventHandler, readBody, createError } from 'h3'
 import { getSessionUserId } from '../utils/session'
 
@@ -1381,94 +1536,6 @@ export default defineEventHandler(async (event) => {
 \end{lstlisting}
 
 
-% Chapter 14: SYSTEM SCREENSHOTS
-\chapter{SYSTEM SCREENSHOTS}
-
-This chapter presents the actual screenshots of the JobNova platform during various user workflows, showing the client interfaces for both Job Seekers and Employers.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/index.png}
-    \caption{JobNova Landing Page / Homepage}
-    \label{fig:screenshot_index}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/register-choose-account-type.png}
-    \caption{Account Registration Role Selection}
-    \label{fig:screenshot_register_choose}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/login.png}
-    \caption{User Login Page}
-    \label{fig:screenshot_login}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/register-job-seeker-chat.png}
-    \caption{AI Conversational Onboarding for Job Seekers}
-    \label{fig:screenshot_register_chat}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/jobseeker-dashboard.png}
-    \caption{Job Seeker Dashboard and Profiles Overview}
-    \label{fig:screenshot_jobseeker_dashboard}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/job-agent.png}
-    \caption{Conversational AI Job Agent Interface}
-    \label{fig:screenshot_job_agent}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/job-search.png}
-    \caption{Job Search Engine with Advanced Filters}
-    \label{fig:screenshot_job_search}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/job-screening-chat.png}
-    \caption{AI Interview Screening Chat for Candidates}
-    \label{fig:screenshot_job_screening}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/applicants-tracking-employer-dashboard.png}
-    \caption{Employer Dashboard: Candidate Applications with AI Screening Scores}
-    \label{fig:screenshot_applicants_tracking}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/post-a-new-job-employer-dashboard.png}
-    \caption{Employer Dashboard: Job Post Creator with AI Screening Configurations}
-    \label{fig:screenshot_post_job}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/government-jobs.png}
-    \caption{Unified Government Jobs Feed (Scraped Openings)}
-    \label{fig:screenshot_government_jobs}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{screenshots/ssc-cgl-2026-details.png}
-    \caption{Government Job Details View (Scraped Info)}
-    \label{fig:screenshot_gov_details}
-\end{figure}
-\newpage
 
 
 % Chapter 15: CONCLUSION & FUTURE SCOPE

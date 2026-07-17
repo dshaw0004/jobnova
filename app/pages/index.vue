@@ -17,9 +17,17 @@ const { data: govtJobsData } = await useFetch('/api/jobs/govt-list', {
 })
 const govtJobs = computed(() => govtJobsData.value?.jobs || [])
 
-// Fetch the latest 3 private jobs from the API
-const { data: privateJobsData } = await useFetch('/api/jobs/public-list')
+// Fetch the latest 3 private jobs (excluding MSME)
+const { data: privateJobsData } = await useFetch('/api/jobs/public-list', {
+  query: { isMsme: 0 }
+})
 const privateJobs = computed(() => privateJobsData.value?.jobs?.slice(0, 3) || [])
+
+// Fetch the latest 3 MSME jobs
+const { data: msmeJobsData } = await useFetch('/api/jobs/public-list', {
+  query: { isMsme: 1 }
+})
+const msmeJobs = computed(() => msmeJobsData.value?.jobs?.slice(0, 3) || [])
 
 // Determine dynamic icon based on organisation
 const getOrgIcon = (org) => {
@@ -125,7 +133,7 @@ onMounted(async () => {
             Find the Right <span class="text-primary">Job, Faster</span>
           </h1>
           <p class="font-body text-body-lg text-on-surface-variant mb-xl">
-            Explore thousands of Government and Private sector opportunities
+            Explore thousands of Government, Private, and MSME sector opportunities
             across India. Your dream career starts with a single click.
           </p>
           <!-- Signature Search Bar -->
@@ -227,7 +235,7 @@ onMounted(async () => {
         <h2 class="font-headline text-headline-lg text-center mb-xl">
           Choose Your Career Path
         </h2>
-        <div class="grid md:grid-cols-2 gap-lg">
+        <div class="grid md:grid-cols-3 gap-lg">
           <!-- Govt Jobs Card -->
           <div
             class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-1"
@@ -313,6 +321,51 @@ onMounted(async () => {
                 to="/private-jobs"
               >
                 Explore Private Jobs <UIcon name="i-lucide-arrow-right" />
+              </NuxtLink>
+            </div>
+          </div>
+          <!-- MSME Jobs Card -->
+          <div
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 via-orange-400 to-yellow-500 p-1 shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+          >
+            <div
+              class="bg-surface-container-lowest rounded-[14px] p-8 h-full transition-all group-hover:bg-surface-container-lowest/95"
+            >
+              <div
+                class="mb-6 inline-flex items-center justify-center w-14 h-14 bg-amber-500/15 rounded-xl text-amber-600"
+              >
+                <UIcon name="i-lucide-store" class="text-[32px]" />
+              </div>
+              <h3 class="font-headline text-headline-md mb-3 flex items-center gap-2">
+                MSME Jobs
+                <span class="bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm animate-pulse">New</span>
+              </h3>
+              <p class="font-body text-body-md text-on-surface-variant mb-6">
+                Empower your career by joining India's vibrant Micro, Small, and Medium Enterprises. High-growth roles with direct impact.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span
+                  class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md"
+                  >Startups</span
+                >
+                <span
+                  class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md"
+                  >Fast Growing</span
+                >
+                <span
+                  class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md"
+                  >Direct Impact</span
+                >
+                <span
+                  class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md"
+                  >Local Teams</span
+                >
+              </div>
+              <NuxtLink
+                class="inline-flex items-center gap-2 font-Inter font-bold text-amber-600 hover:gap-4 transition-all"
+                to="/msme-jobs"
+              >
+                Explore MSME Jobs <UIcon name="i-lucide-arrow-right" />
               </NuxtLink>
             </div>
           </div>
@@ -444,6 +497,91 @@ onMounted(async () => {
               </p>
               <button
                 class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold hover:bg-secondary transition-all disabled:opacity-60 cursor-pointer"
+                :disabled="job.hasApplied || applyLoading"
+                @click="applyToJob(job.id)"
+              >
+                {{ job.hasApplied ? 'Applied' : 'Apply' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 5.5 Featured MSME Jobs -->
+    <section class="py-xl px-gutter bg-gradient-to-b from-amber-50 to-surface-container-lowest">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-lg">
+          <div>
+            <h2 class="font-headline text-headline-lg mb-2 flex items-center gap-2 text-amber-900">
+              <UIcon name="i-lucide-sparkles" class="text-amber-500" />
+              Featured MSME Jobs
+            </h2>
+            <p class="text-amber-800/80">
+              High-impact roles in India's fastest growing small & medium enterprises
+            </p>
+          </div>
+          <NuxtLink
+            class="text-amber-600 font-bold hover:underline"
+            to="/msme-jobs"
+            >View All MSME</NuxtLink
+          >
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-md">
+          <div
+            v-if="msmeJobs.length === 0"
+            class="col-span-full py-8 text-center text-amber-800/60 font-body-sm bg-white rounded-2xl border border-dashed border-amber-200"
+          >
+            No active MSME jobs at the moment.
+          </div>
+          <div
+            v-for="job in msmeJobs"
+            :key="job.id"
+            class="bg-white p-md rounded-2xl shadow-[0_4px_20px_rgba(245,158,11,0.1)] group hover:-translate-y-1 transition-all flex flex-col justify-between border border-amber-200/50 hover:border-amber-400"
+          >
+            <div>
+              <div class="flex gap-4 mb-4 relative">
+                <!-- MSME verified badge absolute corner -->
+                <div class="absolute -top-6 -right-6">
+                  <div class="bg-amber-100 text-amber-700 p-2 rounded-bl-2xl rounded-tr-2xl shadow-sm border border-amber-200">
+                    <UIcon name="i-lucide-award" class="text-xl" />
+                  </div>
+                </div>
+
+                <div
+                  class="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center p-2 border border-amber-100"
+                >
+                  <UIcon name="i-lucide-store" class="text-amber-500 text-xl" />
+                </div>
+                <div class="pr-6">
+                  <h4 class="font-headline font-semibold line-clamp-1 text-slate-800">
+                    {{ job.title }}
+                  </h4>
+                  <p class="text-amber-700/80 text-label-md font-medium">
+                    {{ job.company_name || 'Verified MSME Employer' }}
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="bg-amber-50 text-amber-700 text-label-sm px-2 py-1 rounded font-medium border border-amber-100"
+                  >{{
+                    job.city ? `${job.city}, ${job.state || ''}` : 'Remote'
+                  }}</span
+                >
+                <span
+                  class="bg-slate-50 text-slate-600 text-label-sm px-2 py-1 rounded font-medium border border-slate-100"
+                  >{{ job.industry || 'Tech' }}</span
+                >
+              </div>
+            </div>
+            <div
+              class="flex justify-between items-center mt-auto pt-4 border-t border-amber-100"
+            >
+              <p class="text-slate-800 font-bold text-sm">
+                {{ formatSalary(job.sal_min, job.sal_max) }}
+              </p>
+              <button
+                class="bg-amber-500 text-white px-4 py-2 rounded-lg text-label-md font-bold hover:bg-amber-600 transition-all disabled:opacity-60 cursor-pointer shadow-sm hover:shadow-md active:scale-95"
                 :disabled="job.hasApplied || applyLoading"
                 @click="applyToJob(job.id)"
               >

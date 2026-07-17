@@ -4,7 +4,7 @@
       <div class="col-span-2 md:col-span-1">
         <AppLogo class="h-8 w-auto text-primary mb-6" />
         <p class="text-on-surface-variant text-label-md leading-relaxed">
-          India's leading job platform for both Government and Private sector opportunities.
+          India's leading job platform for Government, Private, and MSME sector opportunities.
         </p>
       </div>
       <div>
@@ -42,10 +42,10 @@
             <NuxtLink class="text-on-surface-variant hover:text-primary transition-colors text-label-md" to="/government-jobs">Govt Jobs</NuxtLink>
           </li>
           <li>
-            <NuxtLink class="text-on-surface-variant hover:text-primary transition-colors text-label-md" to="/job-search">IT Jobs</NuxtLink>
+            <NuxtLink class="text-on-surface-variant hover:text-primary transition-colors text-label-md" to="/private-jobs">Private Jobs</NuxtLink>
           </li>
           <li>
-            <NuxtLink class="text-on-surface-variant hover:text-primary transition-colors text-label-md" to="/private-jobs">Sales</NuxtLink>
+            <NuxtLink class="text-amber-700 font-semibold hover:text-amber-600 transition-colors text-label-md" to="/msme-jobs">MSME Jobs <span class="text-[10px] uppercase bg-amber-100 px-1 py-0.5 rounded">New</span></NuxtLink>
           </li>
         </ul>
       </div>

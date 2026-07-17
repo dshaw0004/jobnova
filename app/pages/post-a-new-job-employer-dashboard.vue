@@ -38,7 +38,8 @@ const form = reactive({
   expiryDate: '',
   applicationDeadline: '',
   aiScreeningEnabled: false,
-  aiScreeningPrompt: ''
+  aiScreeningPrompt: '',
+  isMsme: false
 })
 
 const newSkill = ref('')
@@ -87,6 +88,7 @@ async function loadJobDetails(id: number) {
       form.applicationDeadline = j.application_deadline || ''
       form.aiScreeningEnabled = j.ai_screening_enabled === 1
       form.aiScreeningPrompt = j.ai_screening_prompt || ''
+      form.isMsme = j.is_msme === 1
     }
   } catch (err: any) {
     errorMsg.value = err.data?.message || 'Failed to load job details.'
@@ -422,6 +424,42 @@ const previewSalary = computed(() => {
               </div>
             </div>
 
+            <!-- MSME Classification -->
+            <div class="bg-surface rounded-xl p-md md:p-lg border border-outline-variant/30 shadow-sm space-y-4 relative overflow-hidden">
+              <!-- Subtle amber glow when enabled -->
+              <div v-if="form.isMsme" class="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-orange-400/5 to-yellow-500/5 pointer-events-none rounded-xl"></div>
+              <div class="flex items-center justify-between pb-sm border-b border-outline-variant/30">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg flex items-center justify-center" :class="form.isMsme ? 'bg-amber-500/15' : 'bg-surface-container'">
+                    <UIcon name="i-lucide-store" class="text-[20px]" :class="form.isMsme ? 'text-amber-500' : 'text-outline'" />
+                  </div>
+                  <h3 class="font-headline-md text-headline-md text-on-surface">MSME Classification</h3>
+                </div>
+                <!-- Toggle switch -->
+                <button
+                  type="button"
+                  @click="form.isMsme = !form.isMsme"
+                  class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none"
+                  :class="form.isMsme ? 'bg-amber-500' : 'bg-outline-variant'"
+                >
+                  <span
+                    class="inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-transform duration-300"
+                    :class="form.isMsme ? 'translate-x-6' : 'translate-x-1'"
+                  />
+                </button>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant text-sm">
+                Mark this listing as an <strong class="text-amber-600">MSME (Micro, Small & Medium Enterprise)</strong> opportunity.
+                MSME jobs appear in a dedicated category and receive special visibility across the platform.
+              </p>
+              <div v-if="form.isMsme" class="flex items-center gap-3 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                <UIcon name="i-lucide-star" class="text-amber-500 text-[20px] shrink-0" />
+                <p class="text-amber-700 font-label-md text-sm leading-snug">
+                  This job will be highlighted with an <strong>MSME badge</strong> and appear on the dedicated MSME Jobs page.
+                </p>
+              </div>
+            </div>
+
             <!-- Error message -->
             <div v-if="errorMsg" class="flex items-center gap-sm p-sm bg-error/10 text-error rounded-lg font-label-md text-label-md">
               <UIcon name="i-lucide-circle-alert" class="text-[16px] shrink-0" />
@@ -528,6 +566,11 @@ const previewSalary = computed(() => {
                     <span class="inline-flex items-center gap-1 bg-surface-container px-2 py-1 rounded font-label-sm text-label-sm text-on-surface-variant">
                       <UIcon name="i-lucide-banknote" class="text-[14px]" />
                       <span>{{ previewSalary }}</span>
+                    </span>
+                    <!-- MSME badge in preview -->
+                    <span v-if="form.isMsme" class="inline-flex items-center gap-1 bg-gradient-to-r from-amber-500 to-orange-400 text-white px-2 py-1 rounded font-label-sm text-label-sm shadow-sm">
+                      <UIcon name="i-lucide-store" class="text-[12px]" />
+                      MSME
                     </span>
                   </div>
                   <div class="mt-4 pt-4 border-t border-outline-variant/30">

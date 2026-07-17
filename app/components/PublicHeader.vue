@@ -36,6 +36,14 @@ const { user, logout } = useAuth();
             >Private Jobs</NuxtLink
           >
           <NuxtLink
+            class="relative font-Inter text-label-md text-on-surface-variant hover:text-amber-600 transition-all flex items-center gap-1"
+            active-class="text-amber-600 font-bold border-b-2 border-amber-500 pb-1"
+            to="/msme-jobs"
+          >
+            <span>MSME Jobs</span>
+            <span class="absolute -top-3 -right-6 bg-amber-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full animate-pulse uppercase tracking-wider shadow-sm">New</span>
+          </NuxtLink>
+          <NuxtLink
             class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all"
             active-class="text-primary font-bold border-b-2 border-primary pb-1"
             to="/job-search"

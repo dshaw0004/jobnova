@@ -45,7 +45,8 @@ export default defineEventHandler(async (event) => {
     expiryDate,
     applicationDeadline,
     aiScreeningEnabled,
-    aiScreeningPrompt
+    aiScreeningPrompt,
+    isMsme
   } = body ?? {}
 
   // Basic validation
@@ -79,8 +80,9 @@ export default defineEventHandler(async (event) => {
         expiry_date,
         application_deadline,
         ai_screening_enabled,
-        ai_screening_prompt
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ai_screening_prompt,
+        is_msme
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .bind(
       userId,
@@ -103,7 +105,8 @@ export default defineEventHandler(async (event) => {
       expiryDate || null,
       applicationDeadline || null,
       aiScreeningEnabled ? 1 : 0,
-      aiScreeningPrompt || null
+      aiScreeningPrompt || null,
+      isMsme ? 1 : 0
     )
     .run()
 

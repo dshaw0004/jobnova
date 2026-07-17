@@ -16,6 +16,8 @@ export default defineEventHandler(async (event) => {
   const location = query.location ? String(query.location).trim() : ''
   const experience = query.experience ? String(query.experience) : ''
   const industry = query.industry ? String(query.industry) : ''
+  // isMsme: '1' = only MSME jobs, '0' = exclude MSME jobs, undefined = all jobs
+  const isMsme = query.isMsme !== undefined ? String(query.isMsme) : undefined
 
   // Build query
   let sql = `
@@ -55,6 +57,12 @@ export default defineEventHandler(async (event) => {
   if (industry) {
     sql += ' AND j.industry = ?'
     params.push(industry)
+  }
+
+  // Filter by MSME flag if explicitly requested
+  if (isMsme !== undefined) {
+    sql += ' AND j.is_msme = ?'
+    params.push(isMsme === '1' ? 1 : 0)
   }
 
   sql += ' ORDER BY j.created_at DESC'

@@ -46,7 +46,8 @@ export default defineEventHandler(async (event) => {
     expiryDate,
     applicationDeadline,
     aiScreeningEnabled,
-    aiScreeningPrompt
+    aiScreeningPrompt,
+    isMsme
   } = body ?? {}
 
   // Basic validation
@@ -96,6 +97,7 @@ export default defineEventHandler(async (event) => {
         application_deadline = ?,
         ai_screening_enabled = ?,
         ai_screening_prompt = ?,
+        is_msme = ?,
         updated_at = datetime('now')
       WHERE id = ?
     `)
@@ -120,6 +122,7 @@ export default defineEventHandler(async (event) => {
       applicationDeadline || null,
       aiScreeningEnabled ? 1 : 0,
       aiScreeningPrompt || null,
+      isMsme ? 1 : 0,
       id
     )
     .run()

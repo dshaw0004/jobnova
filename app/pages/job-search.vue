@@ -28,7 +28,8 @@ const filters = reactive({
   search: '',
   location: '',
   experience: 'Experience',
-  industry: ''
+  industry: '',
+  isMsme: undefined as boolean | undefined
 })
 
 onMounted(async () => {
@@ -45,7 +46,8 @@ async function loadJobs() {
         search: filters.search,
         location: filters.location,
         experience: filters.experience,
-        industry: filters.industry
+        industry: filters.industry,
+        isMsme: filters.isMsme !== undefined ? (filters.isMsme ? 1 : 0) : undefined
       }
     })
     jobs.value = res.jobs
@@ -130,6 +132,8 @@ function setQuickFilter(type: string) {
     filters.industry = 'Information Technology'
   } else if (type === 'remote') {
     filters.location = 'Remote'
+  } else if (type === 'msme') {
+    filters.isMsme = true
   }
   loadJobs()
 }
@@ -139,6 +143,7 @@ function clearFilters() {
   filters.location = ''
   filters.experience = 'Experience'
   filters.industry = ''
+  filters.isMsme = undefined
   loadJobs()
 }
 
@@ -252,6 +257,45 @@ function formatDate(dateStr: string) {
               </label>
             </div>
           </div>
+          <!-- Filter Sector (MSME) -->
+          <div class="bg-surface-container-low p-md rounded-xl flex flex-col gap-sm">
+            <h4 class="font-label-md text-label-md text-on-surface font-bold">Sector / Type</h4>
+            <div class="flex flex-col gap-xs mt-xs space-y-2">
+              <label class="flex items-center gap-sm cursor-pointer group">
+                <input
+                  v-model="filters.isMsme"
+                  type="radio"
+                  name="sector-filter"
+                  :value="undefined"
+                  class="text-primary focus:ring-primary h-4 w-4"
+                  @change="loadJobs"
+                />
+                <span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">All Sectors</span>
+              </label>
+              <label class="flex items-center gap-sm cursor-pointer group">
+                <input
+                  v-model="filters.isMsme"
+                  type="radio"
+                  name="sector-filter"
+                  :value="false"
+                  class="text-primary focus:ring-primary h-4 w-4"
+                  @change="loadJobs"
+                />
+                <span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Non-MSME Private Jobs</span>
+              </label>
+              <label class="flex items-center gap-sm cursor-pointer group">
+                <input
+                  v-model="filters.isMsme"
+                  type="radio"
+                  name="sector-filter"
+                  :value="true"
+                  class="text-primary focus:ring-primary h-4 w-4"
+                  @change="loadJobs"
+                />
+                <span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors flex items-center gap-1">MSME <span class="bg-amber-100 text-amber-700 px-1 py-0.5 rounded text-[9px] uppercase font-bold tracking-wider">Highlight</span></span>
+              </label>
+            </div>
+          </div>
         </aside>
 
         <!-- Center Listing Area -->
@@ -265,6 +309,10 @@ function formatDate(dateStr: string) {
           <div class="flex items-center gap-sm overflow-x-auto pb-sm no-scrollbar">
             <button class="whitespace-nowrap px-md py-2 bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-all" @click="setQuickFilter('remote')">Remote Jobs</button>
             <button class="whitespace-nowrap px-md py-2 bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-all" @click="setQuickFilter('private')">IT / Tech Jobs</button>
+            <button class="whitespace-nowrap px-md py-2 bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full font-label-md text-label-md hover:bg-amber-500 hover:text-white transition-all flex items-center gap-1.5 shadow-sm" @click="setQuickFilter('msme')">
+              <UIcon name="i-lucide-sparkles" class="text-xs" />
+              MSME Jobs
+            </button>
           </div>
 
           <!-- Results Header -->
@@ -291,25 +339,37 @@ function formatDate(dateStr: string) {
               v-for="job in jobs"
               :key="job.id"
               :class="[
-                'p-md rounded-xl shadow-sm border border-outline-variant/30 cursor-pointer hover:shadow-md transition-all group',
-                selectedJob?.id === job.id ? 'border-primary bg-primary/5' : 'bg-surface-container-lowest'
+                'p-md rounded-xl shadow-sm border transition-all group relative overflow-hidden cursor-pointer',
+                selectedJob?.id === job.id 
+                  ? (job.is_msme === 1 ? 'border-amber-500 bg-amber-50' : 'border-primary bg-primary/5') 
+                  : (job.is_msme === 1 ? 'border-amber-200 bg-white hover:border-amber-400' : 'border-outline-variant/30 bg-surface-container-lowest hover:border-primary/50 hover:shadow-md')
               ]"
               @click="selectJob(job)"
             >
-              <div class="flex justify-between items-start mb-sm">
+              <div v-if="job.is_msme === 1" class="absolute -top-3 -right-6 bg-gradient-to-r from-amber-500 to-orange-400 text-white text-[9px] font-bold px-8 py-1 rotate-45 shadow-sm tracking-wider z-0">
+                MSME
+              </div>
+              <div class="flex justify-between items-start mb-sm relative z-10">
                 <div class="flex gap-md">
-                  <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden shrink-0">
-                    <UIcon name="i-lucide-building" class="text-primary text-[24px]" />
+                  <div 
+                    class="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden shrink-0 border"
+                    :class="job.is_msme === 1 ? 'bg-amber-100 border-amber-200 text-amber-600' : 'bg-primary/10 border-transparent text-primary'"
+                  >
+                    <UIcon :name="job.is_msme === 1 ? 'i-lucide-store' : 'i-lucide-building'" class="text-[24px]" />
                   </div>
                   <div>
-                    <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                    <h3 
+                      class="font-headline-md text-headline-md text-on-surface transition-colors"
+                      :class="job.is_msme === 1 ? 'group-hover:text-amber-600' : 'group-hover:text-primary'"
+                    >
                       {{ job.title }}
                     </h3>
                     <div class="flex items-center gap-sm mt-xs flex-wrap">
                       <NuxtLink 
                         v-if="job.employer_id" 
                         :to="`/company-profile?id=${job.employer_id}`" 
-                        class="font-label-md text-label-md text-primary font-semibold hover:underline"
+                        class="font-label-md text-label-md font-semibold hover:underline"
+                        :class="job.is_msme === 1 ? 'text-amber-600' : 'text-primary'"
                         @click.stop
                       >
                         {{ job.company_name }}

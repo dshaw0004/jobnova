@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '~/composables/useAuth'
 
 useHead({
-  title: "Private Jobs | Job Nova"
+  title: "MSME Jobs | Job Nova"
 })
 
 const router = useRouter()
@@ -44,7 +44,7 @@ async function loadJobs() {
         location: filters.location,
         experience: filters.experience || undefined,
         industry: filters.industry === 'All Industries' ? undefined : filters.industry,
-        isMsme: 0
+        isMsme: 1
       }
     })
     jobs.value = res.jobs
@@ -398,7 +398,7 @@ function formatDate(dateStr: string) {
         <!-- Center Job Listings -->
         <section class="md:col-span-6">
           <div class="flex justify-between items-center mb-lg">
-            <h2 class="font-headline-md text-headline-md">Latest Private Jobs</h2>
+            <h2 class="font-headline-md text-headline-md">Latest MSME Jobs</h2>
             <div class="flex items-center gap-sm">
               <span class="text-label-sm text-on-surface-variant">Sort by:</span>
               <select v-model="sortBy" class="bg-transparent border-none text-label-md font-semibold text-primary focus:ring-0 p-0 pr-lg cursor-pointer outline-none">
@@ -418,22 +418,33 @@ function formatDate(dateStr: string) {
           <div v-else class="space-y-md">
             <div v-if="paginatedJobs.length === 0" class="py-16 text-center space-y-4 bg-surface-container-low/30 rounded-2xl border border-dashed border-outline-variant">
               <UIcon name="i-lucide-briefcase" class="text-[48px] text-outline/40" />
-              <p class="font-body-lg text-on-surface-variant">No active private jobs match your filters.</p>
+              <p class="font-body-lg text-on-surface-variant">No active MSME jobs match your filters.</p>
               <button class="text-primary hover:underline font-label-md cursor-pointer" @click="clearFilters">Clear filters</button>
             </div>
 
-            <div v-for="job in paginatedJobs" :key="job.id" class="bg-surface p-lg rounded-2xl border border-surface-container job-card-shadow transition-all hover:border-primary-fixed-dim hover:-translate-y-1">
+            <div v-for="job in paginatedJobs" :key="job.id" class="bg-surface p-lg rounded-2xl border border-surface-container job-card-shadow transition-all hover:border-amber-500 hover:-translate-y-1">
               <div class="flex gap-md">
-                <div class="w-14 h-14 bg-surface-container rounded-xl flex items-center justify-center p-2 border border-outline-variant/20">
-                  <div class="w-full h-full bg-surface-container-high rounded flex items-center justify-center">
-                    <UIcon name="i-lucide-building-2" class="text-outline text-[24px] text-primary" />
-                  </div>
+                <div class="w-16 h-16 rounded-xl bg-amber-100 flex items-center justify-center border border-amber-200">
+                  <UIcon name="i-lucide-store" class="text-amber-600 text-[36px]" />
                 </div>
                 <div class="flex-1">
                   <div class="flex justify-between items-start">
+                    <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center overflow-hidden shrink-0 border border-amber-200">
+                      <UIcon name="i-lucide-store" class="text-amber-600 text-[24px]" />
+                    </div>
                     <div>
-                      <h3 class="font-headline-md text-[18px] text-on-surface font-semibold">{{ job.title }}</h3>
-                      <p class="text-primary font-label-md">{{ job.company_name || 'Verified Employer' }}</p>
+                      <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-amber-600 transition-colors">
+                        {{ job.title }}
+                      </h3>
+                      <div class="flex items-center gap-sm mt-xs flex-wrap">
+                        <NuxtLink 
+                          v-if="job.employer_id" 
+                          :to="`/company-profile?id=${job.employer_id}`" 
+                          class="font-label-md text-label-md text-amber-600 font-semibold hover:underline"
+                        >
+                          {{ job.company_name || 'Verified Employer' }}
+                        </NuxtLink>
+                      </div>
                     </div>
                     <button class="text-outline hover:text-primary transition-colors cursor-pointer">
                       <UIcon name="i-lucide-bookmark" />
@@ -462,7 +473,7 @@ function formatDate(dateStr: string) {
                     <span v-if="job.exp_min === 0" class="bg-tertiary/10 text-tertiary px-sm py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Entry Level</span>
                     <div class="ml-auto flex gap-sm">
                       <button 
-                        class="bg-primary text-on-primary text-label-md px-lg py-1.5 rounded-lg hover:bg-primary-container transition-all disabled:opacity-60 cursor-pointer"
+                        class="bg-amber-600 text-white text-label-md px-lg py-1.5 rounded-lg hover:bg-amber-700 transition-all disabled:opacity-60 cursor-pointer"
                         :disabled="job.hasApplied || applyLoading"
                         @click="applyToJob(job.id)"
                       >
@@ -489,7 +500,7 @@ function formatDate(dateStr: string) {
               :key="page" 
               :class="[
                 'w-10 h-10 flex items-center justify-center rounded-xl font-label-md cursor-pointer transition-all',
-                currentPage === page ? 'bg-primary text-on-primary' : 'bg-surface border border-surface-container text-on-surface-variant hover:border-primary'
+                currentPage === page ? 'bg-amber-600 text-white' : 'bg-surface border border-surface-container text-on-surface-variant hover:border-amber-600'
               ]"
               @click="currentPage = page"
             >
