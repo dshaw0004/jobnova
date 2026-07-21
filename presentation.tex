@@ -1,0 +1,321 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Required for cookie theme and our diagrams
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,backgrounds,calc,positioning,shapes.multipart}
+\usepackage{fontawesome5}
+\usepackage[main=english,polish]{babel}
+\usepackage{ragged2e}
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  maxcitenames=2,
+  doi=false,
+  isbn=false,
+  url=true
+]{biblatex}
+\addbibresource{refs.bib}
+
+% Custom Colors
+\definecolor{mainOrange}{HTML}{D95B30}
+\definecolor{palePink}{HTML}{F2C2BB}
+\definecolor{darkGray}{HTML}{666666}
+
+% Beamer Colors
+\setbeamercolor{frametitle}{fg=mainOrange}
+\setbeamercolor{normal text}{fg=darkgray!90!black}
+\setbeamercolor{block title}{bg=mainOrange, fg=white}
+\setbeamercolor{block body}{bg=gray!10, fg=black}
+\setbeamercolor{alertblock title}{bg=red!80!black, fg=white}
+\setbeamercolor{alertblock body}{bg=red!10, fg=black}
+\setbeamercolor{itemize item}{fg=mainOrange}
+\setbeamercolor{itemize subitem}{fg=mainOrange}
+
+% Disable navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Custom bullet points
+\newcommand{\custombullet}{%
+  \begin{tikzpicture}[baseline=-0.5ex, scale=0.8]
+    \draw[mainOrange, thick] (0,0.12) -- (0.12,0) -- (0,-0.12) -- (-0.12,0) -- cycle;
+    \fill[mainOrange] (0,0) circle (0.04);
+  \end{tikzpicture}%
+}
+\newcommand{\customdash}{%
+  \begin{tikzpicture}[baseline=-0.5ex]
+    \fill[mainOrange] (0,0) rectangle (0.12,0.03);
+  \end{tikzpicture}%
+}
+\setbeamertemplate{itemize item}{\custombullet}
+\setbeamertemplate{itemize subitem}{\customdash}
+\setbeamertemplate{itemize subsubitem}{-}
+
+% Frame title
+\setbeamertemplate{frametitle}{
+    \vspace{0.4cm}
+    {\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}\Large\bfseries\insertframetitle\par}
+    \vspace{0.1cm}
+    {\color{mainOrange}\hrule height 1pt}
+}
+
+% Footline
+\setbeamertemplate{footline}{
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[circle, fill=mainOrange, text=white, font=\footnotesize\bfseries, minimum size=0.6cm, inner sep=0pt] at ($(current page.south west)+(0.8, 0.6)$) {\insertframenumber};
+    \end{tikzpicture}
+}
+
+% Title page
+\setbeamertemplate{title page}{
+  \begin{tikzpicture}[remember picture,overlay]
+    % Background vertical lines
+    \foreach \x in {0,0.2,...,16} {
+      \draw[gray!20, thin] ($(current page.north west)+(\x,0)$) -- ($(current page.south west)+(\x,0)$);
+    }
+    
+    % Title bands
+    \fill[palePink] ($(current page.west)+(0, 1.8)$) rectangle ($(current page.east)+(0, 2.05)$);
+    \fill[mainOrange] ($(current page.west)+(0, -0.8)$) rectangle ($(current page.east)+(0, 1.8)$);
+    \fill[darkGray] ($(current page.west)+(0, -1.05)$) rectangle ($(current page.east)+(0, -0.8)$);
+    
+    % Title text
+    \node[white, font=\Huge\bfseries, align=center] at ($(current page.center)+(0, 0.9)$) {\inserttitle};
+    \node[white, font=\Large, align=center] at ($(current page.center)+(0, 0)$) {\insertsubtitle};
+    
+    % Footer texts
+    \node[font=\large, align=center, text=darkgray!90!black, anchor=north] at ($(current page.south west)+(3.5, 3)$) {Guided By:\\ \insertguide};
+    \node[font=\large, align=center, text=darkgray!90!black, anchor=north] at ($(current page.south east)+(-3.5, 3.2)$) {Developed By:\\ \insertauthor};
+  \end{tikzpicture}
+}
+
+% Macros for removed cookie features
+\newcommand{\cookiecheck}{{\color{mainOrange}\faCheckCircle}}
+\newcommand{\cookiekicker}[1]{\textbf{\large #1}}
+
+% Title page details
+\title{Job Nova}
+\subtitle{AI-based Job Recommendation System}
+\author{Dipankar Shaw \\ Asif Shohood \\ Ananta Mondal \\ Abhranil Das}
+\newcommand{\insertguide}{Ms. Debalina Barman}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Overview}
+    \begin{itemize}
+        \setlength{\itemsep}{0.3cm}
+        \item Company Profile
+        \item Introduction
+        \item Software Specification
+        \item Analysis phase
+        \item Design Phase
+        \item Data Dictionary
+        \item Implementation
+        \item Limitation \& future improvement
+        \item Conclusion
+    \end{itemize}
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction \& Background}
+    \begin{block}{\faInfoCircle\ Background}
+        In the contemporary professional landscape, the recruitment process serves as a vital bridge between human talent and organizational growth. Traditional job boards and manual recruitment processes are increasingly fragmented and inefficient.
+    \end{block}
+    
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \faSearch\ Job seekers navigate dozens of platforms.
+        \item \faFileAlt\ Reliance on static, manual resume formatting.
+        \item \faUsers\ Recruiters are overwhelmed by unstandardized applications.
+    \end{itemize}
+\end{frame}
+
+\section{Problem Statement}
+
+\begin{frame}{Problem Statement}
+    The existing recruitment methodology presents key pain points:
+    
+    \vspace{0.5cm}
+    \begin{columns}[T,onlytextwidth]
+        \column{.48\textwidth}
+            \begin{block}{\faUserTie\ For Job Seekers}
+                \begin{itemize}
+                    \item Inadequacy of static resumes.
+                    \item Fragmented public sector (Govt.) listings.
+                    \item Lack of interactive career guidance.
+                \end{itemize}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{block}{\faBuilding\ For Employers}
+                \begin{itemize}
+                    \item High screening overhead.
+                    \item Cognitive fatigue and bias during evaluation.
+                    \item Extended hiring cycles.
+                \end{itemize}
+            \end{block}
+    \end{columns}
+\end{frame}
+
+\section{Literature Review}
+
+\begin{frame}{Literature Review}
+    \begin{itemize}
+        \item \textbf{AI Recommendation Systems:} Significantly increase job matching accuracy by analyzing user profiles, education, and skills.
+        \vspace{0.2cm}
+        \item \textbf{NLP in Recruitment:} Conversational agents and LLMs emerge as powerful tools for resume parsing and conducting initial candidate interviews.
+        \vspace{0.2cm}
+        \item \textbf{Serverless Architectures:} Cloud-based platforms handle unpredictable traffic spikes cost-effectively with zero server management overhead.
+    \end{itemize}
+    \vspace{0.3cm}
+    \begin{alertblock}{Our Innovation}
+        JobNova bridges these domains by combining local LLM capabilities with edge serverless execution to create a fast, intelligent platform.
+    \end{alertblock}
+\end{frame}
+
+\section{Proposed Solution}
+
+\begin{frame}{JobNova: The Proposed Solution}
+    An AI-driven, serverless recruitment platform tailored to modernize hiring using local Large Language Models (LLMs) and edge databases.
+    
+    \vspace{0.3cm}
+    \begin{description}
+        \item[\faRobot\ \textbf{Conversational AI Onboarding}] Replaces dense forms with a chat-based profile builder.
+        \item[\faComments\ \textbf{AI Job Agent}] Personalized career assistant for recommendations.
+        \item[\faClipboardCheck\ \textbf{Automated Screening}] Evaluates and scores candidates through short interactive chats.
+        \item[\faLandmark\ \textbf{Unified Jobs Portal}] Aggregates private, government, and MSME opportunities.
+    \end{description}
+\end{frame}
+
+\section{System Objectives}
+
+\begin{frame}{Key Objectives}
+    \begin{enumerate}
+        \item \textbf{Automate Resume Screening:} Grade candidate answers against specific employer prompts.
+        \item \textbf{Simplify Profile Construction:} Extract and structure history into standard databases via chat.
+        \item \textbf{Aggregate Government \& Private Jobs:} Consolidate jobs into a single unified search portal.
+        \item \textbf{Interactive Career Support:} Provide an AI agent for advice and mock interviews.
+        \item \textbf{Serverless Architecture:} Build a high-performance system with zero-cold-start functions.
+    \end{enumerate}
+\end{frame}
+
+\section{System Architecture}
+
+\begin{frame}{System Architecture Overview}
+    JobNova utilizes a highly scalable, low-latency layered serverless architecture:
+    \vspace{0.2cm}
+    \begin{block}{\faServer\ Architecture Layers}
+    \begin{itemize}
+        \item \textbf{Frontend Layer:} Nuxt 4, Vue 3, Tailwind CSS.
+        \item \textbf{Edge Logic Layer:} Cloudflare Workers \& Pages (Nitro).
+        \item \textbf{Storage Layer:} Cloudflare D1 (SQL) and R2 Bucket.
+        \item \textbf{AI Layer:} Local Ollama Framework (Granite-350m model).
+    \end{itemize}
+    \end{block}
+    
+    \vspace{0.3cm}
+    \cookiekicker{\faLightbulb\ Decoupled Processing}
+    \vspace{0.2cm}
+    
+    \textit{Decoupling core web services from AI inference ensures LLM tasks do not block standard web requests.}
+\end{frame}
+
+\section{System Design}
+
+\begin{frame}{System Design: Use Case}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{use-case-diagram.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{System Design: Data Flow}
+    \begin{center}
+        \includegraphics[width=\textwidth, keepaspectratio]{data-flow-diagram.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{System Design: Sequence Diagram}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{sequence-diagram.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Database Design (ER Diagram)}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{er-diagram.png}
+    \end{center}
+\end{frame}
+
+\section{Application Visuals}
+
+\begin{frame}{Landing Page}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{screenshots/index.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Conversational Profile Builder}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{screenshots/register-job-seeker-chat.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{AI Job Agent}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{screenshots/job-agent.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Employer Dashboard: Post a Job}
+    \begin{center}
+        \includegraphics[height=0.85\textheight, keepaspectratio]{screenshots/post-a-new-job-employer-dashboard.png}
+    \end{center}
+\end{frame}
+
+\section{Methodology}
+
+\begin{frame}{Development Methodology}
+    \begin{block}{\faCodeBranch\ Feature-Driven Development (FDD)}
+        A client-centric, architecture-centric, and pragmatic software process perfectly suited for building modular platforms.
+    \end{block}
+    \vspace{0.3cm}
+    \cookiekicker{FDD Lifecycle Steps:}
+    \vspace{0.3cm}
+    
+    \begin{columns}[T,onlytextwidth]
+        \column{.45\textwidth}
+            \begin{enumerate}
+                \item Develop Overall Model
+                \item Build Feature List
+                \item Plan by Feature
+            \end{enumerate}
+        \column{.45\textwidth}
+            \begin{enumerate}
+                \setcounter{enumi}{3}
+                \item Design by Feature
+                \item Build by Feature
+            \end{enumerate}
+    \end{columns}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item \cookiecheck\ \textbf{Simplifies Recruitment:} Bridges the gap between static traditional hiring forms and modern, interactive AI for both job seekers and employers.
+        \vspace{0.3cm}
+        \item \cookiecheck\ \textbf{Efficiency:} Reduces time-to-hire and improves candidate relevance through automated screening.
+        \vspace{0.3cm}
+        \item \cookiecheck\ \textbf{Scalability:} Delivers a cost-effective, fast, and globally scalable platform using Cloudflare's edge infrastructure.
+        \vspace{0.3cm}
+        \item \cookiecheck\ \textbf{Privacy:} Localized AI generation ensures data privacy for users.
+    \end{itemize}
+\end{frame}
+
+\end{document}
